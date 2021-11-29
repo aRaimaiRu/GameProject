@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Killable : Photon.Pun.MonoBehaviourPun
 {
+    public bool IsImpostor = false;
     [SerializeField] private float _range = 10.0f;
     private LineRenderer _lineRenderer;
     private Killable _target;
@@ -24,7 +25,7 @@ public class Killable : Photon.Pun.MonoBehaviourPun
     private void Update()
     {
         if (!photonView.IsMine) { return; }
-        if (_target != null)
+        if (_target != null && IsImpostor)
         {
             _lineRenderer.SetPosition(0, transform.position);
             _lineRenderer.SetPosition(1, _target.transform.position);
@@ -75,5 +76,12 @@ public class Killable : Photon.Pun.MonoBehaviourPun
         // 
         playerBody.SetColor(playerinfo._allPlayerColors[playerinfo.colorIndex]);
         transform.position = new Vector3(Random.Range(-10, 10), Random.Range(-10, 10), 0);
+    }
+    [PunRPC]
+    public void SetImpostor()
+    {
+        IsImpostor = true;
+        Debug.Log("impostor here");
+
     }
 }

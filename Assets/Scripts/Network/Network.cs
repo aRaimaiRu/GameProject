@@ -6,6 +6,7 @@ using Photon.Pun;
 using Photon.Realtime;
 public class Network : MonoBehaviourPunCallbacks
 {
+    public MasterClient masterClient;
     public Text StatusText;
     public CameraFollow PlayerCamera;
     // Start is called before the first frame update
@@ -15,7 +16,12 @@ public class Network : MonoBehaviourPunCallbacks
         // PhotonNetwork.NickName = "Player " + Random.Range(0, 20);
         // PhotonNetwork.ConnectUsingSettings();
         PlayerCamera.target = PhotonNetwork.Instantiate("Player", new Vector3(Random.Range(0, 5), Random.Range(0, 5), 0), Quaternion.identity).transform;
+        if (PhotonNetwork.IsMasterClient)
+        {
+            Debug.Log("Initialize");
+            masterClient.Initialize();
 
+        }
     }
     // public override void OnConnectedToMaster()
     // {
