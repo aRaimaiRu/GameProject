@@ -7,6 +7,9 @@ public class Move : Photon.Pun.MonoBehaviourPun
     public float speed = 15f;
     Vector2 velocity;
     Rigidbody2D rb;
+    [HideInInspector]
+    // can't move while chat
+    public UIControl _uiControl;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,7 +20,8 @@ public class Move : Photon.Pun.MonoBehaviourPun
     // Update is called once per frame
     void Update()
     {
-        if (photonView.IsMine)
+
+        if (photonView.IsMine && !_uiControl.IsChatWindowActive)
         {
             velocity.x = Input.GetAxisRaw("Horizontal");
             velocity.y = Input.GetAxisRaw("Vertical");

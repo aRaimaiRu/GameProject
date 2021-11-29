@@ -12,6 +12,8 @@ public class UIControl : MonoBehaviour
     public Killable CurrentPlayer;
     public bool HasInteractible;
     public Interactible CurrentInteractible;
+    public GameObject ChatWindowUI;
+    public bool IsChatWindowActive { get { return ChatWindowUI.activeInHierarchy; } }
 
     private void Awake()
     {
@@ -35,5 +37,9 @@ public class UIControl : MonoBehaviour
     {
         if (CurrentInteractible == null) { return; }
         CurrentInteractible.Use(true);
+    }
+    public void OnChatButtonPressed()
+    {
+        ChatWindowUI.SetActive(!ChatWindowUI.activeInHierarchy);
     }
 }

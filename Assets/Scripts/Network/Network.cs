@@ -9,13 +9,19 @@ public class Network : MonoBehaviourPunCallbacks
     public MasterClient masterClient;
     public Text StatusText;
     public CameraFollow PlayerCamera;
+    public ChatWindowUI chatWindowUI;
+    public UIControl uIControl;
     // Start is called before the first frame update
     void Start()
     {
         // StatusText.text = "Connecting";
         // PhotonNetwork.NickName = "Player " + Random.Range(0, 20);
         // PhotonNetwork.ConnectUsingSettings();
-        PlayerCamera.target = PhotonNetwork.Instantiate("Player", new Vector3(Random.Range(0, 5), Random.Range(0, 5), 0), Quaternion.identity).transform;
+        GameObject newPlayer = PhotonNetwork.Instantiate("Player", new Vector3(Random.Range(0, 5), Random.Range(0, 5), 0), Quaternion.identity);
+        PlayerCamera.target = newPlayer.transform;
+        chatWindowUI._playerInfo = newPlayer.GetComponent<Playerinfo>();
+        newPlayer.GetComponent<Move>()._uiControl = uIControl;
+
         if (PhotonNetwork.IsMasterClient)
         {
             Debug.Log("Initialize");
