@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using Photon.Pun;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class MasterClient : MonoBehaviour
+public class MasterClient : MonoBehaviourPun
 {
     [SerializeField] private GameObject _impostorWindow;
-    [SerializeField] private GameObject _impostorText;
+    [SerializeField] private Text _impostorText;
     // we want more control that who is Initialize so use custom Initialize instead Awake
     public void Initialize()
     {
@@ -19,6 +20,7 @@ public class MasterClient : MonoBehaviour
         List<int> playerIndex = new List<int>();
         int tries = 0;
         int impostorNumber = 0;
+        int impostorNumberFinal = 0;
         // Get all the playerss in the game
         do
         {
@@ -30,6 +32,7 @@ public class MasterClient : MonoBehaviour
         for (int i = 0; i < players.Length; i++) { playerIndex.Add(i); }
         // decide imposter number
         impostorNumber = players.Length < 5 ? 1 : 2;
+        impostorNumberFinal = impostorNumber;
         // Assign the imposter
         while (impostorNumber > 0)
         {
@@ -39,8 +42,21 @@ public class MasterClient : MonoBehaviour
             pv.RPC("SetImpostor", RpcTarget.All);
             impostorNumber--;
         }
+        photonView.RPC("ImpostorPicked", RpcTarget.All, impostorNumberFinal);
 
-        yield return null;
+    }
+    [PunRPC]
+    public void ImpostorPicked(int impostorNumber)
+    {
+        StartCoroutine(ShowImpostorAnimation(impostorNumber));
+    }
+    private IEnumerator ShowImpostorAnimation(int impostorNumber)
+    {
+        _impostorWindow.SetActive(true);
+        _impostorText.gameObject.SetActive(true);
+        _impostorText.text = "There " + impostorNumber + (impostorNumber < 2 ? "is " : "are ") + "impostor" + (impostorNumber > 1 ? "s" : string.Empty) + "among us";
+        yield return new WaitForSeconds(1);
+        _impostorWindow.gameObject.SetActive(false);
 
     }
 }

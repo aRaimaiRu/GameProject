@@ -356,6 +356,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbaba9b5ad81da34fbb4b35afcdbd810, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsImpostor: 0
   _range: 10
 --- !u!120 &207140558
 LineRenderer:

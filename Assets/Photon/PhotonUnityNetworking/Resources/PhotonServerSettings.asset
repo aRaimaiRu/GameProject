@@ -41,6 +41,8 @@ MonoBehaviour:
   - RespawnSpaceship
   - KillRPC
   - SetImpostor
+  - impostorPicked
+  - ImpostorPicked
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
