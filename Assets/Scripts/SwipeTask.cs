@@ -10,6 +10,13 @@ public class SwipeTask : MonoBehaviour
     private float _countdown = 0;
     public GameObject _greenOn;
     public GameObject _redOn;
+    private void OnEnable()
+    {
+        _currentSwipePointIndex = 0;
+        _countdown = 0;
+        _greenOn.SetActive(false);
+        _redOn.SetActive(false);
+    }
     private void Update()
     {
         _countdown -= Time.deltaTime;
@@ -34,6 +41,10 @@ public class SwipeTask : MonoBehaviour
         yield return new WaitForSeconds(1.5f);
         _greenOn.SetActive(false);
         _redOn.SetActive(false);
+        if (wasSuccessful)
+        {
+            gameObject.SetActive(false);
+        }
 
     }
     public void SwipePointTrigger(SwipePoint swipePoint)

@@ -23,35 +23,26 @@ public class KeypadTask : MonoBehaviour
 
     public void ButtonClick(int number)
     {
-        if (_isResetting) { return; }
+        // if (_isResetting) { return; }
         _inputCode.text += number;
         if (_inputCode.text == _cardCode.text)
         {
             _inputCode.text = "Correct";
-            StartCoroutine(ResetCode());
+            // StartCoroutine(ResetCode());
+            gameObject.SetActive(false);
         }
         else if (_inputCode.text.Length >= _codeLength)
         {
             _inputCode.text = "Failed";
-            StartCoroutine(ResetCode());
+            // StartCoroutine(ResetCode());
         }
     }
-    private IEnumerator ResetCode()
-    {
-        _isResetting = true;
-        yield return new WaitForSeconds(_codeResetTimeInSeconds);
-        _inputCode.text = string.Empty;
-        _isResetting = false;
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
+    // private IEnumerator ResetCode()
+    // {
+    //     _isResetting = true;
+    //     yield return new WaitForSeconds(_codeResetTimeInSeconds);
+    //     _inputCode.text = string.Empty;
+    //     _isResetting = false;
+    // }
 
-    }
-
-    // Update is called once per fr ame
-    void Update()
-    {
-
-    }
 }

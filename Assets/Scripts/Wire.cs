@@ -14,14 +14,23 @@ public class Wire : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
     private bool _isDragStarted = false;
     private WireTask _wireTask;
     public bool IsSuccess = false;
-    private void Awake()
+    public void Initialize()
     {
         _image = GetComponent<Image>();
         _lineRenderer = GetComponent<LineRenderer>();
         _canvas = GetComponentInParent<Canvas>();
         _wireTask = GetComponentInParent<WireTask>();
+        _isDragStarted = false;
+        IsSuccess = false;
+        _lineRenderer.SetPosition(0, Vector2.zero);
+        _lineRenderer.SetPosition(1, Vector2.zero);
 
     }
+    // private void OnEnable()
+    // {
+    //     _isDragStarted = false;
+    //     IsSuccess = false;
+    // }
     public void SetColor(Color color)
     {
         _image.color = color;
