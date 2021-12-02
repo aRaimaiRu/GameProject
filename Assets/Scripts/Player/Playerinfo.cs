@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
-
+using UnityEngine.Experimental.Rendering.Universal;
 public class Playerinfo : Photon.Pun.MonoBehaviourPun, IPunObservable
 {
     public int colorIndex;
@@ -17,6 +17,11 @@ public class Playerinfo : Photon.Pun.MonoBehaviourPun, IPunObservable
         if (photonView.IsMine)
         {
             colorIndex = Random.Range(0, _allPlayerColors.Count - 1);
+        }
+        else
+        {
+            // remove light of other player
+            Destroy(GetComponentInChildren<Light2D>());
         }
     }
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
