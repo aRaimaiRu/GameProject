@@ -9,7 +9,7 @@ public class KeypadTask : MonoBehaviour
     public Text _inputCode;
     public int _codeLength = 5;
     public float _codeResetTimeInSeconds = 0.5f;
-    private bool _isResetting = false;
+    // private bool _isResetting = false;
     private void OnEnable()
     {
         string code = string.Empty;
