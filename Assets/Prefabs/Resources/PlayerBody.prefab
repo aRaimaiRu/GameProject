@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4982724758785420567}
   - component: {fileID: 4982724758785420573}
-  - component: {fileID: 888565042}
   m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
@@ -83,28 +82,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &888565042
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4982724758785420564}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
-  observableSearch: 2
-  ObservedComponents: []
-  sceneViewId: 0
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
 --- !u!1 &4982724759611875420
 GameObject:
   m_ObjectHideFlags: 0
@@ -116,6 +93,7 @@ GameObject:
   - component: {fileID: 4982724759611875423}
   - component: {fileID: 5958011794889807055}
   - component: {fileID: 8515744421836101643}
+  - component: {fileID: 4490254561946520427}
   m_Layer: 0
   m_Name: PlayerBody
   m_TagString: Untagged
@@ -174,3 +152,19 @@ MonoBehaviour:
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!58 &4490254561946520427
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4982724759611875420}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 1

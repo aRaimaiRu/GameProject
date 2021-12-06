@@ -65,6 +65,7 @@ public class Killable : Photon.Pun.MonoBehaviourPun
         PhotonView pv = _target.GetComponent<PhotonView>();
         // pv.RPC("KillRPC", RpcTarget.Others, pv.ViewID);
         pv.RPC("KillRPC", RpcTarget.All);
+
     }
     [PunRPC]
     public void KillRPC()
@@ -75,7 +76,13 @@ public class Killable : Photon.Pun.MonoBehaviourPun
         Playerinfo playerinfo = GetComponent<Playerinfo>();
         // 
         playerBody.SetColor(playerinfo._allPlayerColors[playerinfo.colorIndex]);
-        transform.position = new Vector3(Random.Range(-10, 10), Random.Range(-10, 10), 0);
+
+        // respawn for test
+        // transform.position = new Vector3(Random.Range(-10, 10), Random.Range(-10, 10), 0);
+        PhotonNetwork.Destroy(this.gameObject);
+        // PhotonNetwork.Destroy(photonView);
+        // PhotonNetwork.Disconnect();
+        UIControl.Instance.OnThisPlayerKilled();
     }
     [PunRPC]
     public void SetImpostor()

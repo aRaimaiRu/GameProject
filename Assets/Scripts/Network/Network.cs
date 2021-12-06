@@ -11,6 +11,7 @@ public class Network : MonoBehaviourPunCallbacks
     public CameraFollow PlayerCamera;
     public ChatWindowUI chatWindowUI;
     public UIControl uIControl;
+    public VotingManager votingManager;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,6 +22,8 @@ public class Network : MonoBehaviourPunCallbacks
         PlayerCamera.target = newPlayer.transform;
         chatWindowUI._playerInfo = newPlayer.GetComponent<Playerinfo>();
         newPlayer.GetComponent<Move>()._uiControl = uIControl;
+        newPlayer.GetComponentInChildren<PlayerDeadBodyReport>().Initialize(uIControl, votingManager);
+        // newPlayer.GetComponentInChildren<PlayerDeadBodyReport>().initialize(uIControl,votingManager);
 
         if (PhotonNetwork.IsMasterClient)
         {

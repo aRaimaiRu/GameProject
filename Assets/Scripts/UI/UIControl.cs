@@ -8,11 +8,14 @@ public class UIControl : MonoBehaviour
     public static UIControl Instance;
     public Button _killBtn;
     public Button _useBtn;
+    public Button _reportDeadBodyBtn;
     public bool HasTarget;
     public Killable CurrentPlayer;
     public bool HasInteractible;
     public Interactible CurrentInteractible;
+    public bool HasDeadBodyInRange;
     public GameObject ChatWindowUI;
+    public GameObject YouHaveBeenKilledWindow;
     public bool IsChatWindowActive { get { return ChatWindowUI.activeInHierarchy; } }
 
     private void Awake()
@@ -27,11 +30,16 @@ public class UIControl : MonoBehaviour
         }
         _killBtn.interactable = HasTarget;
         _useBtn.interactable = HasInteractible;
+        _reportDeadBodyBtn.interactable = HasDeadBodyInRange;
     }
     public void OnKillButtonPressed()
     {
         if (CurrentPlayer == null) { return; }
         CurrentPlayer.Kill();
+    }
+    public void OnThisPlayerKilled()
+    {
+        YouHaveBeenKilledWindow.SetActive(true);
     }
     public void OnUseButtonPressed()
     {
