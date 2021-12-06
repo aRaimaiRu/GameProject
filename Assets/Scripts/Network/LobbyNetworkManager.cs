@@ -16,6 +16,10 @@ public class LobbyNetworkManager : MonoBehaviourPunCallbacks
     [SerializeField] private RoomItemUI _playerItemUIPrefab;
     [SerializeField] private Transform _playerListParent;
 
+    // Player Name Functionality
+    [SerializeField] private InputField _playerNameInput;
+    [SerializeField] private Text _playerNameLabel;
+    private bool _isPlayerNameChanging = false;
 
 
     private List<RoomItemUI> _roomList = new List<RoomItemUI>();
@@ -35,6 +39,9 @@ public class LobbyNetworkManager : MonoBehaviourPunCallbacks
     public override void OnConnectedToMaster()
     {
         Debug.Log("Connected To Master");
+        // give random player name
+        PhotonNetwork.NickName = "Plaayer" + Random.Range(0, 500);
+        _playerNameLabel.text = PhotonNetwork.NickName;
         PhotonNetwork.JoinLobby();
     }
     public override void OnConnected()
@@ -84,6 +91,38 @@ public class LobbyNetworkManager : MonoBehaviourPunCallbacks
         UpdatePlayerList();
     }
     public override void OnPlayerLeftRoom(Player newPlayer)
+    {
+        UpdatePlayerList();
+    }
+
+    public void OnChangePlayerNamePressed()
+    {
+        Debug.Log("_isPlayerNameChanging =" + _isPlayerNameChanging);
+        if (_isPlayerNameChanging == false)
+        {
+            Debug.Log("_isPlayerNameChanging2 =" + _isPlayerNameChanging);
+            _playerNameInput.text = _playerNameLabel.text;
+            _playerNameLabel.gameObject.SetActive(false);
+            _playerNameInput.gameObject.SetActive(true);
+            _isPlayerNameChanging = true;
+
+        }
+        else
+        {
+            // check for empty or long names
+            if (string.IsNullOrEmpty(_playerNameInput.text) == false && _playerNameInput.text.Length <= 12)
+            {
+                _playerNameLabel.text = _playerNameInput.text;
+                PhotonNetwork.LocalPlayer.NickName = _playerNameInput.text;
+                photonView.RPC("ForcePlayerListUpdate", RpcTarget.All);
+            }
+            _playerNameLabel.gameObject.SetActive(true);
+            _playerNameInput.gameObject.SetActive(false);
+            _isPlayerNameChanging = false;
+        }
+    }
+    [PunRPC]
+    public void ForcePlayerListUpdate()
     {
         UpdatePlayerList();
     }

@@ -11,7 +11,11 @@ public class MasterClient : MonoBehaviourPun
     // we want more control that who is Initialize so use custom Initialize instead Awake
     public void Initialize()
     {
-        StartCoroutine(PickImpostor());
+        if (PhotonNetwork.IsMasterClient)
+        {
+            StartCoroutine(PickImpostor());
+
+        }
     }
 
     private IEnumerator PickImpostor()
