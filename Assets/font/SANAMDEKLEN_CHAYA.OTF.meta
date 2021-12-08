@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: e48a98a84ac984a4abf3aa32662a3358
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - SanamDeklenchaya
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 018ab6f7f3b4d194cae489c1a283728c, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
