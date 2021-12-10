@@ -135,6 +135,7 @@ GameObject:
   - component: {fileID: 10141570}
   - component: {fileID: 10141569}
   - component: {fileID: 10141568}
+  - component: {fileID: 10141572}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -225,6 +226,22 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &10141572
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 10141567}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff63f8c1c3164d84c8b6672bcb4c4c58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxPlayers: 10
+  VirusNumber: 2
+  roomtxt: {fileID: 237845533}
+  Virustxt: {fileID: 1399970840}
 --- !u!1 &46818166
 GameObject:
   m_ObjectHideFlags: 0
@@ -261,7 +278,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 100, y: 42}
+  m_AnchoredPosition: {x: 215, y: 118}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &46818168
@@ -358,7 +375,7 @@ GameObject:
   - component: {fileID: 237845534}
   - component: {fileID: 237845533}
   m_Layer: 5
-  m_Name: Text (3)
+  m_Name: PlayerNumberTxt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -581,7 +598,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 466819350}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 10141572}
+        m_TargetAssemblyTypeName: SettingScene, Assembly-CSharp
+        m_MethodName: OnIncreaseVirusPressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &466819350
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -814,7 +843,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -91, y: 42}
+  m_AnchoredPosition: {x: -216, y: 112}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &831389401
@@ -860,7 +889,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 831389402}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 10141572}
+        m_TargetAssemblyTypeName: SettingScene, Assembly-CSharp
+        m_MethodName: OnCreateButtonPressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &831389402
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1151,7 +1192,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1125380588}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 10141572}
+        m_TargetAssemblyTypeName: SettingScene, Assembly-CSharp
+        m_MethodName: OnDecreasePlayerPressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1125380588
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1433,7 +1486,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1249362796}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 10141572}
+        m_TargetAssemblyTypeName: SettingScene, Assembly-CSharp
+        m_MethodName: OnDecreaseVirusPressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1249362796
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1566,7 +1631,7 @@ GameObject:
   - component: {fileID: 1399970841}
   - component: {fileID: 1399970840}
   m_Layer: 5
-  m_Name: Text (2)
+  m_Name: VirusNumberTxt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1859,7 +1924,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1883734480}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 10141572}
+        m_TargetAssemblyTypeName: SettingScene, Assembly-CSharp
+        m_MethodName: OnIncreasePlayerPressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1883734480
 MonoBehaviour:
   m_ObjectHideFlags: 0

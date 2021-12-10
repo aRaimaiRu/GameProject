@@ -7,7 +7,11 @@ public class MainMenuUI : MonoBehaviour
 {
     public void OnStartGamePressed()
     {
-        SceneManager.LoadScene("lobbdy");
+        SceneManager.LoadScene("Setting");
+    }
+    public void OnJoinGamePressed()
+    {
+        SceneManager.LoadScene("Join");
     }
     public void OnQuitPressed()
     {
