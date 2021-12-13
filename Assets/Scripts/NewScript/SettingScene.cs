@@ -43,6 +43,8 @@ public class SettingScene : MonoBehaviourPunCallbacks
     }
     public Text roomtxt;
     public Text Virustxt;
+    string st = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    public int randomCharacter = 5;
 
     public void OnCreateButtonPressed()
     {
@@ -50,9 +52,13 @@ public class SettingScene : MonoBehaviourPunCallbacks
         string[] lobbyOptions = new string[1];
         lobbyOptions[0] = VirusNumber.ToString();
         roomOptions.MaxPlayers = (byte)myMaxPlayers;
+        roomOptions.BroadcastPropsChangeToAll = true;
         roomOptions.CustomRoomProperties = new ExitGames.Client.Photon.Hashtable { { "VirusNumber", VirusNumber } };
         roomOptions.CustomRoomPropertiesForLobby = lobbyOptions;
-        PhotonNetwork.CreateRoom("roombame", roomOptions, null);
+
+
+
+        PhotonNetwork.CreateRoom(getRandomRoomName(), roomOptions, null);
     }
 
     public void OnIncreasePlayerPressed()
@@ -100,8 +106,20 @@ public class SettingScene : MonoBehaviourPunCallbacks
 
 
     }
+    public override void OnCreateRoomFailed(short returnCode, string message)
+    {
+    }
 
-
+    private string getRandomRoomName()
+    {
+        // random character
+        string _roomname = "";
+        for (int i = 0; i < randomCharacter; i++)
+        {
+            _roomname += st[UnityEngine.Random.Range(0, st.Length)];
+        }
+        return _roomname;
+    }
 
 
 }
