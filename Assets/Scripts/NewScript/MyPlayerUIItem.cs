@@ -32,4 +32,13 @@ public class MyPlayerUIItem : MonoBehaviourPunCallbacks
         // PhotonNetwork.SetPlayerCustomProperties(playerproperties);
         Debug.Log(playerproperties["ColorIndex"]);
     }
+    public void LocalChange(LobbyScene _lobbyScene)
+    {
+        leftArrowBtn.gameObject.SetActive(true);
+        rightArrowBtn.gameObject.SetActive(true);
+        leftArrowBtn.onClick.AddListener(delegate { _lobbyScene.OnDecreaseIndexPressed(PhotonNetwork.LocalPlayer); });
+        rightArrowBtn.onClick.AddListener(delegate { _lobbyScene.OnIncreaaseIndexPressed(PhotonNetwork.LocalPlayer); });
+
+
+    }
 }

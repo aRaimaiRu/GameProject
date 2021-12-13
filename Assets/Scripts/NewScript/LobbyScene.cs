@@ -11,8 +11,13 @@ public class LobbyScene : MonoBehaviourPunCallbacks
     [SerializeField] private MyPlayerUIItem _playerItemUIPrefab;
     [SerializeField] private Transform _playerListParent;
     public List<Color> myColorpool;
-    private List<int> ReserveColorIndex = new List<int>();
+    public List<int> ReserveColorIndex = new List<int>();
     public Text roomName;
+    private enum pickmode
+    {
+        Increase,
+        Decrease
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -28,11 +33,11 @@ public class LobbyScene : MonoBehaviourPunCallbacks
         UpdateReserveColorIndex();
         if (PhotonNetwork.LocalPlayer.CustomProperties.ContainsKey("ColorIndex"))
         {
-            PickedColorIndex(PhotonNetwork.LocalPlayer, (int)PhotonNetwork.LocalPlayer.CustomProperties["ColorIndex"]);
+            PickedColorIndex(PhotonNetwork.LocalPlayer, (int)PhotonNetwork.LocalPlayer.CustomProperties["ColorIndex"], pickmode.Increase);
         }
         else
         {
-            PickedColorIndex(PhotonNetwork.LocalPlayer, 0);
+            PickedColorIndex(PhotonNetwork.LocalPlayer, 0, pickmode.Increase);
 
         }
         UpdatePlayerList();
@@ -68,7 +73,6 @@ public class LobbyScene : MonoBehaviourPunCallbacks
             Destroy(_playerList[i].gameObject);
         }
         _playerList.Clear();
-        ReserveColorIndex.Clear();
         // check if current in room
 
         if (PhotonNetwork.CurrentRoom == null)
@@ -81,6 +85,10 @@ public class LobbyScene : MonoBehaviourPunCallbacks
             MyPlayerUIItem newPlayerItem = Instantiate(_playerItemUIPrefab);
             newPlayerItem.transform.SetParent(_playerListParent);
             newPlayerItem.SetName(player.Value.NickName);
+            if (player.Value == PhotonNetwork.LocalPlayer)
+            {
+                newPlayerItem.LocalChange(this);
+            }
             // set color
             if (player.Value.CustomProperties.ContainsKey("ColorIndex"))
             {
@@ -91,11 +99,30 @@ public class LobbyScene : MonoBehaviourPunCallbacks
 
     }
 
-    private void PickedColorIndex(Player player, int _colorIndex)
+    private void PickedColorIndex(Player player, int _colorIndex, pickmode _pickmode)
     {
+
+        for (int i = 0; i < ReserveColorIndex.Count; i++)
+        {
+            Debug.Log(ReserveColorIndex[i]);
+        }
+        Debug.Log(_colorIndex + "ReserveColorIndex Contain" + ReserveColorIndex.Contains(_colorIndex));
         while (ReserveColorIndex.Contains(_colorIndex))
         {
-            _colorIndex++;
+            Debug.Log("In while" + _colorIndex + " :" + ReserveColorIndex.Contains(_colorIndex));
+            if (_pickmode == pickmode.Increase)
+            {
+                _colorIndex = (_colorIndex + 1) % myColorpool.Count;
+
+            }
+            else if (_pickmode == pickmode.Decrease)
+            {
+                _colorIndex = (_colorIndex - 1) % myColorpool.Count;
+                if (_colorIndex < 0)
+                {
+                    _colorIndex = myColorpool.Count - 1;
+                }
+            }
         }
         Hashtable hash = new Hashtable();
         hash.Add("ColorIndex", _colorIndex);
@@ -116,9 +143,27 @@ public class LobbyScene : MonoBehaviourPunCallbacks
             }
         }
 
+
     }
     public override void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
     {
+        UpdateReserveColorIndex();
         UpdatePlayerList();
+    }
+    public void OnIncreaaseIndexPressed(Player _player)
+    {
+        int newind = ((int)_player.CustomProperties["ColorIndex"]) + 1;
+        newind = newind % myColorpool.Count;
+        PickedColorIndex(_player, newind, pickmode.Increase);
+    }
+    public void OnDecreaseIndexPressed(Player _player)
+    {
+        int newind = ((int)_player.CustomProperties["ColorIndex"]) - 1;
+        if (newind < 0)
+        {
+            newind = myColorpool.Count - 1;
+        }
+        PickedColorIndex(_player, newind, pickmode.Decrease);
+
     }
 }
