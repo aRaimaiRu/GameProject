@@ -9,6 +9,15 @@ EditorBuildSettings:
     path: Assets/Scenes/main_menu_scene.unity
     guid: 15752a2dfd33c21468f671e6515fd48b
   - enabled: 1
+    path: Assets/Scenes/Setting.unity
+    guid: 98e7b3a98e0ba8449863891586044bf4
+  - enabled: 1
+    path: Assets/Scenes/Join.unity
+    guid: 68ad15be58dd9ea458a1f5c8303cea9e
+  - enabled: 1
+    path: Assets/Scenes/Lobby1.unity
+    guid: 367925a771a7dac49ae0109feb475d01
+  - enabled: 1
     path: Assets/Scenes/Lobbdy.unity
     guid: 8f4b0309d99f3904b94cf69ad84ac526
   - enabled: 1
