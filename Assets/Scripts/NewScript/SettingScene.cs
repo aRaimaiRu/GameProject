@@ -120,6 +120,15 @@ public class SettingScene : MonoBehaviourPunCallbacks
         }
         return _roomname;
     }
+    public void OnBackBtnPressed()
+    {
+        PhotonNetwork.LeaveLobby();
+    }
+    public override void OnLeftLobby()
+    {
+        SceneManager.LoadScene("main_menu_scene");
+
+    }
 
 
 }

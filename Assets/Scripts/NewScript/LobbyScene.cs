@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 public class LobbyScene : MonoBehaviourPunCallbacks
@@ -18,6 +19,7 @@ public class LobbyScene : MonoBehaviourPunCallbacks
         Increase,
         Decrease
     }
+    public Button PlayBtn;
 
     // Start is called before the first frame update
     void Start()
@@ -47,6 +49,15 @@ public class LobbyScene : MonoBehaviourPunCallbacks
     // Update is called once per frame
     void Update()
     {
+        if (PhotonNetwork.IsMasterClient && PhotonNetwork.CurrentRoom.PlayerCount >= 5)
+        {
+            PlayBtn.gameObject.SetActive(true);
+        }
+        else
+        {
+            PlayBtn.gameObject.SetActive(false);
+
+        }
 
     }
 
@@ -166,4 +177,18 @@ public class LobbyScene : MonoBehaviourPunCallbacks
         PickedColorIndex(_player, newind, pickmode.Decrease);
 
     }
+    public void OnPlayerBtnPressed()
+    {
+        PhotonNetwork.LoadLevel("game_scene");
+    }
+    public void OnExitBtnPressed()
+    {
+        PhotonNetwork.LeaveRoom();
+    }
+    public override void OnLeftRoom()
+    {
+        SceneManager.LoadScene("main_menu_scene");
+
+    }
+
 }

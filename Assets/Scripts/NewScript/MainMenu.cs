@@ -18,8 +18,20 @@ public class MainMenu : MonoBehaviourPunCallbacks
 
     void Start()
     {
+        Debug.Log("Connect status" + PhotonNetwork.IsConnected);
+        if (!PhotonNetwork.IsConnected)
+        {
+            Connect();
+        }
+        else
+        {
+            _playerNameLabel.text = PhotonNetwork.NickName;
+            PhotonNetwork.JoinLobby();
+        }
 
-        Connect();
+
+
+
     }
     private void Connect()
     {
@@ -31,7 +43,7 @@ public class MainMenu : MonoBehaviourPunCallbacks
     {
         Debug.Log("Connected To Master");
         // give random player name
-        PhotonNetwork.NickName = "Player" + Random.Range(0, 5000);
+
         _playerNameLabel.text = PhotonNetwork.NickName;
         PhotonNetwork.JoinLobby();
     }
