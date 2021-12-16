@@ -46,6 +46,8 @@ MonoBehaviour:
   - ReceiveMessageRPC
   - ForcePlayerListUpdate
   - ReportDeadBodyRPC
+  - CastPlayerVoteRPC
+  - KickPlayerRPC
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

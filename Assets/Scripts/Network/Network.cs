@@ -12,6 +12,7 @@ public class Network : MonoBehaviourPunCallbacks
     public ChatWindowUI chatWindowUI;
     public UIControl uIControl;
     public VotingManager votingManager;
+    private PhotonView _playerPhotonView;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,6 +25,7 @@ public class Network : MonoBehaviourPunCallbacks
         newPlayer.GetComponent<Move>()._uiControl = uIControl;
         newPlayer.GetComponentInChildren<PlayerDeadBodyReport>().Initialize(uIControl, votingManager);
         // newPlayer.GetComponentInChildren<PlayerDeadBodyReport>().initialize(uIControl,votingManager);
+        _playerPhotonView = newPlayer.GetComponent<PhotonView>();
 
         if (PhotonNetwork.IsMasterClient)
         {
@@ -31,6 +33,10 @@ public class Network : MonoBehaviourPunCallbacks
             masterClient.Initialize();
 
         }
+    }
+    public void DestroyPlayer()
+    {
+        PhotonNetwork.Destroy(_playerPhotonView);
     }
     // public override void OnConnectedToMaster()
     // {
