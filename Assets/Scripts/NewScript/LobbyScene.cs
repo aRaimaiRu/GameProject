@@ -179,7 +179,7 @@ public class LobbyScene : MonoBehaviourPunCallbacks
     }
     public void OnPlayerBtnPressed()
     {
-        PhotonNetwork.LoadLevel("game_scene");
+        PhotonNetwork.LoadLevel("Gameplay");
     }
     public void OnExitBtnPressed()
     {
