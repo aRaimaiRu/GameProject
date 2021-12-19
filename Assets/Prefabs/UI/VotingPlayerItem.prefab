@@ -399,6 +399,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerNameText: {fileID: 1626869717656946742}
   _statusText: {fileID: 1626869717644381675}
+  _voteButton: {fileID: 6173214044556706241}
 --- !u!1 &3979032827107248459
 GameObject:
   m_ObjectHideFlags: 0

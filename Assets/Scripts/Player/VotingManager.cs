@@ -150,9 +150,13 @@ public class VotingManager : MonoBehaviourPun
         _kickPlayerWindow.SetActive(false);
         if (PhotonNetwork.LocalPlayer.ActorNumber == actorNumber)
         {
+            // spawn ghost in network.cs
             _network.DestroyPlayer();
             _kickedPlayerWindow.SetActive(true);
+            yield return new WaitForSeconds(2.5f);
+            _kickedPlayerWindow.SetActive(false);
         }
+
 
     }
 
@@ -179,10 +183,10 @@ public class VotingManager : MonoBehaviourPun
         foreach (KeyValuePair<int, Player> player in PhotonNetwork.CurrentRoom.Players)
         {
             // Do not add the current player to the list
-            if (player.Value.ActorNumber == PhotonNetwork.LocalPlayer.ActorNumber)
-            {
-                continue;
-            }
+            // if (player.Value.ActorNumber == PhotonNetwork.LocalPlayer.ActorNumber)
+            // {
+            //     continue;
+            // }
 
             // Do not Add the killed player to the list
             if (_reportedDeadBodiesList.Contains(player.Value.ActorNumber))

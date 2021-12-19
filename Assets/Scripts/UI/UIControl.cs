@@ -39,7 +39,8 @@ public class UIControl : MonoBehaviour
     }
     public void OnThisPlayerKilled()
     {
-        YouHaveBeenKilledWindow.SetActive(true);
+        // YouHaveBeenKilledWindow.SetActive(true);
+        StartCoroutine(DelayFadeThisWindow(YouHaveBeenKilledWindow));
     }
     public void OnUseButtonPressed()
     {
@@ -50,4 +51,12 @@ public class UIControl : MonoBehaviour
     {
         ChatWindowUI.SetActive(!ChatWindowUI.activeInHierarchy);
     }
+    IEnumerator DelayFadeThisWindow(GameObject window)
+    {
+        window.SetActive(true);
+        yield return new WaitForSeconds(2.5f);
+        window.SetActive(false);
+    }
+
+
 }

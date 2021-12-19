@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using Photon.Pun;
 using Photon.Realtime;
+using UnityEngine.Experimental.Rendering.Universal;
+
 public class Network : MonoBehaviourPunCallbacks
 {
     public MasterClient masterClient;
@@ -13,6 +15,13 @@ public class Network : MonoBehaviourPunCallbacks
     public UIControl uIControl;
     public VotingManager votingManager;
     private PhotonView _playerPhotonView;
+    [SerializeField] private Camera MainCamera;
+    [SerializeField] private Light2D GlobalLight;
+    [SerializeField] private Light2D NewGlobalLight;
+
+    [SerializeField] private LayerMask CullingMaskAfterDeath;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -36,6 +45,22 @@ public class Network : MonoBehaviourPunCallbacks
     }
     public void DestroyPlayer()
     {
+        // spawn body
+        // PlayerDeadBody playerBody = PhotonNetwork.Instantiate("PlayerBody", this.transform.position, Quaternion.identity).GetComponent<PlayerDeadBody>();
+        Playerinfo playerinfo = _playerPhotonView.GetComponent<Playerinfo>();
+        // playerBody.SetColor(playerinfo._allPlayerColors[playerinfo.colorIndex]);
+        // spawn ghost
+        GameObject GhostPlayer = PhotonNetwork.Instantiate("ghost", _playerPhotonView.transform.position, Quaternion.identity);
+        PlayerCamera.target = GhostPlayer.transform;
+        chatWindowUI._playerInfo = GhostPlayer.GetComponent<Playerinfo>();
+        GhostPlayer.GetComponent<Move>()._uiControl = uIControl;
+        GhostPlayer.GetComponent<Ghost>().SetColor(playerinfo._allPlayerColors[playerinfo.colorIndex]);
+        // see like ghost
+        MainCamera.cullingMask = CullingMaskAfterDeath.value;
+        GlobalLight.gameObject.SetActive(false);
+        NewGlobalLight.gameObject.SetActive(true);
+
+        // 
         PhotonNetwork.Destroy(_playerPhotonView);
     }
     // public override void OnConnectedToMaster()

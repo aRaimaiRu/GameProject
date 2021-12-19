@@ -67,21 +67,24 @@ public class Killable : Photon.Pun.MonoBehaviourPun
         pv.RPC("KillRPC", RpcTarget.All);
 
     }
+
     [PunRPC]
     public void KillRPC()
     {
-        // if (photonView.ViewID != ViewID) { return; }
+        // // if (photonView.ViewID != ViewID) { return; }
         if (!photonView.IsMine) { return; }
         PlayerDeadBody playerBody = PhotonNetwork.Instantiate("PlayerBody", this.transform.position, Quaternion.identity).GetComponent<PlayerDeadBody>();
         Playerinfo playerinfo = GetComponent<Playerinfo>();
         // 
         playerBody.SetColor(playerinfo._allPlayerColors[playerinfo.colorIndex]);
 
-        // respawn for test
-        // transform.position = new Vector3(Random.Range(-10, 10), Random.Range(-10, 10), 0);
-        PhotonNetwork.Destroy(this.gameObject);
-        // PhotonNetwork.Destroy(photonView);
-        // PhotonNetwork.Disconnect();
+        // // respawn for test
+        // // transform.position = new Vector3(Random.Range(-10, 10), Random.Range(-10, 10), 0);
+        // PhotonNetwork.Destroy(this.gameObject);
+        // // PhotonNetwork.Destroy(photonView);
+        // // PhotonNetwork.Disconnect();
+        GameObject.FindGameObjectWithTag("NetworkManager").GetComponent<Network>().DestroyPlayer();
+
         UIControl.Instance.OnThisPlayerKilled();
     }
     [PunRPC]

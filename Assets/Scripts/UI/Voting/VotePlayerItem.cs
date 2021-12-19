@@ -16,12 +16,12 @@ public class VotePlayerItem : MonoBehaviour
 
     }
 
-    private Button _voteButton;
+    [SerializeField] private Button _voteButton;
     private VotingManager _votingManager;
 
     private void Awake()
     {
-        _voteButton = GetComponentInChildren<Button>();
+        // _voteButton = GetComponentInChildren<Button>();
         _voteButton.onClick.AddListener(OnVotePressed);
     }
 
