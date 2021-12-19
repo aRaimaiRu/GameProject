@@ -61,6 +61,16 @@ public class VotingManager : MonoBehaviourPun
     }
     public void CastVote(int targetActorNumber)
     {
+        // Do not Add the killed player to vote
+        if (_reportedDeadBodiesList.Contains(PhotonNetwork.LocalPlayer.ActorNumber))
+        {
+            return;
+        }
+        // Do not add the players that have been kicked out to vote
+        if (_playerThatHaveBeenKickedOutList.Contains(PhotonNetwork.LocalPlayer.ActorNumber))
+        {
+            return;
+        }
         if (HasAlreadyVoted) { return; }
         HasAlreadyVoted = true;
         ToggleAllButtons(false);
