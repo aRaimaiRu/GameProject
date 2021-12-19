@@ -19,7 +19,7 @@ public class Playerinfo : Photon.Pun.MonoBehaviourPun, IPunObservable
     {
         if (photonView.IsMine)
         {
-            colorIndex = Random.Range(0, _allPlayerColors.Count - 1);
+            colorIndex = (int)PhotonNetwork.LocalPlayer.CustomProperties["ColorIndex"];
             _playerName.text = PhotonNetwork.LocalPlayer.NickName;
         }
         else
