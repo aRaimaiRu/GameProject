@@ -52,10 +52,12 @@ public class VotingManager : MonoBehaviourPun
     [PunRPC]
     public void ReportDeadBodyRPC(int actorNumber)
     {
+
         _reportedDeadBodiesList.Add(actorNumber);
         _playersThatHaveBeenVoteList.Clear();
         _playerThatVotedList.Clear();
         ToggleAllButtons(true);
+
         PopulatePlayerList();
         _emergencyMeetingWindow.SetActive(true);
     }
@@ -104,6 +106,13 @@ public class VotingManager : MonoBehaviourPun
             return;
 
         }
+        // ConcludeVote()
+
+    }
+    public void ConcludeVote()
+    {
+        int remainingPlayers = PhotonNetwork.CurrentRoom.PlayerCount - _reportedDeadBodiesList.Count - _playerThatHaveBeenKickedOutList.Count;
+
         // Count all the votes
         Dictionary<int, int> playerVoteCount = new Dictionary<int, int>();
         foreach (int votedPlayer in _playersThatHaveBeenVoteList)
@@ -126,7 +135,10 @@ public class VotingManager : MonoBehaviourPun
                 mostVotes = playerVote.Value;
                 mostVotedPlayer = playerVote.Key;
             }
+
         }
+
+
         // End the Voting session
         if (mostVotes >= remainingPlayers / 2)
         {
@@ -135,11 +147,11 @@ public class VotingManager : MonoBehaviourPun
 
         }
 
-
     }
     [PunRPC]
     public void KickPlayerRPC(int actorNumber)
     {
+
         _emergencyMeetingWindow.SetActive(false);
         _kickPlayerWindow.SetActive(true);
         string playerName = string.Empty;

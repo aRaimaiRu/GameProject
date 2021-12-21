@@ -42,6 +42,7 @@ public class Killable : Photon.Pun.MonoBehaviourPun
         while (true)
         {
             Killable newTarget = null;
+            float minDist = Mathf.Infinity;
             Killable[] killList = FindObjectsOfType<Killable>();
 
             foreach (Killable kill in killList)
@@ -49,10 +50,23 @@ public class Killable : Photon.Pun.MonoBehaviourPun
                 if (kill == this) { continue; }
                 float distance = Vector3.Distance(transform.position, kill.transform.position);
                 if (distance > _range) { continue; }
-                newTarget = kill;
-                // kill
-                UIControl.Instance.HasTarget = _target != null;
-                break;
+                if (distance < minDist)
+                {
+
+                    newTarget = kill;
+                    minDist = distance;
+
+                    // kill
+                    UIControl.Instance.HasTarget = _target != null;
+                    break;
+                }
+
+
+
+            }
+            if (minDist > _range)
+            {
+                UIControl.Instance.HasTarget = false;
 
             }
             _target = newTarget;
