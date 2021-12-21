@@ -135,10 +135,12 @@ public class VotingManager : MonoBehaviourPun
                 mostVotes = playerVote.Value;
                 mostVotedPlayer = playerVote.Key;
             }
+            // Set CountVoteText for each player
+            _votePlyaerItemList.Find((x) => x.ActorNumber == playerVote.Key).SetCountVoteText(playerVote.Value);
 
         }
 
-
+        if (!PhotonNetwork.IsMasterClient) { return; }
         // End the Voting session
         if (mostVotes >= remainingPlayers / 2)
         {

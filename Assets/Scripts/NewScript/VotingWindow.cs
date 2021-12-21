@@ -24,11 +24,11 @@ public class VotingWindow : MonoBehaviourPunCallbacks
             CustomeValue.Add("StartTime", startTime);
             PhotonNetwork.CurrentRoom.SetCustomProperties(CustomeValue);
         }
-        else
-        {
-            startTime = double.Parse(PhotonNetwork.CurrentRoom.CustomProperties["StartTime"].ToString());
-            startTimer = true;
-        }
+        // else
+        // {
+        //     startTime = double.Parse(PhotonNetwork.CurrentRoom.CustomProperties["StartTime"].ToString());
+        //     startTimer = true;
+        // }
     }
 
     void Update()
@@ -40,6 +40,7 @@ public class VotingWindow : MonoBehaviourPunCallbacks
         {
             //Timer Completed
             //Do What Ever You What to Do Here
+            _votingManager.ConcludeVote();
             this.gameObject.SetActive(false);
         }
     }

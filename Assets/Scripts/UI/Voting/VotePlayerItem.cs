@@ -18,6 +18,7 @@ public class VotePlayerItem : MonoBehaviour
 
     [SerializeField] private Button _voteButton;
     private VotingManager _votingManager;
+    [SerializeField] private Text CountVoteText;
 
     private void Awake()
     {
@@ -45,5 +46,11 @@ public class VotePlayerItem : MonoBehaviour
     public void ToggleButton(bool isInteractible)
     {
         _voteButton.interactable = isInteractible;
+    }
+    public void SetCountVoteText(int _votecount)
+    {
+
+        CountVoteText.text = (_votecount == 0) ? "" : _votecount.ToString();
+
     }
 }

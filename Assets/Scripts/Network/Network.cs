@@ -45,6 +45,7 @@ public class Network : MonoBehaviourPunCallbacks
     }
     public void DestroyPlayer()
     {
+        Debug.Log("Destroy player ActorNumber :" + PhotonNetwork.LocalPlayer.ActorNumber);
         // spawn body
         // PlayerDeadBody playerBody = PhotonNetwork.Instantiate("PlayerBody", this.transform.position, Quaternion.identity).GetComponent<PlayerDeadBody>();
         Playerinfo playerinfo = _playerPhotonView.GetComponent<Playerinfo>();
@@ -61,7 +62,11 @@ public class Network : MonoBehaviourPunCallbacks
         NewGlobalLight.gameObject.SetActive(true);
 
         // 
-        PhotonNetwork.Destroy(_playerPhotonView);
+        if (_playerPhotonView)
+        {
+            PhotonNetwork.Destroy(_playerPhotonView);
+
+        }
     }
     // public override void OnConnectedToMaster()
     // {
