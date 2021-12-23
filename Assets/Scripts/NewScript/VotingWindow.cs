@@ -40,9 +40,17 @@ public class VotingWindow : MonoBehaviourPunCallbacks
         {
             //Timer Completed
             //Do What Ever You What to Do Here
-            _votingManager.ConcludeVote();
-            this.gameObject.SetActive(false);
+            StartCoroutine(conclude());
+
         }
+    }
+    public IEnumerator conclude()
+    {
+        StartCoroutine(_votingManager.ConcludeVote());
+        yield return new WaitForSeconds(3.0f);
+        this.gameObject.SetActive(false);
+
+
     }
     public override void OnRoomPropertiesUpdate(ExitGames.Client.Photon.Hashtable propertiesThatChanged)
     {

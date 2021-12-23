@@ -109,7 +109,7 @@ public class VotingManager : MonoBehaviourPun
         // ConcludeVote()
 
     }
-    public void ConcludeVote()
+    public IEnumerator ConcludeVote()
     {
         int remainingPlayers = PhotonNetwork.CurrentRoom.PlayerCount - _reportedDeadBodiesList.Count - _playerThatHaveBeenKickedOutList.Count;
 
@@ -139,9 +139,16 @@ public class VotingManager : MonoBehaviourPun
             _votePlyaerItemList.Find((x) => x.ActorNumber == playerVote.Key).SetCountVoteText(playerVote.Value);
 
         }
+        Debug.Log("Before Delay");
+        yield return new WaitForSeconds(2.0f);
 
-        if (!PhotonNetwork.IsMasterClient) { return; }
+        if (!PhotonNetwork.IsMasterClient)
+        {
+            Debug.Log("Break from Couroutine");
+            yield break;
+        }
         // End the Voting session
+        Debug.Log("After Delay");
         if (mostVotes >= remainingPlayers / 2)
         {
             // kick the player or skip
