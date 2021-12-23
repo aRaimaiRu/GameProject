@@ -58,7 +58,7 @@ public class Killable : Photon.Pun.MonoBehaviourPun
 
                     // kill
                     UIControl.Instance.HasTarget = _target != null;
-                    break;
+                    // break;
                 }
 
 
