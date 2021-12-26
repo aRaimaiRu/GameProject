@@ -47,6 +47,12 @@ public class VotingWindow : MonoBehaviourPunCallbacks
     public IEnumerator conclude()
     {
         StartCoroutine(_votingManager.ConcludeVote());
+        PlayerDeadBody[] _playerDeadBodys = FindObjectsOfType<PlayerDeadBody>();
+        foreach (PlayerDeadBody deadbody in _playerDeadBodys)
+        {
+            Destroy(deadbody);
+
+        }
         yield return new WaitForSeconds(3.0f);
         this.gameObject.SetActive(false);
 
