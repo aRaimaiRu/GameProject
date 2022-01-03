@@ -8,6 +8,12 @@ public class MasterClient : MonoBehaviourPun
 {
     [SerializeField] private GameObject _impostorWindow;
     [SerializeField] private Text _impostorText;
+    public enum Role
+    {
+        Worm,
+        Spyware
+    }
+    private List<Role> VirusRoleList = new List<Role>() { Role.Worm, Role.Spyware };
     // we want more control that who is Initialize so use custom Initialize instead Awake
     public void Initialize()
     {
@@ -40,11 +46,21 @@ public class MasterClient : MonoBehaviourPun
         // Assign the imposter
         while (impostorNumber > 0)
         {
+            // pick index
             int pickedImpostorIndex = playerIndex[Random.Range(0, playerIndex.Count)];
-            playerIndex.Remove(pickedImpostorIndex);
+            // pick
+            Role pickedRole = VirusRoleList[Random.Range(0, VirusRoleList.Count)];
+
+            // set impostor
             PhotonView pv = players[pickedImpostorIndex].GetComponent<PhotonView>();
-            pv.RPC("SetImpostor", RpcTarget.All);
+            pv.RPC("SetImpostor", RpcTarget.All, pickedRole);
+
+            // remove item that already pick
+            playerIndex.Remove(pickedImpostorIndex);
+            VirusRoleList.Remove(pickedRole);
             impostorNumber--;
+
+
         }
         photonView.RPC("ImpostorPicked", RpcTarget.All, impostorNumberFinal);
 
@@ -63,4 +79,5 @@ public class MasterClient : MonoBehaviourPun
         _impostorWindow.gameObject.SetActive(false);
 
     }
+
 }

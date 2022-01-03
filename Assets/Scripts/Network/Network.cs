@@ -28,7 +28,7 @@ public class Network : MonoBehaviourPunCallbacks
         // StatusText.text = "Connecting";
         // PhotonNetwork.NickName = "Player " + Random.Range(0, 20);
         // PhotonNetwork.ConnectUsingSettings();
-        GameObject newPlayer = PhotonNetwork.Instantiate("Player", new Vector3(Random.Range(0, 5), Random.Range(0, 5), 0), Quaternion.identity);
+        GameObject newPlayer = PhotonNetwork.Instantiate("Player", new Vector3(Random.Range(20, 5), Random.Range(20, 5), 0), Quaternion.identity);
         PlayerCamera.target = newPlayer.transform;
         chatWindowUI._playerInfo = newPlayer.GetComponent<Playerinfo>();
         newPlayer.GetComponent<Move>()._uiControl = uIControl;

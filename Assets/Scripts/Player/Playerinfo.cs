@@ -62,4 +62,19 @@ public class Playerinfo : Photon.Pun.MonoBehaviourPun, IPunObservable
         return "[none]";
 
     }
+    [PunRPC]
+    public void SetImpostor(MasterClient.Role _role)
+    {
+        switch (_role)
+        {
+            case MasterClient.Role.Spyware:
+                this.gameObject.AddComponent<Spayware>();
+                break;
+            case MasterClient.Role.Worm:
+                this.gameObject.AddComponent<Worm>();
+
+                break;
+        }
+
+    }
 }
