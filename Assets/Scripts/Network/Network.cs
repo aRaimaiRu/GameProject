@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine.Experimental.Rendering.Universal;
-
+using Util;
 public class Network : MonoBehaviourPunCallbacks
 {
     public MasterClient masterClient;
@@ -20,20 +20,42 @@ public class Network : MonoBehaviourPunCallbacks
     [SerializeField] private Light2D NewGlobalLight;
 
     [SerializeField] private LayerMask CullingMaskAfterDeath;
-
+    [SerializeField] private List<GameObject> spawnPoints;
+    public int ThisPlayerNumber;
 
     // Start is called before the first frame update
     void Start()
     {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            PhotonNetwork.CurrentRoom.IsOpen = false;
+            PhotonNetwork.CurrentRoom.IsVisible = false;
+
+        }
+
         // StatusText.text = "Connecting";
         // PhotonNetwork.NickName = "Player " + Random.Range(0, 20);
         // PhotonNetwork.ConnectUsingSettings();
-        GameObject newPlayer = PhotonNetwork.Instantiate("Player", new Vector3(Random.Range(20, 5), Random.Range(20, 5), 0), Quaternion.identity);
+        for (int i = 0; i < PhotonNetwork.PlayerList.Length; i++)
+        {
+            if (PhotonNetwork.PlayerList[i] == PhotonNetwork.LocalPlayer)
+            {
+                ThisPlayerNumber = i;
+            }
+
+        }
+        Debug.Log("ThisPlayerNumber =" + ThisPlayerNumber);
+        GameObject newPlayer = PhotonNetwork.Instantiate("Player", spawnPoints[ThisPlayerNumber].transform.position, Quaternion.identity);
         PlayerCamera.target = newPlayer.transform;
         chatWindowUI._playerInfo = newPlayer.GetComponent<Playerinfo>();
+        newPlayer.GetComponent<Playerinfo>().SpawnPoint = spawnPoints[ThisPlayerNumber];
+        // remove spawnpoint
+        // photonView.RPC("RemoveSpawnPoint", RpcTarget.All, spawnPoints[ThisPlayerNumber]);
+
+
+
         newPlayer.GetComponent<Move>()._uiControl = uIControl;
         newPlayer.GetComponentInChildren<PlayerDeadBodyReport>().Initialize(uIControl, votingManager);
-        // newPlayer.GetComponentInChildren<PlayerDeadBodyReport>().initialize(uIControl,votingManager);
         _playerPhotonView = newPlayer.GetComponent<PhotonView>();
 
         if (PhotonNetwork.IsMasterClient)
@@ -68,18 +90,12 @@ public class Network : MonoBehaviourPunCallbacks
 
         }
     }
-    // public override void OnConnectedToMaster()
-    // {
-    //     StatusText.text = "Connected To Master";
-    //     PhotonNetwork.JoinOrCreateRoom("Room", new RoomOptions() { MaxPlayers = 4 }, null);
+    [PunRPC]
+    public void RemoveSpawnPoint(GameObject _spawnPoint)
+    {
+        spawnPoints.Remove(_spawnPoint);
+    }
 
-    // }
-    // public override void OnJoinedRoom()
-    // {
-    //     StatusText.text = "Connected";
-    //     if (PlayerCamera == null) return;
-    //     PlayerCamera.target = PhotonNetwork.Instantiate("Player", new Vector3(Random.Range(0, 5), Random.Range(0, 5), 0), Quaternion.identity).transform;
-    // }
 
 
 }

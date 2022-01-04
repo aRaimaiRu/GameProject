@@ -669,6 +669,7 @@ MonoBehaviour:
   - {r: 1, g: 0.5821822, b: 0, a: 1}
   - {r: 0.38679248, g: 0.21296936, b: 0, a: 1}
   _playerName: {fileID: 5453496118878091133}
+  SpawnPoint: {fileID: 0}
 --- !u!120 &207140558
 LineRenderer:
   m_ObjectHideFlags: 0

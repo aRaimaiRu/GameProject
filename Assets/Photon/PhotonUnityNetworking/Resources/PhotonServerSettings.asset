@@ -49,6 +49,7 @@ MonoBehaviour:
   - CastPlayerVoteRPC
   - KickPlayerRPC
   - SetRole
+  - RemoveSpawnPoint
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

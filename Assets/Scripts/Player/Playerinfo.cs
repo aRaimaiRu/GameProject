@@ -15,6 +15,7 @@ public class Playerinfo : Photon.Pun.MonoBehaviourPun, IPunObservable
         get { return _allPlayerColors[colorIndex]; }
     }
     public Text _playerName;
+    public GameObject SpawnPoint;
     private void Awake()
     {
         if (photonView.IsMine)

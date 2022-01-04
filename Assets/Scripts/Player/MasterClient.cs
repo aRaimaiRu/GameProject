@@ -18,7 +18,7 @@ public class MasterClient : MonoBehaviourPun
     }
     private List<Role> VirusRoleList = new List<Role>() { Role.Worm, Role.Spyware };
     private List<Role> AntiVirusRoleList = new List<Role>() { Role.Scanner, Role.Deleter };
-
+    private GameObject[] players;
     // we want more control that who is Initialize so use custom Initialize instead Awake
     public void Initialize()
     {
@@ -31,7 +31,7 @@ public class MasterClient : MonoBehaviourPun
 
     private IEnumerator PickImpostor()
     {
-        GameObject[] players;
+
         List<int> playerIndex = new List<int>();
         int tries = 0;
         int impostorNumber = 0;
@@ -94,5 +94,7 @@ public class MasterClient : MonoBehaviourPun
         _impostorWindow.gameObject.SetActive(false);
 
     }
+
+
 
 }
