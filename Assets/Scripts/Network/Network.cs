@@ -26,12 +26,7 @@ public class Network : MonoBehaviourPunCallbacks
     // Start is called before the first frame update
     void Start()
     {
-        if (PhotonNetwork.IsMasterClient)
-        {
-            PhotonNetwork.CurrentRoom.IsOpen = false;
-            PhotonNetwork.CurrentRoom.IsVisible = false;
 
-        }
 
         // StatusText.text = "Connecting";
         // PhotonNetwork.NickName = "Player " + Random.Range(0, 20);
