@@ -13,6 +13,12 @@ public class Spayware : Impostor
     public override void Start()
     {
         base.Start();
+        if (photonView.IsMine)
+        {
+            StartCoroutine(UIControl.Instance.DelayFadeThisWindow(UIControl.Instance.SpywareIntro));
+
+        }
+
         if (hasGamePlayAction)
         {
             GamePlayAction();

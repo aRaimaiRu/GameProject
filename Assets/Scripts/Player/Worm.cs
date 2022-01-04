@@ -12,6 +12,12 @@ public class Worm : Impostor
     public override void Start()
     {
         base.Start();
+        if (photonView.IsMine)
+        {
+            StartCoroutine(UIControl.Instance.DelayFadeThisWindow(UIControl.Instance.WormIntro));
+
+        }
+
         if (hasGamePlayAction)
         {
             GamePlayAction();

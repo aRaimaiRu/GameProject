@@ -10,10 +10,15 @@ public class MasterClient : MonoBehaviourPun
     [SerializeField] private Text _impostorText;
     public enum Role
     {
+        Process,
+        Scanner,
+        Deleter,
         Worm,
         Spyware
     }
     private List<Role> VirusRoleList = new List<Role>() { Role.Worm, Role.Spyware };
+    private List<Role> AntiVirusRoleList = new List<Role>() { Role.Scanner, Role.Deleter };
+
     // we want more control that who is Initialize so use custom Initialize instead Awake
     public void Initialize()
     {
@@ -53,7 +58,7 @@ public class MasterClient : MonoBehaviourPun
 
             // set impostor
             PhotonView pv = players[pickedImpostorIndex].GetComponent<PhotonView>();
-            pv.RPC("SetImpostor", RpcTarget.All, pickedRole);
+            pv.RPC("SetRole", RpcTarget.All, pickedRole);
 
             // remove item that already pick
             playerIndex.Remove(pickedImpostorIndex);
@@ -62,7 +67,17 @@ public class MasterClient : MonoBehaviourPun
 
 
         }
-        photonView.RPC("ImpostorPicked", RpcTarget.All, impostorNumberFinal);
+        // give process A Role
+        for (int i = 0; i < playerIndex.Count; i++)
+        {
+
+            PhotonView pv = players[playerIndex[i]].GetComponent<PhotonView>();
+            pv.RPC("SetRole", RpcTarget.All, Role.Process);
+
+        }
+
+
+        // photonView.RPC("ImpostorPicked", RpcTarget.All, impostorNumberFinal);
 
     }
     [PunRPC]

@@ -18,6 +18,12 @@ public class UIControl : MonoBehaviour
     public GameObject YouHaveBeenKilledWindow;
     public bool IsChatWindowActive { get { return ChatWindowUI.activeInHierarchy; } }
     public bool IsImpostor = false;
+    public GameObject ProcessIntro;
+    public GameObject ScannerIntro;
+    public GameObject DeleterIntro;
+    public GameObject WormIntro;
+    public GameObject SpywareIntro;
+
 
     private void Awake()
     {
@@ -53,12 +59,14 @@ public class UIControl : MonoBehaviour
     {
         ChatWindowUI.SetActive(!ChatWindowUI.activeInHierarchy);
     }
-    IEnumerator DelayFadeThisWindow(GameObject window)
+    public IEnumerator DelayFadeThisWindow(GameObject window)
     {
         window.SetActive(true);
         yield return new WaitForSeconds(2.5f);
         window.SetActive(false);
     }
+
+
 
 
 }

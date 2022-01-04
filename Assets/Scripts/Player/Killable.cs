@@ -19,6 +19,7 @@ public class Killable : Photon.Pun.MonoBehaviourPun
     private void Start()
     {
         if (!photonView.IsMine) { return; }
+        StartCoroutine(UIControl.Instance.DelayFadeThisWindow(UIControl.Instance.ProcessIntro));
         // UIControl.Instance.CurrentPlayer = this;
 
     }

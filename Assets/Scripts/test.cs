@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class test : MonoBehaviour
 {
-    private int[] IntArray;
-    private List<int> ListInt;
-    // Start is called before the first frame update
     void Start()
     {
+        Debug.Log("version");
+        Debug.Log(typeof(string).Assembly.ImageRuntimeVersion);
+
+
 
     }
 

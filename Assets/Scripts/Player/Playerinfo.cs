@@ -63,7 +63,7 @@ public class Playerinfo : Photon.Pun.MonoBehaviourPun, IPunObservable
 
     }
     [PunRPC]
-    public void SetImpostor(MasterClient.Role _role)
+    public void SetRole(MasterClient.Role _role)
     {
         switch (_role)
         {
@@ -72,7 +72,15 @@ public class Playerinfo : Photon.Pun.MonoBehaviourPun, IPunObservable
                 break;
             case MasterClient.Role.Worm:
                 this.gameObject.AddComponent<Worm>();
-
+                break;
+            case MasterClient.Role.Process:
+                this.gameObject.AddComponent<Killable>();
+                break;
+            case MasterClient.Role.Deleter:
+                this.gameObject.AddComponent<Killable>();
+                break;
+            case MasterClient.Role.Scanner:
+                this.gameObject.AddComponent<Killable>();
                 break;
         }
 
