@@ -5,7 +5,7 @@ using UnityEngine;
 
 
 
-public class Spayware : Impostor
+public class Spyware : Impostor
 {
     new bool hasMeetingAction = true;
     new bool hasGamePlayAction = true;

@@ -68,7 +68,7 @@ public class Playerinfo : Photon.Pun.MonoBehaviourPun, IPunObservable
         switch (_role)
         {
             case MasterClient.Role.Spyware:
-                this.gameObject.AddComponent<Spayware>();
+                this.gameObject.AddComponent<Spyware>();
                 break;
             case MasterClient.Role.Worm:
                 this.gameObject.AddComponent<Worm>();
