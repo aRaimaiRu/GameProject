@@ -56,6 +56,7 @@ public class VotingManager : MonoBehaviourPun
         _reportedDeadBodiesList.Add(actorNumber);
         _playersThatHaveBeenVoteList.Clear();
         _playerThatVotedList.Clear();
+        HasAlreadyVoted = false;
         ToggleAllButtons(true);
 
         PopulatePlayerList();
@@ -97,16 +98,7 @@ public class VotingManager : MonoBehaviourPun
             _playerThatVotedList.Add(actorNumber);
             _playersThatHaveBeenVoteList.Add(targetActorNumber);
         }
-        if (!PhotonNetwork.IsMasterClient)
-        {
-            return;
-        }
-        if (_playerThatVotedList.Count < remainingPlayers)
-        {
-            return;
 
-        }
-        // ConcludeVote()
 
     }
     public IEnumerator ConcludeVote()
@@ -144,21 +136,14 @@ public class VotingManager : MonoBehaviourPun
             }
 
         }
-        Debug.Log("Before Delay");
+
         yield return new WaitForSeconds(2.0f);
 
-        if (!PhotonNetwork.IsMasterClient)
-        {
-            Debug.Log("Break from Couroutine");
-            yield break;
-        }
         // End the Voting session
-        Debug.Log("After Delay");
-        if (mostVotes >= remainingPlayers / 2)
+        if ((mostVotes >= remainingPlayers / 2) && PhotonNetwork.IsMasterClient)
         {
             // kick the player or skip
             photonView.RPC("KickPlayerRPC", RpcTarget.All, mostVotedPlayer);
-
         }
 
     }
@@ -248,6 +233,7 @@ public class VotingManager : MonoBehaviourPun
 
         }
     }
+
 
 
 }

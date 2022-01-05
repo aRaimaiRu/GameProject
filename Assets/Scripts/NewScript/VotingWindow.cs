@@ -14,13 +14,13 @@ public class VotingWindow : MonoBehaviourPunCallbacks
     public Slider timeSlider;
     public VotingManager _votingManager;
 
-    void Start()
+    public override void OnEnable()
     {
+        base.OnEnable();
         if (PhotonNetwork.LocalPlayer.IsMasterClient)
         {
             CustomeValue = new ExitGames.Client.Photon.Hashtable();
             startTime = PhotonNetwork.Time;
-            startTimer = true;
             CustomeValue.Add("StartTime", startTime);
             PhotonNetwork.CurrentRoom.SetCustomProperties(CustomeValue);
         }
@@ -46,6 +46,8 @@ public class VotingWindow : MonoBehaviourPunCallbacks
     }
     public IEnumerator conclude()
     {
+        startTimer = false;
+
         StartCoroutine(_votingManager.ConcludeVote());
         yield return new WaitForSeconds(3.0f);
         this.gameObject.SetActive(false);
