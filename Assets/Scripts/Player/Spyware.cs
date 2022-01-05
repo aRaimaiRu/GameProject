@@ -7,12 +7,13 @@ using UnityEngine;
 
 public class Spyware : Impostor
 {
-    new bool hasMeetingAction = true;
-    new bool hasGamePlayAction = true;
+
 
     public override void Start()
     {
         base.Start();
+        base.hasMeetingAction = true;
+        base.hasGamePlayAction = true;
         if (photonView.IsMine)
         {
             StartCoroutine(UIControl.Instance.DelayFadeThisWindow(UIControl.Instance.SpywareIntro));
@@ -30,6 +31,10 @@ public class Spyware : Impostor
         base.GamePlayAction();
 
         Debug.Log("Spyware Action");
+    }
+    public override void MeetingAction()
+    {
+        base.MeetingAction();
     }
 
 

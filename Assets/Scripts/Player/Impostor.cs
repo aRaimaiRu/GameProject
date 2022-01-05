@@ -7,12 +7,11 @@ using UnityEngine.UI;
 
 
 
-public class Impostor : MonoBehaviourPun
+public class Impostor : Role
 {
     [SerializeField] private float _range = 10.0f;
     private Killable _target;
-    public bool hasMeetingAction;
-    public bool hasGamePlayAction;
+
     public virtual void Start()
     {
         Debug.Log("Impostor start");
@@ -63,11 +62,11 @@ public class Impostor : MonoBehaviourPun
         }
     }
 
-    public virtual void MeetingAction()
-    {
+    // public virtual void MeetingAction()
+    // {
 
-    }
-    public virtual void GamePlayAction()
+    // }
+    public override void GamePlayAction()
     {
         UIControl.Instance._killBtn.onClick.RemoveAllListeners();
         UIControl.Instance._killBtn.onClick.AddListener(delegate { _target.Kill(); });
