@@ -111,9 +111,10 @@ public class VotingManager : MonoBehaviourPun
     }
     public IEnumerator ConcludeVote()
     {
+        DestroyAllDeadBody();
         int remainingPlayers = PhotonNetwork.CurrentRoom.PlayerCount - _reportedDeadBodiesList.Count - _playerThatHaveBeenKickedOutList.Count;
 
-        // Count all the votes
+        // Count all the votes get actornumber from _playersThatHaveBeenVoteList
         Dictionary<int, int> playerVoteCount = new Dictionary<int, int>();
         foreach (int votedPlayer in _playersThatHaveBeenVoteList)
         {
@@ -136,7 +137,11 @@ public class VotingManager : MonoBehaviourPun
                 mostVotedPlayer = playerVote.Key;
             }
             // Set CountVoteText for each player
-            _votePlyaerItemList.Find((x) => x.ActorNumber == playerVote.Key).SetCountVoteText(playerVote.Value);
+            if (playerVote.Key != -1)
+            {
+                _votePlyaerItemList.Find((x) => x.ActorNumber == playerVote.Key).SetCountVoteText(playerVote.Value);
+
+            }
 
         }
         Debug.Log("Before Delay");
@@ -172,7 +177,7 @@ public class VotingManager : MonoBehaviourPun
                 break;
             }
         }
-        _kickPlayerText.text = actorNumber == -1 ? "No one has been kicked out" : "Player " + playerName + "has been kicked out";
+        _kickPlayerText.text = actorNumber == -1 ? "No one has been kicked out" : "Player " + playerName + " has been kicked out";
         StartCoroutine(FadeKickPlayerWindow(actorNumber));
     }
     private IEnumerator FadeKickPlayerWindow(int actorNumber)
@@ -232,6 +237,15 @@ public class VotingManager : MonoBehaviourPun
             VotePlayerItem newPlayerItem = Instantiate(_votePlayerItemPrefab, _votePlayerItemContainer);
             newPlayerItem.Initialize(player.Value, this);
             _votePlyaerItemList.Add(newPlayerItem);
+        }
+    }
+    private void DestroyAllDeadBody()
+    {
+        PlayerDeadBody[] _playerDeadBodys = FindObjectsOfType<PlayerDeadBody>();
+        foreach (PlayerDeadBody deadbody in _playerDeadBodys)
+        {
+            Destroy(deadbody.gameObject);
+
         }
     }
 
