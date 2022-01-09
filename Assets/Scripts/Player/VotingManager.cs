@@ -4,7 +4,6 @@ using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
 using UnityEngine.UI;
-
 public class VotingManager : MonoBehaviourPun
 {
     public static VotingManager Instance;
@@ -25,8 +24,14 @@ public class VotingManager : MonoBehaviourPun
     [SerializeField] private GameObject _kickedPlayerWindow;
     [SerializeField] private Text _kickPlayerText;
     [SerializeField] private Network _network;
-
-
+    public enum playerAction
+    {
+        Vote,
+        Choose,
+        Action
+    }
+    public playerAction CurrentAction = playerAction.Vote;
+    public int currentTarget;
     private void Awake()
     {
         Instance = this;
@@ -53,7 +58,12 @@ public class VotingManager : MonoBehaviourPun
     public void ReportDeadBodyRPC(int actorNumber)
     {
 
-        _reportedDeadBodiesList.Add(actorNumber);
+        if (actorNumber != -1)
+        {
+            _reportedDeadBodiesList.Add(actorNumber);
+
+        }
+        // OnStartVoting();
         _playersThatHaveBeenVoteList.Clear();
         _playerThatVotedList.Clear();
         HasAlreadyVoted = false;
@@ -64,20 +74,19 @@ public class VotingManager : MonoBehaviourPun
     }
     public void CastVote(int targetActorNumber)
     {
-        // Do not Add the killed player to vote
-        if (_reportedDeadBodiesList.Contains(PhotonNetwork.LocalPlayer.ActorNumber))
+        switch (CurrentAction)
         {
-            return;
+            case playerAction.Vote:
+                ModeVote(targetActorNumber);
+                break;
+            case playerAction.Choose:
+                currentTarget = targetActorNumber;
+                break;
+
+
+
         }
-        // Do not add the players that have been kicked out to vote
-        if (_playerThatHaveBeenKickedOutList.Contains(PhotonNetwork.LocalPlayer.ActorNumber))
-        {
-            return;
-        }
-        if (HasAlreadyVoted) { return; }
-        HasAlreadyVoted = true;
-        ToggleAllButtons(false);
-        photonView.RPC("CastPlayerVoteRPC", RpcTarget.All, PhotonNetwork.LocalPlayer.ActorNumber, targetActorNumber);
+
 
     }
     [PunRPC]
@@ -138,13 +147,13 @@ public class VotingManager : MonoBehaviourPun
         }
 
         yield return new WaitForSeconds(2.0f);
-
         // End the Voting session
         if ((mostVotes >= remainingPlayers / 2) && PhotonNetwork.IsMasterClient)
         {
             // kick the player or skip
             photonView.RPC("KickPlayerRPC", RpcTarget.All, mostVotedPlayer);
         }
+
 
     }
     [PunRPC]
@@ -232,6 +241,24 @@ public class VotingManager : MonoBehaviourPun
             Destroy(deadbody.gameObject);
 
         }
+    }
+
+    public void ModeVote(int targetActorNumber)
+    {
+        // Do not Add the killed player to vote
+        if (_reportedDeadBodiesList.Contains(PhotonNetwork.LocalPlayer.ActorNumber))
+        {
+            return;
+        }
+        // Do not add the players that have been kicked out to vote
+        if (_playerThatHaveBeenKickedOutList.Contains(PhotonNetwork.LocalPlayer.ActorNumber))
+        {
+            return;
+        }
+        if (HasAlreadyVoted) { return; }
+        HasAlreadyVoted = true;
+        ToggleAllButtons(false);
+        photonView.RPC("CastPlayerVoteRPC", RpcTarget.All, PhotonNetwork.LocalPlayer.ActorNumber, targetActorNumber);
     }
 
 

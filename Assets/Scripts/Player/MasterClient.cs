@@ -16,7 +16,9 @@ public class MasterClient : MonoBehaviourPun
         Worm,
         Spyware
     }
-    private List<Role> VirusRoleList = new List<Role>() { Role.Worm, Role.Spyware };
+    private List<Role> VirusRoleList = new List<Role>() { 
+        // Role.Worm, 
+        Role.Spyware };
     private List<Role> AntiVirusRoleList = new List<Role>() { Role.Scanner, Role.Deleter };
     private GameObject[] players;
     // we want more control that who is Initialize so use custom Initialize instead Awake

@@ -21,7 +21,7 @@ public class Killable : Photon.Pun.MonoBehaviourPun
 
     public void Kill()
     {
-
+        Debug.Log("Use kill RPC ?");
         photonView.RPC("KillRPC", RpcTarget.All);
 
     }
@@ -30,6 +30,8 @@ public class Killable : Photon.Pun.MonoBehaviourPun
     public void KillRPC()
     {
         if (!photonView.IsMine) { return; }
+        Debug.Log("Use kill RPC ");
+
         PlayerDeadBody playerBody = PhotonNetwork.Instantiate("PlayerBody", this.transform.position, Quaternion.identity).GetComponent<PlayerDeadBody>();
         Playerinfo playerinfo = GetComponent<Playerinfo>();
         // 

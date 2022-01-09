@@ -23,7 +23,7 @@ public class UIControl : MonoBehaviour
     public GameObject DeleterIntro;
     public GameObject WormIntro;
     public GameObject SpywareIntro;
-
+    public GameObject MeetingSkillBtn;
 
     private void Awake()
     {

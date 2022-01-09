@@ -1,10 +1,9 @@
 fileFormatVersion: 2
-guid: 35d51aeb1b1f3284e9e67834fa651155
+guid: eb555307454cc7747a822693c47d11b6
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences:
-  - MeetingActionBtnSprite: {fileID: 21300000, guid: f03d9f893e1bfb04299de3b52576ad4c, type: 3}
+  defaultReferences: []
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

@@ -69,7 +69,7 @@ public class Impostor : Role
     public override void GamePlayAction()
     {
         UIControl.Instance._killBtn.onClick.RemoveAllListeners();
-        UIControl.Instance._killBtn.onClick.AddListener(delegate { _target.Kill(); });
+        UIControl.Instance._killBtn.onClick.AddListener(delegate { this._target.Kill(); });
     }
 
 

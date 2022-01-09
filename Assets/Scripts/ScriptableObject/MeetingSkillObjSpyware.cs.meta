@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: 9105d807c530b204f84619d0e1cba2f6
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - btnImg: {fileID: 21300000, guid: 5ed49370c7604fd4c8d581e944369bbb, type: 3}
+  - RoleWindow: {fileID: 7891195851542243678, guid: 0e2de55a668037e4bbd27a42b04c9d91, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
