@@ -3,16 +3,17 @@ using System.Collections.Generic;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 public class VotingManager : MonoBehaviourPun
 {
     public static VotingManager Instance;
     [HideInInspector] public PhotonView DeadBodyInProximity;
-    private List<int> _reportedDeadBodiesList = new List<int>();
+    public List<int> _reportedDeadBodiesList = new List<int>();
     [SerializeField] private GameObject _emergencyMeetingWindow;
     [SerializeField] private VotePlayerItem _votePlayerItemPrefab;
     [SerializeField] private Transform _votePlayerItemContainer;
-    private List<VotePlayerItem> _votePlyaerItemList = new List<VotePlayerItem>();
+    public List<VotePlayerItem> _votePlyaerItemList = new List<VotePlayerItem>();
     [SerializeField] private Button _skipVoteBtn;
     [HideInInspector] private bool HasAlreadyVoted;
     private List<VotePlayerItem> _votePlayerItemList = new List<VotePlayerItem>();
@@ -24,18 +25,44 @@ public class VotingManager : MonoBehaviourPun
     [SerializeField] private GameObject _kickedPlayerWindow;
     [SerializeField] private Text _kickPlayerText;
     [SerializeField] private Network _network;
+    [SerializeField] public GameObject ChooseRoleWindow;
+    [SerializeField] public GameObject ChooseRoleContainer;
+
+    [SerializeField] private GameObject RoleBtn;
     public enum playerAction
     {
         Vote,
-        Choose,
+        ChooseRole,
         Action
     }
     public playerAction CurrentAction = playerAction.Vote;
     public int currentTarget;
+    public Role LocalPlayer;
+    public MasterClient.Role CurrentChooseRole;
+    public List<MasterClient.Role> allrole = new List<MasterClient.Role>(){
+        MasterClient.Role.Process,
+        MasterClient.Role.Scanner,
+        MasterClient.Role.Deleter,
+        MasterClient.Role.Worm,
+        MasterClient.Role.Spyware
+    };
+    public Dictionary<MasterClient.Role, string> allroledict = new Dictionary<MasterClient.Role, string>(){
+        {MasterClient.Role.Process,"process"},
+        {MasterClient.Role.Scanner,"Scanner"},
+        {MasterClient.Role.Deleter,"Deleter"},
+        {MasterClient.Role.Worm,"Worm"},
+        {MasterClient.Role.Spyware,"Spyware"}
+    };
+    public List<Button> RoleBtnGroup;
+    public UnityEvent onChooseRole;
+
     private void Awake()
     {
+        if (Instance != null && Instance != this)
+            Destroy(this);
         Instance = this;
     }
+
 
     public bool WasBodyReported(int actorNumber)
     {
@@ -74,18 +101,15 @@ public class VotingManager : MonoBehaviourPun
     }
     public void CastVote(int targetActorNumber)
     {
-        switch (CurrentAction)
+        if (LocalPlayer.hasMeetingAction)
         {
-            case playerAction.Vote:
-                ModeVote(targetActorNumber);
-                break;
-            case playerAction.Choose:
-                currentTarget = targetActorNumber;
-                break;
-
-
-
+            LocalPlayer.MeetingAction(targetActorNumber);
         }
+        else
+        {
+            ModeVote(targetActorNumber);
+        }
+
 
 
     }
@@ -232,6 +256,25 @@ public class VotingManager : MonoBehaviourPun
             newPlayerItem.Initialize(player.Value, this);
             _votePlyaerItemList.Add(newPlayerItem);
         }
+        populateRoleList();
+    }
+
+    private void populateRoleList()
+    {
+        foreach (KeyValuePair<MasterClient.Role, string> _role in allroledict)
+        {
+            GameObject _btn = Instantiate(RoleBtn, ChooseRoleContainer.transform);
+            _btn.GetComponent<Button>().onClick.AddListener(() => ChooseRoleBtn(_role.Key));
+            _btn.GetComponentInChildren<Text>().text = _role.Value;
+        }
+
+        // for (int i = 0; i < RoleBtnGroup.Count; i++)
+        // {
+        //     RoleBtnGroup[i].onClick.AddListener(() => ChooseRoleBtn(i));
+        //     RoleBtnGroup[i].GetComponentInChildren<Text>().text = i.ToString();
+
+
+        // }
     }
     private void DestroyAllDeadBody()
     {
@@ -260,6 +303,38 @@ public class VotingManager : MonoBehaviourPun
         ToggleAllButtons(false);
         photonView.RPC("CastPlayerVoteRPC", RpcTarget.All, PhotonNetwork.LocalPlayer.ActorNumber, targetActorNumber);
     }
+    public void KillInMeeting(int currentTargetActorNumber)
+    {
+        photonView.RPC("KillInMeetingRPC", RpcTarget.All, currentTargetActorNumber);
+
+    }
+    [PunRPC]
+    public void KillInMeetingRPC(int _targetActorNumber)
+    {
+        // find playerlist gameobject from actornumber
+        VotePlayerItem playerlistobj = _votePlyaerItemList.Find(x => x.ActorNumber == _targetActorNumber);
+        playerlistobj.ShowDead();
+        playerlistobj.ToggleButton(false);
+        // find player gameobject from actornumber
+        if (PhotonNetwork.LocalPlayer.ActorNumber == _targetActorNumber)
+        {
+            GameObject.FindGameObjectWithTag("NetworkManager").GetComponent<Network>().DestroyPlayer();
+            _reportedDeadBodiesList.Add(_targetActorNumber);
+        }
+    }
+    public MasterClient.Role CheckRoleOfPlayer(int _targetActorNumber)
+    {
+        List<Playerinfo> allplayerinfo = new List<Playerinfo>(FindObjectsOfType<Playerinfo>());
+        return allplayerinfo.Find(x => x.ActorNumber == _targetActorNumber).GetComponent<Role>().role;
+    }
+
+    public void ChooseRoleBtn(MasterClient.Role _role)
+    {
+        CurrentChooseRole = _role;
+        onChooseRole.Invoke();
+    }
+
+
 
 
 

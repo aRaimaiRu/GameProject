@@ -90,6 +90,21 @@ public class Network : MonoBehaviourPunCallbacks
     {
         spawnPoints.Remove(_spawnPoint);
     }
+    // [PunRPC]
+    // public void KillInMeeting(int _targetActorNumber)
+    // {
+    //     // find playerlist gameobject from actornumber
+    //     VotePlayerItem playerlistobj = VotingManager.Instance._votePlyaerItemList.Find(x => x.ActorNumber == _targetActorNumber);
+    //     playerlistobj.ShowDead();
+    //     playerlistobj.ToggleButton(false);
+    //     // find player gameobject from actornumber
+    //     if (PhotonNetwork.LocalPlayer.ActorNumber == _targetActorNumber)
+    //     {
+    //         GameObject.FindGameObjectWithTag("NetworkManager").GetComponent<Network>().DestroyPlayer();
+    //         VotingManager.Instance._reportedDeadBodiesList.Add(_targetActorNumber);
+    //     }
+    // }
+
 
 
 

@@ -16,6 +16,12 @@ public class Playerinfo : Photon.Pun.MonoBehaviourPun, IPunObservable
     }
     public Text _playerName;
     public GameObject SpawnPoint;
+    private int _actorNumber;
+    public int ActorNumber
+    {
+        get { return _actorNumber; }
+
+    }
     private void Awake()
     {
         if (photonView.IsMine)
@@ -29,6 +35,7 @@ public class Playerinfo : Photon.Pun.MonoBehaviourPun, IPunObservable
             // remove light of other player
             Destroy(GetComponentInChildren<Light2D>());
         }
+        _actorNumber = photonView.OwnerActorNr;
     }
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {

@@ -53,4 +53,8 @@ public class VotePlayerItem : MonoBehaviour
         CountVoteText.text = (_votecount == 0) ? "" : _votecount.ToString();
 
     }
+    public void ShowDead()
+    {
+        _playerNameText.text = _playerNameText.text + "(Dead)";
+    }
 }

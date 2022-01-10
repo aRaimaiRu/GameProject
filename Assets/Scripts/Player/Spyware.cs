@@ -6,16 +6,32 @@ using UnityEngine.UI;
 
 public class Spyware : Impostor
 {
-    public Sprite MeetingActionBtnSprite;
+    private Sprite MeetingActionBtnSprite;
     private GameObject MeetingActionBtn;
     private GameObject SelectRoleWindow;
+    private GameObject RoleChooseWindow;
+    public enum RoleActionState
+    {
+        Voting,
+        ChoosePlayer,
+        ChooseRole,
+        Execute
+
+
+    }
+
+    public RoleActionState CurrentAction;
+    private int currentTargetActorNumber;
     public override void Start()
     {
         base.Start();
+        base._role = MasterClient.Role.Spyware;
         base.hasMeetingAction = true;
         base.hasGamePlayAction = true;
         if (!photonView.IsMine) { return; }
         StartCoroutine(UIControl.Instance.DelayFadeThisWindow(UIControl.Instance.SpywareIntro));
+        MeetingActionBtnSprite = Resources.Load<Sprite>("kill-01");
+        // RoleChooseWindow = GameObject.Find("CanvasOverlay/NewVoteWindow/ChooseRoleWindow");
 
         if (hasGamePlayAction)
         {
@@ -24,7 +40,7 @@ public class Spyware : Impostor
         }
         if (hasMeetingAction)
         {
-            MeetingAction();
+            PrepareMeetingAction();
 
         }
         Debug.Log("Spyware Start");
@@ -36,22 +52,61 @@ public class Spyware : Impostor
         Debug.Log("Spyware Action");
     }
     // set image button and function to button
-    public override void MeetingAction()
+    public override void MeetingAction(int targetActorNumber)
     {
-        base.MeetingAction();
+        base.MeetingAction(targetActorNumber);
+        switch (CurrentAction)
+        {
+            case RoleActionState.Voting:
+                VotingManager.Instance.ModeVote(targetActorNumber);
+                break;
+            case RoleActionState.ChoosePlayer:
+                currentTargetActorNumber = targetActorNumber;
+                VotingManager.Instance.ChooseRoleWindow?.SetActive(true);
+                CurrentAction = RoleActionState.ChooseRole;
+                VotingManager.Instance.onChooseRole.AddListener(() => SpywareMeetingExecute(VotingManager.Instance.CurrentChooseRole));
+                break;
+            case RoleActionState.ChooseRole:
+                // Check targetActorNumber and Role that choosen
+                // Rolebutton.onClick =  SpywareMeetingKill(Role)
+                // CurrentAction = RoleActionState.Voting;
 
+                break;
+        }
+
+    }
+    public void SpywareMeetingExecute(MasterClient.Role _role)
+    {
+        Debug.Log("role =" + _role + " Current target player =" + currentTargetActorNumber);
+        if (_role == VotingManager.Instance.CheckRoleOfPlayer(currentTargetActorNumber))
+        {
+            VotingManager.Instance.KillInMeeting(currentTargetActorNumber);
+            // photonView.RPC("KillInMeeting", RpcTarget.All, currentTargetActorNumber);
+        }
+
+    }
+    public void useMeetingAction()
+    {
+        // RoleChooseWindow.SetActive(true);
+        // VotingManager.Instance.CurrentAction = VotingManager.playerAction.ChooseRole;
+        this.CurrentAction = RoleActionState.ChoosePlayer;
+
+
+    }
+    public override void PrepareMeetingAction()
+    {
+        base.PrepareMeetingAction();
         SelectRoleWindow = GameObject.Find("CanvasOverlay/NewVoteWindow/ChooseRoleWindow");
+        CurrentAction = RoleActionState.Voting;
+        VotingManager.Instance.LocalPlayer = this;
+
 
         MeetingActionBtn = UIControl.Instance.MeetingSkillBtn;
         MeetingActionBtn.SetActive(true);
         MeetingActionBtn.GetComponent<Image>().sprite = MeetingActionBtnSprite;
         MeetingActionBtn.GetComponent<Button>().onClick.AddListener(useMeetingAction);
     }
-    public void useMeetingAction()
-    {
-        GameObject.Find("CanvasOverlay/NewVoteWindow/ChooseRoleWindow").SetActive(true);
 
-    }
     // prepate image to button
     // when click button swap to mode choose player
     // when choose player open Window choose Role

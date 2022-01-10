@@ -37,10 +37,10 @@ public class Killable : Photon.Pun.MonoBehaviourPun
         // 
         playerBody.SetColor(playerinfo._allPlayerColors[playerinfo.colorIndex]);
 
-
         GameObject.FindGameObjectWithTag("NetworkManager").GetComponent<Network>().DestroyPlayer();
 
         UIControl.Instance.OnThisPlayerKilled();
     }
+
 
 }
