@@ -83,12 +83,17 @@ public class Playerinfo : Photon.Pun.MonoBehaviourPun, IPunObservable
                 break;
             case MasterClient.Role.Process:
                 this.gameObject.AddComponent<Killable>();
+                this.gameObject.AddComponent<Role>();
                 break;
             case MasterClient.Role.Deleter:
                 this.gameObject.AddComponent<Killable>();
+                this.gameObject.AddComponent<Role>();
+
                 break;
             case MasterClient.Role.Scanner:
                 this.gameObject.AddComponent<Killable>();
+                this.gameObject.AddComponent<Role>();
+
                 break;
         }
 

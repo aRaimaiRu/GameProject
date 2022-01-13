@@ -83,6 +83,13 @@ public class Spyware : Impostor
             VotingManager.Instance.KillInMeeting(currentTargetActorNumber);
             // photonView.RPC("KillInMeeting", RpcTarget.All, currentTargetActorNumber);
         }
+        else
+        {
+            VotingManager.Instance.KillInMeeting(PhotonNetwork.LocalPlayer.ActorNumber);
+
+        }
+        VotingManager.Instance.ChooseRoleWindow?.SetActive(false);
+
 
     }
     public void useMeetingAction()
