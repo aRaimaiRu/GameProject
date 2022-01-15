@@ -1,7 +1,10 @@
 fileFormatVersion: 2
 guid: 5a5d7744ac095e246b1d6c66e0ec7113
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: -8171092467857874669
+    second: "minigame\u0E2A\u0E41\u0E01\u0E19\u0E19\u0E34\u0E49\u0E27\u0E21\u0E37\u0E2D-01_0"
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -41,7 +44,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -75,9 +78,79 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: "minigame\u0E2A\u0E41\u0E01\u0E19\u0E19\u0E34\u0E49\u0E27\u0E21\u0E37\u0E2D-01_0"
+      rect:
+        serializedVersion: 2
+        x: 68
+        y: 67
+        width: 1115
+        height: 1115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -336.26068, y: -557.5}
+        - {x: -557.5, y: -557.5}
+        - {x: -557.5, y: -294.671}
+        - {x: -557.5, y: -65.94446}
+        - {x: -557.5, y: 80.47864}
+        - {x: -557.5, y: 269.7992}
+        - {x: -557.5, y: 557.5}
+        - {x: 39.11963, y: 557.5}
+        - {x: 276.2735, y: 557.5}
+        - {x: 557.5, y: 557.5}
+        - {x: 557.5, y: -219.7265}
+        - {x: 557.5, y: -557.5}
+        - {x: -98.10681, y: -557.5}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 311267a51b27a9e80800000000000000
+      internalID: -8171092467857874669
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
