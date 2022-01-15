@@ -20,6 +20,8 @@ public class Role : MonoBehaviourPun
 
     public virtual void Start()
     {
+        if (!photonView.IsMine) { return; }
+
         VotingManager.Instance.LocalPlayer = this;
     }
     public virtual void MeetingAction(int targeActorNumber)

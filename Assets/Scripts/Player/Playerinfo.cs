@@ -73,6 +73,10 @@ public class Playerinfo : Photon.Pun.MonoBehaviourPun, IPunObservable
     [PunRPC]
     public void SetRole(MasterClient.Role _role)
     {
+        if (this.gameObject.GetComponent<Role>() != null)
+        {
+            Destroy(this.gameObject.GetComponent<Role>());
+        }
         switch (_role)
         {
             case MasterClient.Role.Spyware:
@@ -93,7 +97,9 @@ public class Playerinfo : Photon.Pun.MonoBehaviourPun, IPunObservable
             case MasterClient.Role.Scanner:
                 this.gameObject.AddComponent<Killable>();
                 this.gameObject.AddComponent<Role>();
-
+                break;
+            case MasterClient.Role.Imposter:
+                this.gameObject.AddComponent<Impostor>();
                 break;
         }
 

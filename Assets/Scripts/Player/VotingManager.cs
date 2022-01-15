@@ -55,6 +55,7 @@ public class VotingManager : MonoBehaviourPun
     };
     public List<Button> RoleBtnGroup;
     public UnityEvent onChooseRole;
+    public UnityEvent onEndVote;
 
     private void Awake()
     {
@@ -177,6 +178,11 @@ public class VotingManager : MonoBehaviourPun
             // kick the player or skip
             photonView.RPC("KickPlayerRPC", RpcTarget.All, mostVotedPlayer);
         }
+        else
+        {
+            onEndVote.Invoke();
+        }
+
 
 
     }
@@ -206,10 +212,12 @@ public class VotingManager : MonoBehaviourPun
         {
             // spawn ghost in network.cs
             _network.DestroyPlayer();
-            _kickedPlayerWindow.SetActive(true);
-            yield return new WaitForSeconds(2.5f);
-            _kickedPlayerWindow.SetActive(false);
+            // _kickedPlayerWindow.SetActive(true);
+            // yield return new WaitForSeconds(2.5f);
+            // _kickedPlayerWindow.SetActive(false);
         }
+        onEndVote.Invoke();
+
 
 
     }
@@ -332,6 +340,12 @@ public class VotingManager : MonoBehaviourPun
     {
         CurrentChooseRole = _role;
         onChooseRole.Invoke();
+    }
+    public void DisablePlayerUIObj(int _targetActorNumber)
+    {
+        VotePlayerItem playerlistobj = _votePlyaerItemList.Find(x => x.ActorNumber == _targetActorNumber);
+        playerlistobj.ToggleButton(false);
+
     }
 
 
