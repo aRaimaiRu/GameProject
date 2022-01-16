@@ -4,21 +4,12 @@ using Photon.Pun;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Spyware : Impostor
+public partial class Spyware : Impostor
 {
     private Sprite MeetingActionBtnSprite;
     private GameObject MeetingActionBtn;
     private GameObject SelectRoleWindow;
     private GameObject RoleChooseWindow;
-    public enum RoleActionState
-    {
-        Voting,
-        ChoosePlayer,
-        ChooseRole,
-        Execute
-
-
-    }
 
     public RoleActionState CurrentAction;
     private int currentTargetActorNumber;
