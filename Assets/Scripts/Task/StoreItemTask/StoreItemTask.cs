@@ -4,12 +4,7 @@ using UnityEngine;
 
 public class StoreItemTask : MonoBehaviour
 {
-    public enum ItemType
-    {
-        Square,
-        Circle,
-        Hexgagon
-    }
+
     private List<StoreSlot> _storeslot;
     private void Awake()
     {

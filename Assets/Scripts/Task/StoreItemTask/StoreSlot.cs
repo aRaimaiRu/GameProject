@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 
 public class StoreSlot : MonoBehaviour, IDropHandler
 {
-    public StoreItemTask.ItemType acceptType;
+    public StoreArrEnum.ItemType acceptType;
     public bool isfullfill = false;
     public void OnDrop(PointerEventData eventData)
     {

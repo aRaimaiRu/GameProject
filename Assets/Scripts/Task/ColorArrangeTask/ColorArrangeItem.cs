@@ -10,7 +10,6 @@ public class ColorArrangeItem : MonoBehaviour, IDragHandler, IBeginDragHandler, 
     [SerializeField] private Canvas _canvas;
     [SerializeField] private CanvasGroup _canvasGroup;
     private bool dragable;
-    public StoreItemTask.ItemType thisItemType;
     private RectTransform rectTransform;
     public ColorArrangeItem NextItem;
     public bool isComplete;
