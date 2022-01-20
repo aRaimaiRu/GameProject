@@ -5,6 +5,7 @@ using UnityEngine;
 public class Interactible : MonoBehaviour
 {
     [SerializeField] private GameObject _taskWindow;
+    public string taskDescription;
 
     public void Use(bool isActive)
     {

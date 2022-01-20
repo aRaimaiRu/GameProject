@@ -16,7 +16,7 @@ public class ColorArrangeItem : MonoBehaviour, IDragHandler, IBeginDragHandler, 
 
     private void Awake()
     {
-        // _canvas = GetComponentInParent<Canvas>();
+        _canvas = GetComponentInParent<Canvas>();
         // _canvasGroup = GetComponentInParent<CanvasGroup>();
         _canvasGroup = GetComponent<CanvasGroup>();
         rectTransform = GetComponent<RectTransform>();
