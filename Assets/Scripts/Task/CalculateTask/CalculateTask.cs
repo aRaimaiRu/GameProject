@@ -8,9 +8,8 @@ using UnityEngine.UI;
 // randow choice and correct Number
 // when click correct Number Successful()
 // when click incorrect Number random New Choice()
-public class CalculateTask : MonoBehaviour
+public class CalculateTask : Task
 {
-    private bool isSuccessful;
     [SerializeField] private Text problem;
 
     [SerializeField] private List<GameObject> Choice;
@@ -19,7 +18,6 @@ public class CalculateTask : MonoBehaviour
 
     private void OnEnable()
     {
-        isSuccessful = false;
         // random number1 + number 2
         int a = Random.Range(1, 1000);
         int b = Random.Range(1, 1000);
@@ -36,7 +34,7 @@ public class CalculateTask : MonoBehaviour
     {
         if (Answer == _answer)
         {
-            this.gameObject.SetActive(false);
+            base.OnComplete();
 
         }
         else
@@ -47,9 +45,5 @@ public class CalculateTask : MonoBehaviour
 
     }
 
-    private void Successful()
-    {
-        isSuccessful = true;
-        this.gameObject.SetActive(false);
-    }
+
 }

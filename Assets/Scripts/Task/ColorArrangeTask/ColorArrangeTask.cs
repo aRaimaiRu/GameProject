@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ColorArrangeTask : MonoBehaviour
+public class ColorArrangeTask : Task
 {
     // random Core color
     // set color to 5 square
@@ -50,7 +50,7 @@ public class ColorArrangeTask : MonoBehaviour
     {
         if (colorArrangeItems[0].isComplete)
         {
-            this.gameObject.SetActive(false);
+            base.OnComplete();
         }
     }
 

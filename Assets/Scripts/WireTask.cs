@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WireTask : MonoBehaviour
+public class WireTask : Task
 {
     public List<Color> _wireColors = new List<Color>();
     public List<Wire> _leftWires = new List<Wire>();
@@ -95,7 +95,7 @@ public class WireTask : MonoBehaviour
         if (successfulWires >= _rightWires.Count)
         {
             // Task Completed
-            gameObject.SetActive(false);
+            base.OnComplete();
         }
         else
         {

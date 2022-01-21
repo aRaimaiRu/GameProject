@@ -4515,6 +4515,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 22451357}
     m_Modifications:
+    - target: {fileID: 8158630799906457346, guid: 57509b624eb760540b621f8ec7f2a71a, type: 3}
+      propertyPath: _taskWindow
+      value: 
+      objectReference: {fileID: 1637519413}
+    - target: {fileID: 8158630799906457346, guid: 57509b624eb760540b621f8ec7f2a71a, type: 3}
+      propertyPath: taskDescription
+      value: Ram
+      objectReference: {fileID: 0}
     - target: {fileID: 8158630799906457356, guid: 57509b624eb760540b621f8ec7f2a71a, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -4697,6 +4705,11 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
+--- !u!1 &539895715 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1862755348100003705, guid: a05c81196923e5b48b39d3269be4359e, type: 3}
+  m_PrefabInstance: {fileID: 1276092719}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &541556088
 GameObject:
   m_ObjectHideFlags: 0
@@ -8697,6 +8710,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1563908647}
     m_Modifications:
+    - target: {fileID: 8158630799906457346, guid: 57509b624eb760540b621f8ec7f2a71a, type: 3}
+      propertyPath: _taskWindow
+      value: 
+      objectReference: {fileID: 1848157876}
+    - target: {fileID: 8158630799906457346, guid: 57509b624eb760540b621f8ec7f2a71a, type: 3}
+      propertyPath: taskDescription
+      value: CPU
+      objectReference: {fileID: 0}
     - target: {fileID: 8158630799906457356, guid: 57509b624eb760540b621f8ec7f2a71a, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -11090,6 +11111,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1498715669}
     m_Modifications:
+    - target: {fileID: 8158630799906457346, guid: 57509b624eb760540b621f8ec7f2a71a, type: 3}
+      propertyPath: _taskWindow
+      value: 
+      objectReference: {fileID: 1928489239}
+    - target: {fileID: 8158630799906457346, guid: 57509b624eb760540b621f8ec7f2a71a, type: 3}
+      propertyPath: taskDescription
+      value: Input
+      objectReference: {fileID: 0}
     - target: {fileID: 8158630799906457356, guid: 57509b624eb760540b621f8ec7f2a71a, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -11894,6 +11923,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 315736648}
     m_Modifications:
+    - target: {fileID: 8158630799906457346, guid: 57509b624eb760540b621f8ec7f2a71a, type: 3}
+      propertyPath: _taskWindow
+      value: 
+      objectReference: {fileID: 539895715}
+    - target: {fileID: 8158630799906457346, guid: 57509b624eb760540b621f8ec7f2a71a, type: 3}
+      propertyPath: taskDescription
+      value: Harddisk
+      objectReference: {fileID: 0}
     - target: {fileID: 8158630799906457356, guid: 57509b624eb760540b621f8ec7f2a71a, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -13210,6 +13247,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d4c6c5bdc1ccb143956d5d771e8dac2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1637519413 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4960278263431502881, guid: 7b3367b38ff1fa842ba59c11b6381e33, type: 3}
+  m_PrefabInstance: {fileID: 1759553206}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &1640459237 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1862755348100003706, guid: a05c81196923e5b48b39d3269be4359e, type: 3}
@@ -15972,6 +16014,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1845385421}
   m_CullTransparentMesh: 1
+--- !u!1 &1848157876 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8858599348570322384, guid: 1cc37020651082e4b8be86052f9b9324, type: 3}
+  m_PrefabInstance: {fileID: 909366605}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1856969187
 GameObject:
   m_ObjectHideFlags: 0
@@ -17223,6 +17270,11 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!1 &1928489239 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3781685614594635402, guid: 1fefe3521707a974ab568f743e627697, type: 3}
+  m_PrefabInstance: {fileID: 227403973}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1932366284
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17631,7 +17683,7 @@ MonoBehaviour:
   - {fileID: 681509614}
   TaskDescriptionPrefab: {fileID: 6812636554030913394, guid: ccbd13fe9c054f24a9f0f89280710174, type: 3}
   TaskListContainer: {fileID: 1361212738}
-  TaskCount: 3
+  TaskCount: 5
 --- !u!4 &1967572977 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4619780925482230014, guid: 44128a48cb986eb46bf7ca1547a4508f, type: 3}
@@ -19194,6 +19246,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84ca7e638554c0647ab7227b04c690c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  thisInteractible: {fileID: 0}
 --- !u!1 &2764814988476101321
 GameObject:
   m_ObjectHideFlags: 0
@@ -21084,6 +21137,10 @@ PrefabInstance:
       propertyPath: _taskWindow
       value: 
       objectReference: {fileID: 1969781313}
+    - target: {fileID: 8158630799906457346, guid: 57509b624eb760540b621f8ec7f2a71a, type: 3}
+      propertyPath: taskDescription
+      value: Graphic
+      objectReference: {fileID: 0}
     - target: {fileID: 8158630799906457356, guid: 57509b624eb760540b621f8ec7f2a71a, type: 3}
       propertyPath: m_RootOrder
       value: 0

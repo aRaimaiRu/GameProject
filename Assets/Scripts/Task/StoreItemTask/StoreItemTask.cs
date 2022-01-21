@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StoreItemTask : MonoBehaviour
+public class StoreItemTask : Task
 {
 
     private List<StoreSlot> _storeslot;
@@ -19,7 +19,7 @@ public class StoreItemTask : MonoBehaviour
         }
         else
         {
-            this.gameObject.SetActive(false);
+            base.OnComplete();
         }
     }
 

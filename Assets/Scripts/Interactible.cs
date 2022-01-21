@@ -6,9 +6,14 @@ public class Interactible : MonoBehaviour
 {
     [SerializeField] private GameObject _taskWindow;
     public string taskDescription;
-
     public void Use(bool isActive)
     {
         _taskWindow.SetActive(isActive);
+        if (_taskWindow.GetComponent<Task>())
+        {
+            _taskWindow.GetComponent<Task>().thisInteractible = this;
+        }
+
     }
+
 }
