@@ -28,14 +28,15 @@ public class TaskManager : MonoBehaviourPun
         for (int i = 0; i < AllTaskInteraction.Count; i++) { AllTaskInd.Add(i); }
         for (int i = 0; i < TaskCount; i++)
         {
-            int _randomInd = Random.Range(0, AllTaskInteraction.Count);
-            AllTaskInteraction[_randomInd].gameObject.SetActive(true);
+            int _randomInd = Random.Range(0, AllTaskInd.Count);
+            Interactible PickedInteractible = AllTaskInteraction[AllTaskInd[_randomInd]];
+            PickedInteractible.gameObject.SetActive(true);
             GameObject newTaskDescription = Instantiate(TaskDescriptionPrefab, TaskListContainer.transform);
 
-            newTaskDescription.GetComponentInChildren<Text>().text = AllTaskInteraction[_randomInd].taskDescription;
+            newTaskDescription.GetComponentInChildren<Text>().text = PickedInteractible.taskDescription;
             newTaskDescription.SetActive(true);
 
-            CurrentTask.Add(AllTaskInteraction[_randomInd]);
+            CurrentTask.Add(PickedInteractible);
             AllTaskInd.Remove(_randomInd);
         }
 
