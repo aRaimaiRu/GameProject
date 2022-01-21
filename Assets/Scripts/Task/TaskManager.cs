@@ -10,13 +10,13 @@ using UnityEngine.UI;
 public class TaskManager : MonoBehaviourPun
 {
     [SerializeField] private List<Interactible> AllTaskInteraction;
-    private List<Interactible> CurrentTask;
-    [SerializeField] private Text TaskDescriptionPrefab;
+    private List<Interactible> CurrentTask = new List<Interactible>();
+    [SerializeField] private GameObject TaskDescriptionPrefab;
     [SerializeField] private GameObject TaskListContainer;
-    private List<int> AllTaskInd;
+    private List<int> AllTaskInd = new List<int>();
     private int currentProgress;
     public int TaskCount = 5;
-    private void Awake()
+    private void Start()
     {
         DisableAlltask();
         RandomTask();
@@ -30,8 +30,10 @@ public class TaskManager : MonoBehaviourPun
         {
             int _randomInd = Random.Range(0, AllTaskInteraction.Count);
             AllTaskInteraction[_randomInd].gameObject.SetActive(true);
-            Text newTaskDescription = Instantiate(TaskDescriptionPrefab, TaskListContainer.transform);
-            newTaskDescription.text = AllTaskInteraction[_randomInd].taskDescription;
+            GameObject newTaskDescription = Instantiate(TaskDescriptionPrefab, TaskListContainer.transform);
+
+            newTaskDescription.GetComponentInChildren<Text>().text = AllTaskInteraction[_randomInd].taskDescription;
+            newTaskDescription.SetActive(true);
 
             CurrentTask.Add(AllTaskInteraction[_randomInd]);
             AllTaskInd.Remove(_randomInd);
