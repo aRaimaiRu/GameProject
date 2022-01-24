@@ -347,6 +347,11 @@ public class VotingManager : MonoBehaviourPun
         playerlistobj.ToggleButton(false);
 
     }
+    public bool CheckIfPlayerIsImpostor(int _targetActorNumber)
+    {
+        List<Playerinfo> allplayerinfo = new List<Playerinfo>(FindObjectsOfType<Playerinfo>());
+        return MasterClient.VirusRoleList.Contains(allplayerinfo.Find(x => x.ActorNumber == _targetActorNumber).GetComponent<Role>().role);
+    }
 
 
 

@@ -17,28 +17,31 @@ public class MasterClient : MonoBehaviourPun
         Spyware,
         Imposter
     }
-    private List<Role> VirusRoleList = new List<Role>() {
+    public static List<Role> VirusRoleList = new List<Role>() {
         Role.Worm,
         Role.Spyware
         };
-    private List<Role> AntiVirusRoleList = new List<Role>() { Role.Scanner, Role.Deleter };
+    public static List<Role> AntiVirusRoleList = new List<Role>() { Role.Scanner, Role.Deleter };
     private GameObject[] players;
     private int _impostorCount;
     private int _antiVirusCount;
     public int ImpostorCount
     {
         get { return _impostorCount; }
+        set { _impostorCount = value; }
     }
     public int AntiVirusCount
     {
         get { return _antiVirusCount; }
+        set { _antiVirusCount = value; }
     }
     // we want more control that who is Initialize so use custom Initialize instead Awake
     public void Initialize()
     {
         PhotonNetwork.CurrentRoom.IsOpen = false;
         PhotonNetwork.CurrentRoom.IsVisible = false;
-        _impostorCount = players.Length < 3 ? 1 : (int)PhotonNetwork.CurrentRoom.CustomProperties["VirusNumber"];
+        Debug.Log("Current player Count =" + PhotonNetwork.CurrentRoom.PlayerCount);
+        _impostorCount = PhotonNetwork.CurrentRoom.PlayerCount < 3 ? 1 : (int)PhotonNetwork.CurrentRoom.CustomProperties["VirusNumber"];
         _antiVirusCount = PhotonNetwork.CurrentRoom.PlayerCount - _impostorCount;
         StartCoroutine(PickImpostor());
 

@@ -1,14 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using Photon.Pun;
+using Photon.Realtime;
 using UnityEngine;
 using UnityEngine.UI;
 // at start of the game assign Task to The Player 
 // Sync Task progression On Network
 // Show personal task list
 // Update Task list and task progression when task complete
-public class TaskManager : MonoBehaviourPun
+public class TaskManager : MonoBehaviourPunCallbacks
 {
+    [SerializeField] private MasterClient _masterClient;
     [SerializeField] private List<Interactible> AllTaskInteraction;
     private Dictionary<Interactible, GameObject> testCurrentTaskList = new Dictionary<Interactible, GameObject>();
     [SerializeField] private GameObject TaskDescriptionPrefab;
@@ -17,7 +19,12 @@ public class TaskManager : MonoBehaviourPun
     private List<int> AllCurrentTaskInd = new List<int>();
     private int currentProgress;
     public int TaskCount = 5;
+    private int AllTaskCount = 0;
+    private int AntiVirusLeftRoomCount;
     public static TaskManager Instance;
+
+
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -30,8 +37,15 @@ public class TaskManager : MonoBehaviourPun
         // Debug.Log("all number =" + PhotonNetwork.CurrentRoom.PlayerCount);
 
         DisableAlltask();
-        RandomTask();
-        popluateTaskUI();
+        List<Playerinfo> allplayerinfo = new List<Playerinfo>(FindObjectsOfType<Playerinfo>());
+        if (!VotingManager.Instance.CheckIfPlayerIsImpostor(PhotonNetwork.LocalPlayer.ActorNumber))
+        {
+            RandomTask();
+            popluateTaskUI();
+        }
+        CountTask();
+
+
     }
 
     private void RandomTask()
@@ -81,5 +95,24 @@ public class TaskManager : MonoBehaviourPun
         Destroy(testCurrentTaskList[_interactible].gameObject);
         testCurrentTaskList.Remove(_interactible);
     }
+
+    private void CountTask()
+    {
+
+        AllTaskCount = (_masterClient.AntiVirusCount - AntiVirusLeftRoomCount) * TaskCount;
+        Debug.Log("AllTaskCount =" + AllTaskCount);
+    }
+    public override void OnPlayerLeftRoom(Player newPlayer)
+    {
+        // check if player that left is impostor?
+        if (VotingManager.Instance.CheckIfPlayerIsImpostor(PhotonNetwork.LocalPlayer.ActorNumber))
+        {
+            AntiVirusLeftRoomCount++;
+            CountTask();
+        }
+    }
+
+
+
 
 }
