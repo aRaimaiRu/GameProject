@@ -18,16 +18,28 @@ public class MasterClient : MonoBehaviourPun
         Imposter
     }
     private List<Role> VirusRoleList = new List<Role>() {
-        Role.Worm, 
-        // Role.Spyware 
+        Role.Worm,
+        Role.Spyware
         };
     private List<Role> AntiVirusRoleList = new List<Role>() { Role.Scanner, Role.Deleter };
     private GameObject[] players;
+    private int _impostorCount;
+    private int _antiVirusCount;
+    public int ImpostorCount
+    {
+        get { return _impostorCount; }
+    }
+    public int AntiVirusCount
+    {
+        get { return _antiVirusCount; }
+    }
     // we want more control that who is Initialize so use custom Initialize instead Awake
     public void Initialize()
     {
         PhotonNetwork.CurrentRoom.IsOpen = false;
         PhotonNetwork.CurrentRoom.IsVisible = false;
+        _impostorCount = players.Length < 3 ? 1 : (int)PhotonNetwork.CurrentRoom.CustomProperties["VirusNumber"];
+        _antiVirusCount = PhotonNetwork.CurrentRoom.PlayerCount - _impostorCount;
         StartCoroutine(PickImpostor());
 
     }
@@ -37,8 +49,7 @@ public class MasterClient : MonoBehaviourPun
 
         List<int> playerIndex = new List<int>();
         int tries = 0;
-        int impostorNumber = 0;
-        int impostorNumberFinal = 0;
+        int impostorNumber = _impostorCount;
         // Get all the playerss in the game
         do
         {
@@ -48,9 +59,7 @@ public class MasterClient : MonoBehaviourPun
         } while (players.Length < PhotonNetwork.CurrentRoom.PlayerCount);
         // init player index list
         for (int i = 0; i < players.Length; i++) { playerIndex.Add(i); }
-        // decide imposter number
-        impostorNumber = players.Length < 5 ? 1 : 2;
-        impostorNumberFinal = impostorNumber;
+
         // Assign the imposter
         while (impostorNumber > 0)
         {
@@ -80,7 +89,7 @@ public class MasterClient : MonoBehaviourPun
         }
 
 
-        // photonView.RPC("ImpostorPicked", RpcTarget.All, impostorNumberFinal);
+        // photonView.RPC("ImpostorPicked", RpcTarget.All, ImpostorCount);
 
     }
     [PunRPC]

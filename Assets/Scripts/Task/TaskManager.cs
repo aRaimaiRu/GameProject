@@ -26,6 +26,9 @@ public class TaskManager : MonoBehaviourPun
     }
     private void Start()
     {
+        // Debug.Log("Virus number =" + (int)PhotonNetwork.CurrentRoom.CustomProperties["VirusNumber"]);
+        // Debug.Log("all number =" + PhotonNetwork.CurrentRoom.PlayerCount);
+
         DisableAlltask();
         RandomTask();
         popluateTaskUI();
