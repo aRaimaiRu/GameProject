@@ -90,8 +90,8 @@ public class MasterClient : MonoBehaviourPun
             pv.RPC("SetRole", RpcTarget.All, Role.Process);
 
         }
-
-
+        yield return new WaitForSeconds(0.1f);
+        photonView.RPC("InitializeTask", RpcTarget.All);
         // photonView.RPC("ImpostorPicked", RpcTarget.All, ImpostorCount);
 
     }
@@ -108,6 +108,12 @@ public class MasterClient : MonoBehaviourPun
         yield return new WaitForSeconds(1);
         _impostorWindow.gameObject.SetActive(false);
 
+    }
+
+    [PunRPC]
+    public void InitializeTask()
+    {
+        TaskManager.Instance.Initialize();
     }
 
 

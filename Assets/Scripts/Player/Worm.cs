@@ -26,7 +26,7 @@ public class Worm : Impostor
     public override void Start()
     {
         base.Start();
-        base._role = MasterClient.Role.Spyware;
+        base._role = MasterClient.Role.Worm;
         if (!photonView.IsMine) { return; }
         VotingManager.Instance.LocalPlayer = this;
 

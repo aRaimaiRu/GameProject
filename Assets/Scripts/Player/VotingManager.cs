@@ -350,6 +350,7 @@ public class VotingManager : MonoBehaviourPun
     public bool CheckIfPlayerIsImpostor(int _targetActorNumber)
     {
         List<Playerinfo> allplayerinfo = new List<Playerinfo>(FindObjectsOfType<Playerinfo>());
+        Debug.Log("This player role = " + allplayerinfo.Find(x => x.ActorNumber == _targetActorNumber).GetComponent<Role>().role);
         return MasterClient.VirusRoleList.Contains(allplayerinfo.Find(x => x.ActorNumber == _targetActorNumber).GetComponent<Role>().role);
     }
 
