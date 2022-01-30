@@ -14,6 +14,7 @@ public class Impostor : Role
 
     public virtual void Start()
     {
+        base.Start();
         Debug.Log("Impostor start");
         if (photonView.IsMine)
         {

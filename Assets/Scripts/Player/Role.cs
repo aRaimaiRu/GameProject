@@ -23,6 +23,7 @@ public class Role : MonoBehaviourPun
         if (!photonView.IsMine) { return; }
 
         VotingManager.Instance.LocalPlayer = this;
+        GameObject.FindObjectOfType<TaskManager>().Initialize();
     }
     public virtual void MeetingAction(int targeActorNumber)
     {
@@ -36,6 +37,7 @@ public class Role : MonoBehaviourPun
     {
 
     }
+
 
 
 }

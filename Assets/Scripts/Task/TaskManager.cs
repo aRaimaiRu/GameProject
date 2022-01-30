@@ -14,6 +14,7 @@ using UnityEngine.UI;
 //  second if player leave is create Task -= 1
 public class TaskManager : MonoBehaviourPunCallbacks
 {
+    [SerializeField] private Slider _slider;
     [SerializeField] private MasterClient _masterClient;
     [SerializeField] private List<Interactible> AllTaskInteraction;
     private Dictionary<Interactible, GameObject> testCurrentTaskList = new Dictionary<Interactible, GameObject>();
@@ -27,6 +28,11 @@ public class TaskManager : MonoBehaviourPunCallbacks
     public static TaskManager Instance;
     private Dictionary<int, int> ActorNumberAndTaskCount = new Dictionary<int, int>();
     private string CustomPropKey = "ActorNumberTaskKey";
+    private int globalAllTaskCount;
+    private int _impostorCount;
+    private int _antiVirusCount;
+
+
 
 
 
@@ -38,9 +44,16 @@ public class TaskManager : MonoBehaviourPunCallbacks
     }
     public void Initialize()
     {
+        StartCoroutine(DelayInitialize());
+
+    }
+    IEnumerator DelayInitialize()
+    {
+        yield return new WaitForSeconds(0.2f);
         // Debug.Log("Virus number =" + (int)PhotonNetwork.CurrentRoom.CustomProperties["VirusNumber"]);
         // Debug.Log("all number =" + PhotonNetwork.CurrentRoom.PlayerCount);
-
+        _impostorCount = PhotonNetwork.CurrentRoom.PlayerCount < 3 ? 1 : (int)PhotonNetwork.CurrentRoom.CustomProperties["VirusNumber"];
+        _antiVirusCount = PhotonNetwork.CurrentRoom.PlayerCount - _impostorCount;
         DisableAlltask();
         List<Playerinfo> allplayerinfo = new List<Playerinfo>(FindObjectsOfType<Playerinfo>());
         if (!VotingManager.Instance.CheckIfPlayerIsImpostor(PhotonNetwork.LocalPlayer.ActorNumber))
@@ -48,9 +61,11 @@ public class TaskManager : MonoBehaviourPunCallbacks
             Debug.Log("This player Not Impostor");
             RandomTask();
             popluateTaskUI();
-        }
-        CountTask();
 
+        }
+        Debug.Log("Delay init task TaskCount =" + TaskCount + " antivirus count =" + _antiVirusCount + " antivirus Count = " + _antiVirusCount);
+        globalAllTaskCount = TaskCount * (_antiVirusCount);
+        CountTask();
     }
 
     private void RandomTask()
@@ -102,6 +117,8 @@ public class TaskManager : MonoBehaviourPunCallbacks
         _interactible.gameObject.SetActive(false);
         Destroy(testCurrentTaskList[_interactible].gameObject);
         testCurrentTaskList.Remove(_interactible);
+        Debug.Log("test Current Task list count = " + testCurrentTaskList.Count + "  " + PhotonNetwork.LocalPlayer.ActorNumber);
+
         photonView.RPC("SetActorNumberAndTaskCount", RpcTarget.All, PhotonNetwork.LocalPlayer.ActorNumber, testCurrentTaskList.Count);
     }
 
@@ -115,6 +132,7 @@ public class TaskManager : MonoBehaviourPunCallbacks
         // AllTaskCount = (_masterClient.AntiVirusCount - AntiVirusLeftRoomCount) * TaskCount;
         AllTaskCount = buffer;
         Debug.Log("AllTaskCount =" + AllTaskCount);
+        CountProgress();
     }
     public override void OnPlayerLeftRoom(Player newPlayer)
     {
@@ -140,16 +158,21 @@ public class TaskManager : MonoBehaviourPunCallbacks
     [PunRPC]
     public void SetActorNumberAndTaskCount(int _actorNumber, int _Count)
     {
-        ActorNumberAndTaskCount[_actorNumber] = _Count;
         Debug.Log("isPlayer = Impostor ?" + VotingManager.Instance.CheckIfPlayerIsImpostor(PhotonNetwork.LocalPlayer.ActorNumber));
+
+        ActorNumberAndTaskCount[_actorNumber] = _Count;
         CountTask();
     }
 
 
-    // [PunRPC]
-    // public void InitiateTaskRPC(int actorNumber,)
-    // {
-    // }
+    public void CountProgress()
+    {
+
+        Debug.Log("Count progress = " + globalAllTaskCount + " " + AllTaskCount);
+        _slider.maxValue = globalAllTaskCount;
+        _slider.minValue = 0;
+        _slider.value = globalAllTaskCount - AllTaskCount;
+    }
 
 
 
