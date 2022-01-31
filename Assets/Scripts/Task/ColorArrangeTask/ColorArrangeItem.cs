@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Image))]
-public class ColorArrangeItem : MonoBehaviour, IDragHandler, IBeginDragHandler, IPointerDownHandler, IEndDragHandler, IDropHandler
+public class ColorArrangeItem : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler, IDropHandler
 {
     [SerializeField] private Canvas _canvas;
     [SerializeField] private CanvasGroup _canvasGroup;
@@ -29,10 +29,7 @@ public class ColorArrangeItem : MonoBehaviour, IDragHandler, IBeginDragHandler, 
         rectTransform.anchoredPosition += eventData.delta / _canvas.scaleFactor;
     }
 
-    public void OnPointerDown(PointerEventData eventData)
-    {
-        throw new System.NotImplementedException();
-    }
+
 
     public void OnBeginDrag(PointerEventData eventData)
     {

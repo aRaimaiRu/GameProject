@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-public class StoreItem : MonoBehaviour, IDragHandler, IBeginDragHandler, IPointerDownHandler, IEndDragHandler
+public class StoreItem : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
 {
     [SerializeField] private Canvas _canvas;
     [SerializeField] private CanvasGroup _canvasGroup;
@@ -26,10 +26,7 @@ public class StoreItem : MonoBehaviour, IDragHandler, IBeginDragHandler, IPointe
         rectTransform.anchoredPosition += eventData.delta / _canvas.scaleFactor;
     }
 
-    public void OnPointerDown(PointerEventData eventData)
-    {
-        throw new System.NotImplementedException();
-    }
+
 
     public void OnBeginDrag(PointerEventData eventData)
     {
