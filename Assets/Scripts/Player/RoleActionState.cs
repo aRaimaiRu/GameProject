@@ -1,6 +1,6 @@
 public partial class Spyware
 {
-    public enum RoleActionState
+    new public enum RoleActionState
     {
         Voting,
         ChoosePlayer,

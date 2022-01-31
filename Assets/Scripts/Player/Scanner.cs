@@ -10,8 +10,9 @@ using UnityEngine.UI;
 public class Scanner : Role
 {
 
-    private void Start()
+    public override void Start()
     {
+        base.Start();
         base.hasGamePlayAction = false;
         base.hasMeetingAction = true;
     }

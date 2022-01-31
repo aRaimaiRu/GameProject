@@ -10,8 +10,9 @@ using UnityEngine.UI;
 public class Deleter : Role
 {
 
-    private void Start()
+    public override void Start()
     {
+        base.Start();
         base.hasGamePlayAction = true;
         base.hasMeetingAction = false;
     }

@@ -8,7 +8,7 @@ public class Worm : Impostor
 {
     private Sprite MeetingActionBtnSprite;
 
-    public enum RoleActionState
+    new public enum RoleActionState
     {
         Voting,
         ChoosePlayer,

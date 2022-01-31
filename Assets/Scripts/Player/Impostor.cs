@@ -12,7 +12,7 @@ public class Impostor : Role
     [SerializeField] private float _range = 10.0f;
     private Killable _target;
 
-    public virtual void Start()
+    public override void Start()
     {
         base.Start();
         Debug.Log("Impostor start");
