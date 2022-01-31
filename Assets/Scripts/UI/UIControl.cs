@@ -24,6 +24,7 @@ public class UIControl : MonoBehaviour
     public GameObject WormIntro;
     public GameObject SpywareIntro;
     public GameObject MeetingSkillBtn;
+    public GameObject SabotageBtn;
 
     private void Awake()
     {
@@ -34,6 +35,7 @@ public class UIControl : MonoBehaviour
         // if (CurrentPlayer != null)
         // {
         _killBtn.gameObject.SetActive(IsImpostor);
+        SabotageBtn.gameObject.SetActive(IsImpostor);
         // }
         _killBtn.interactable = HasTarget;
         _useBtn.interactable = HasInteractible;

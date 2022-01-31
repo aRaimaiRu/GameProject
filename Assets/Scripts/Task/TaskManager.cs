@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Photon.Pun;
@@ -31,6 +32,19 @@ public class TaskManager : MonoBehaviourPunCallbacks
     private int globalAllTaskCount;
     private int _impostorCount;
     private int _antiVirusCount;
+    #region SabotageProperties
+    public event Action<int> onDoorSabotage;
+    public GameObject SabotageMenu;
+    public void onDoorSabotageTrigger(int id)
+    {
+        if (onDoorSabotage != null)
+        {
+            CloseSabotageMenu();
+            onDoorSabotage(id);
+        }
+    }
+
+    #endregion
 
 
 
@@ -75,7 +89,7 @@ public class TaskManager : MonoBehaviourPunCallbacks
         for (int i = 0; i < AllTaskInteraction.Count; i++) { AllTaskInd.Add(i); }
         for (int i = 0; i < TaskCount; i++)
         {
-            int _randomInd = Random.Range(0, AllTaskInd.Count);
+            int _randomInd = UnityEngine.Random.Range(0, AllTaskInd.Count);
             AllCurrentTaskInd.Add(AllTaskInd[_randomInd]);
             AllTaskInd.Remove(AllTaskInd[_randomInd]);
 
@@ -173,6 +187,18 @@ public class TaskManager : MonoBehaviourPunCallbacks
         _slider.minValue = 0;
         _slider.value = globalAllTaskCount - AllTaskCount;
     }
+
+    #region Sabotage
+    public void OpenSabotageMenu()
+    {
+        SabotageMenu.SetActive(true);
+    }
+    public void CloseSabotageMenu()
+    {
+        SabotageMenu.SetActive(false);
+    }
+
+    #endregion
 
 
 

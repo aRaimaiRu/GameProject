@@ -53,6 +53,10 @@ public class VotingManager : MonoBehaviourPun
         {MasterClient.Role.Worm,"Worm"},
         {MasterClient.Role.Spyware,"Spyware"}
     };
+    public static List<MasterClient.Role> VirusRoleList = new List<MasterClient.Role>() {
+        MasterClient.Role.Worm,
+        MasterClient.Role.Spyware
+        };
     public List<Button> RoleBtnGroup;
     public UnityEvent onChooseRole;
     public UnityEvent onEndVote;
@@ -351,7 +355,8 @@ public class VotingManager : MonoBehaviourPun
     {
         List<Playerinfo> allplayerinfo = new List<Playerinfo>(FindObjectsOfType<Playerinfo>());
         Debug.Log("This player role = " + allplayerinfo.Find(x => x.ActorNumber == _targetActorNumber).GetComponent<Role>().role);
-        return MasterClient.VirusRoleList.Contains(allplayerinfo.Find(x => x.ActorNumber == _targetActorNumber).GetComponent<Role>().role);
+
+        return VirusRoleList.Contains(allplayerinfo.Find(x => x.ActorNumber == _targetActorNumber).GetComponent<Role>().role);
     }
 
 
