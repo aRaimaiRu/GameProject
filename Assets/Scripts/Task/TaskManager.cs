@@ -32,7 +32,12 @@ public class TaskManager : MonoBehaviourPunCallbacks
     private int globalAllTaskCount;
     private int _impostorCount;
     private int _antiVirusCount;
+
     #region SabotageProperties
+
+    public event Action onLightSabotage;
+
+
     public event Action<int> onDoorSabotage;
     public GameObject SabotageMenu;
     public void onDoorSabotageTrigger(int id)
@@ -43,6 +48,16 @@ public class TaskManager : MonoBehaviourPunCallbacks
             onDoorSabotage(id);
         }
     }
+    public void onLightSabotageTrigger()
+    {
+        if (onLightSabotage != null)
+        {
+            CloseSabotageMenu();
+            onLightSabotage();
+        }
+    }
+
+
 
     #endregion
 
