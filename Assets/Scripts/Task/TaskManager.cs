@@ -25,13 +25,16 @@ public class TaskManager : MonoBehaviourPunCallbacks
     private List<int> AllCurrentTaskInd = new List<int>();
     private int currentProgress;
     public int TaskCount = 5;
-    private int AllTaskCount = 0;
+    private int AllTaskCount = 5;
     public static TaskManager Instance;
     private Dictionary<int, int> ActorNumberAndTaskCount = new Dictionary<int, int>();
     private string CustomPropKey = "ActorNumberTaskKey";
     private int globalAllTaskCount;
     private int _impostorCount;
     private int _antiVirusCount;
+    public event Action onAntiVirusWin;
+    public event Action onVirusWin;
+
 
     #region SabotageProperties
 
@@ -94,7 +97,7 @@ public class TaskManager : MonoBehaviourPunCallbacks
         }
         Debug.Log("Delay init task TaskCount =" + TaskCount + " antivirus count =" + _antiVirusCount + " antivirus Count = " + _antiVirusCount);
         globalAllTaskCount = TaskCount * (_antiVirusCount);
-        CountTask();
+        // CountTask();
     }
 
     private void RandomTask()
@@ -162,6 +165,8 @@ public class TaskManager : MonoBehaviourPunCallbacks
         AllTaskCount = buffer;
         Debug.Log("AllTaskCount =" + AllTaskCount);
         CountProgress();
+        CheckEndByTask();
+
     }
     public override void OnPlayerLeftRoom(Player newPlayer)
     {
@@ -195,6 +200,7 @@ public class TaskManager : MonoBehaviourPunCallbacks
         _slider.maxValue = globalAllTaskCount;
         _slider.minValue = 0;
         _slider.value = globalAllTaskCount - AllTaskCount;
+
     }
 
     #region Sabotage
@@ -212,21 +218,49 @@ public class TaskManager : MonoBehaviourPunCallbacks
     #region CheckEndGame
     public void CheckEndByTask()
     {
+        if (!PhotonNetwork.LocalPlayer.IsMasterClient) return;
+        Debug.Log("CheckEndByTask all Task Count" + AllTaskCount);
         if (AllTaskCount == 0)
         {
             AnitiVirusWin();
         }
     }
-
+    // Show Victory to AnitiVirus
+    // Show Defeat to Virus
+    // press to Back to lobby
     public void AnitiVirusWin()
     {
-        Debug.Log("AntiVirus Win");
+        Debug.Log("all Task Count" + AllTaskCount);
+        photonView.RPC("AnitiVirusWinRPC", RpcTarget.All);
     }
     public void VirusWin()
     {
-        Debug.Log("VirusWin Win");
+        Debug.Log("Virus Win all Task Count" + AllTaskCount);
+        photonView.RPC("VirusWinRPC", RpcTarget.All);
+
+
+    }
+    [PunRPC]
+    public void AnitiVirusWinRPC()
+    {
+
+        onAntiVirusWin();
+
+    }
+    [PunRPC]
+    public void VirusWinRPC()
+    {
+
+        onVirusWin();
+
+    }
+
+    public void BackToLobby()
+    {
+        PhotonNetwork.LoadLevel("Lobby1");
     }
     #endregion
+
 
 
 }

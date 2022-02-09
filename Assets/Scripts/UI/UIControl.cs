@@ -25,10 +25,20 @@ public class UIControl : MonoBehaviour
     public GameObject SpywareIntro;
     public GameObject MeetingSkillBtn;
     public GameObject SabotageBtn;
+    [SerializeField] GameObject WinScreen;
+    [SerializeField] GameObject LoseScreen;
+
+
 
     private void Awake()
     {
         Instance = this;
+    }
+    private void Start()
+    {
+        TaskManager.Instance.onAntiVirusWin += AnitiVirusWin;
+        TaskManager.Instance.onVirusWin += VirusWin;
+
     }
     private void Update()
     {
@@ -68,6 +78,36 @@ public class UIControl : MonoBehaviour
         window.SetActive(false);
     }
 
+    private void AnitiVirusWin()
+    {
+        if (IsImpostor)
+        {
+            ShowLoseScreeen();
+        }
+        else
+        {
+            ShowWinScreen();
+        }
+    }
+    private void VirusWin()
+    {
+        if (IsImpostor)
+        {
+            ShowWinScreen();
+        }
+        else
+        {
+            ShowLoseScreeen();
+        }
+    }
+    private void ShowWinScreen()
+    {
+        WinScreen.SetActive(true);
+    }
+    private void ShowLoseScreeen()
+    {
+        LoseScreen.SetActive(true);
+    }
 
 
 

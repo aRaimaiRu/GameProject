@@ -53,6 +53,10 @@ public class Door : MonoBehaviourPun
     }
     private void OnDestroy()
     {
-        TaskManager.Instance.onDoorSabotage -= ReceiveDoorSabotage;
+        if (TaskManager.Instance != null)
+        {
+            TaskManager.Instance.onDoorSabotage -= ReceiveDoorSabotage;
+        }
+
     }
 }
