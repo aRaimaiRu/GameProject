@@ -358,6 +358,25 @@ public class VotingManager : MonoBehaviourPun
 
         return VirusRoleList.Contains(allplayerinfo.Find(x => x.ActorNumber == _targetActorNumber).GetComponent<Role>().role);
     }
+    public void CheckEndByVote()
+    {
+        // Check if AnitiVirus Win
+        List<Role> AntiVirusRole = new List<Role>(FindObjectsOfType<Role>());
+        int CurrentAntiVirusCount = AntiVirusRole.FindAll(x => VirusRoleList.Contains(x.role)).Count;
+        int CurrentVirusCount = AntiVirusRole.FindAll(x => VirusRoleList.Contains(x.role)).Count;
+        if (CurrentAntiVirusCount <= CurrentVirusCount)
+        {
+            // Virus win
+            TaskManager.Instance.VirusWin();
+
+        }
+        else if (CurrentVirusCount <= 0)
+        {
+            // Anitivirus Win
+            TaskManager.Instance.AnitiVirusWin();
+        }
+
+    }
 
 
 

@@ -165,13 +165,7 @@ public class TaskManager : MonoBehaviourPunCallbacks
     }
     public override void OnPlayerLeftRoom(Player newPlayer)
     {
-        // check if player that left is impostor?
-        // if (VotingManager.Instance.CheckIfPlayerIsImpostor(PhotonNetwork.LocalPlayer.ActorNumber))
-        // {
-        // AntiVirusLeftRoomCount++;
         SetActorNumberAndTaskCount(newPlayer.ActorNumber, 0);
-
-        // }
     }
     public override void OnPlayerPropertiesUpdate(Player targetPlayer, ExitGames.Client.Photon.Hashtable changedProps)
     {
@@ -215,7 +209,24 @@ public class TaskManager : MonoBehaviourPunCallbacks
 
     #endregion
 
+    #region CheckEndGame
+    public void CheckEndByTask()
+    {
+        if (AllTaskCount == 0)
+        {
+            AnitiVirusWin();
+        }
+    }
 
+    public void AnitiVirusWin()
+    {
+        Debug.Log("AntiVirus Win");
+    }
+    public void VirusWin()
+    {
+        Debug.Log("VirusWin Win");
+    }
+    #endregion
 
 
 }
