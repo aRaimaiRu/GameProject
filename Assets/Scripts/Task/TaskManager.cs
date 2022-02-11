@@ -16,14 +16,12 @@ using UnityEngine.UI;
 public class TaskManager : MonoBehaviourPunCallbacks
 {
     [SerializeField] private Slider _slider;
-    [SerializeField] private MasterClient _masterClient;
     [SerializeField] private List<Interactible> AllTaskInteraction;
     private Dictionary<Interactible, GameObject> testCurrentTaskList = new Dictionary<Interactible, GameObject>();
     [SerializeField] private GameObject TaskDescriptionPrefab;
     [SerializeField] private GameObject TaskListContainer;
     private List<int> AllTaskInd = new List<int>();
     private List<int> AllCurrentTaskInd = new List<int>();
-    private int currentProgress;
     public int TaskCount = 5;
     private int AllTaskCount = 5;
     public static TaskManager Instance;

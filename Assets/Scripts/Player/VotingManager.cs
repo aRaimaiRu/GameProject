@@ -23,24 +23,15 @@ public class VotingManager : MonoBehaviourPunCallbacks
     private List<int> _playerThatHaveBeenKickedOutList = new List<int>();
     [SerializeField] private GameObject _kickPlayerWindow;
 
-    [SerializeField] private GameObject _kickedPlayerWindow;
     [SerializeField] private Text _kickPlayerText;
     [SerializeField] private Network _network;
     [SerializeField] public GameObject ChooseRoleWindow;
     [SerializeField] public GameObject ChooseRoleContainer;
 
     [SerializeField] private GameObject RoleBtn;
-    public enum playerAction
-    {
-        Vote,
-        ChooseRole,
-        Action
-    }
-    public playerAction CurrentAction = playerAction.Vote;
-    public int currentTarget;
+
     public Role LocalPlayer;
     public RoleListClass.RoleList CurrentChooseRole;
-    public List<Button> RoleBtnGroup;
     public UnityEvent onChooseRole;
     public UnityEvent onEndVote;
     private List<Role> AllRoleList;
@@ -211,9 +202,6 @@ public class VotingManager : MonoBehaviourPunCallbacks
         {
             // spawn ghost in network.cs
             _network.DestroyPlayer();
-            // _kickedPlayerWindow.SetActive(true);
-            // yield return new WaitForSeconds(2.5f);
-            // _kickedPlayerWindow.SetActive(false);
         }
         onEndVote.Invoke();
 

@@ -9,7 +9,6 @@ using Util;
 public class Network : MonoBehaviourPunCallbacks
 {
     public MasterClient masterClient;
-    public Text StatusText;
     public CameraFollow PlayerCamera;
     public ChatWindowUI chatWindowUI;
     public UIControl uIControl;
