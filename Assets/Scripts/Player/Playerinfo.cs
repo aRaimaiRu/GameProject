@@ -4,7 +4,7 @@ using UnityEngine;
 using Photon.Pun;
 using UnityEngine.Experimental.Rendering.Universal;
 using UnityEngine.UI;
-
+using RoleList;
 public class Playerinfo : Photon.Pun.MonoBehaviourPun, IPunObservable
 {
     public int colorIndex;
@@ -71,7 +71,7 @@ public class Playerinfo : Photon.Pun.MonoBehaviourPun, IPunObservable
 
     }
     [PunRPC]
-    public void SetRole(MasterClient.Role _role)
+    public void SetRole(RoleListClass.RoleList _role)
     {
         if (this.gameObject.GetComponent<Role>() != null)
         {
@@ -79,26 +79,26 @@ public class Playerinfo : Photon.Pun.MonoBehaviourPun, IPunObservable
         }
         switch (_role)
         {
-            case MasterClient.Role.Spyware:
+            case RoleListClass.RoleList.Spyware:
                 this.gameObject.AddComponent<Spyware>();
                 break;
-            case MasterClient.Role.Worm:
+            case RoleListClass.RoleList.Worm:
                 this.gameObject.AddComponent<Worm>();
                 break;
-            case MasterClient.Role.Process:
+            case RoleListClass.RoleList.Process:
                 this.gameObject.AddComponent<Killable>();
                 this.gameObject.AddComponent<Role>();
                 break;
-            case MasterClient.Role.Deleter:
+            case RoleListClass.RoleList.Deleter:
                 this.gameObject.AddComponent<Killable>();
                 this.gameObject.AddComponent<Role>();
 
                 break;
-            case MasterClient.Role.Scanner:
+            case RoleListClass.RoleList.Scanner:
                 this.gameObject.AddComponent<Killable>();
                 this.gameObject.AddComponent<Role>();
                 break;
-            case MasterClient.Role.Imposter:
+            case RoleListClass.RoleList.Imposter:
                 this.gameObject.AddComponent<Impostor>();
                 break;
         }

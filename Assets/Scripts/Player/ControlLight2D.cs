@@ -36,6 +36,10 @@ public class ControlLight2D : MonoBehaviourPun
     }
     private void OnDestroy()
     {
-        TaskManager.Instance.onLightSabotage -= DecreaseLightRadius;
+        if (TaskManager.Instance != null)
+        {
+            TaskManager.Instance.onLightSabotage -= DecreaseLightRadius;
+        }
+
     }
 }

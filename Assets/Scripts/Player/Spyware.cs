@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Photon.Pun;
 using UnityEngine;
 using UnityEngine.UI;
-
+using RoleList;
 public partial class Spyware : Impostor
 {
     private Sprite MeetingActionBtnSprite;
@@ -16,7 +16,7 @@ public partial class Spyware : Impostor
     public override void Start()
     {
         base.Start();
-        base._role = MasterClient.Role.Spyware;
+        base._role = RoleListClass.RoleList.Spyware;
         base.hasMeetingAction = true;
         base.hasGamePlayAction = true;
         if (!photonView.IsMine) { return; }
@@ -66,7 +66,7 @@ public partial class Spyware : Impostor
         }
 
     }
-    public void SpywareMeetingExecute(MasterClient.Role _role)
+    public void SpywareMeetingExecute(RoleListClass.RoleList _role)
     {
         Debug.Log("role =" + _role + " Current target player =" + currentTargetActorNumber);
         if (_role == VotingManager.Instance.CheckRoleOfPlayer(currentTargetActorNumber))

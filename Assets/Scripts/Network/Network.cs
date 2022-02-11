@@ -84,6 +84,7 @@ public class Network : MonoBehaviourPunCallbacks
             PhotonNetwork.Destroy(_playerPhotonView);
 
         }
+
         VotingManager.Instance.CheckEndByVote();
     }
     [PunRPC]

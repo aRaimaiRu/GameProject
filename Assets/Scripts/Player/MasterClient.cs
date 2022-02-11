@@ -3,25 +3,12 @@ using System.Collections.Generic;
 using Photon.Pun;
 using UnityEngine;
 using UnityEngine.UI;
-
-public class MasterClient : MonoBehaviourPun
+using RoleList;
+public partial class MasterClient : MonoBehaviourPun
 {
     [SerializeField] private GameObject _impostorWindow;
     [SerializeField] private Text _impostorText;
-    public enum Role
-    {
-        Process,
-        Scanner,
-        Deleter,
-        Worm,
-        Spyware,
-        Imposter
-    }
-    public static List<Role> VirusRoleList = new List<Role>() {
-        Role.Worm,
-        Role.Spyware
-        };
-    public static List<Role> AntiVirusRoleList = new List<Role>() { Role.Scanner, Role.Deleter };
+    public List<RoleListClass.RoleList> VirusRoleList = new List<RoleListClass.RoleList>(RoleListClass.VirusRoleList);
     private GameObject[] players;
     private int _impostorCount;
     private int _antiVirusCount;
@@ -69,7 +56,7 @@ public class MasterClient : MonoBehaviourPun
             // pick index
             int pickedImpostorIndex = playerIndex[Random.Range(0, playerIndex.Count)];
             // pick
-            Role pickedRole = VirusRoleList[Random.Range(0, VirusRoleList.Count)];
+            RoleListClass.RoleList pickedRole = VirusRoleList[Random.Range(0, VirusRoleList.Count)];
 
             // set impostor
             PhotonView pv = players[pickedImpostorIndex].GetComponent<PhotonView>();
@@ -87,7 +74,7 @@ public class MasterClient : MonoBehaviourPun
         {
 
             PhotonView pv = players[playerIndex[i]].GetComponent<PhotonView>();
-            pv.RPC("SetRole", RpcTarget.All, Role.Process);
+            pv.RPC("SetRole", RpcTarget.All, RoleListClass.RoleList.Process);
 
         }
         yield return new WaitForSeconds(0.1f);

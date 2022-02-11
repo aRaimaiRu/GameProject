@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Photon.Pun;
 using UnityEngine;
 using UnityEngine.UI;
-
+using RoleList;
 public class Worm : Impostor
 {
     private Sprite MeetingActionBtnSprite;
@@ -26,7 +26,7 @@ public class Worm : Impostor
     public override void Start()
     {
         base.Start();
-        base._role = MasterClient.Role.Worm;
+        base._role = RoleListClass.RoleList.Worm;
         if (!photonView.IsMine) { return; }
         VotingManager.Instance.LocalPlayer = this;
 
@@ -94,7 +94,7 @@ public class Worm : Impostor
     {
         List<Playerinfo> allplayerinfo = new List<Playerinfo>(FindObjectsOfType<Playerinfo>());
         Playerinfo _targetPlayer = allplayerinfo.Find(x => x.ActorNumber == _currentTargetActorNumber);
-        _targetPlayer.SetRole(MasterClient.Role.Imposter);
+        _targetPlayer.SetRole(RoleListClass.RoleList.Imposter);
     }
 
 

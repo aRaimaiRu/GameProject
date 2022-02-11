@@ -5,6 +5,7 @@ using Photon.Realtime;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using RoleList;
 public class VotingManager : MonoBehaviourPunCallbacks
 {
     public static VotingManager Instance;
@@ -38,30 +39,7 @@ public class VotingManager : MonoBehaviourPunCallbacks
     public playerAction CurrentAction = playerAction.Vote;
     public int currentTarget;
     public Role LocalPlayer;
-    public MasterClient.Role CurrentChooseRole;
-    public List<MasterClient.Role> allrole = new List<MasterClient.Role>(){
-        MasterClient.Role.Process,
-        MasterClient.Role.Scanner,
-        MasterClient.Role.Deleter,
-        MasterClient.Role.Worm,
-        MasterClient.Role.Spyware
-    };
-    public Dictionary<MasterClient.Role, string> allroledict = new Dictionary<MasterClient.Role, string>(){
-        {MasterClient.Role.Process,"process"},
-        {MasterClient.Role.Scanner,"Scanner"},
-        {MasterClient.Role.Deleter,"Deleter"},
-        {MasterClient.Role.Worm,"Worm"},
-        {MasterClient.Role.Spyware,"Spyware"}
-    };
-    public static List<MasterClient.Role> VirusRoleList = new List<MasterClient.Role>() {
-        MasterClient.Role.Worm,
-        MasterClient.Role.Spyware
-        };
-    public static List<MasterClient.Role> AntiVirusRoleList = new List<MasterClient.Role>() {
-        MasterClient.Role.Process,
-        MasterClient.Role.Scanner,
-        MasterClient.Role.Deleter,
-        };
+    public RoleListClass.RoleList CurrentChooseRole;
     public List<Button> RoleBtnGroup;
     public UnityEvent onChooseRole;
     public UnityEvent onEndVote;
@@ -290,7 +268,7 @@ public class VotingManager : MonoBehaviourPunCallbacks
 
     private void populateRoleList()
     {
-        foreach (KeyValuePair<MasterClient.Role, string> _role in allroledict)
+        foreach (KeyValuePair<RoleListClass.RoleList, string> _role in RoleListClass.allroledict)
         {
             GameObject _btn = Instantiate(RoleBtn, ChooseRoleContainer.transform);
             _btn.GetComponent<Button>().onClick.AddListener(() => ChooseRoleBtn(_role.Key));
@@ -345,13 +323,13 @@ public class VotingManager : MonoBehaviourPunCallbacks
             _reportedDeadBodiesList.Add(_targetActorNumber);
         }
     }
-    public MasterClient.Role CheckRoleOfPlayer(int _targetActorNumber)
+    public RoleListClass.RoleList CheckRoleOfPlayer(int _targetActorNumber)
     {
         List<Playerinfo> allplayerinfo = new List<Playerinfo>(FindObjectsOfType<Playerinfo>());
         return allplayerinfo.Find(x => x.ActorNumber == _targetActorNumber).GetComponent<Role>().role;
     }
 
-    public void ChooseRoleBtn(MasterClient.Role _role)
+    public void ChooseRoleBtn(RoleListClass.RoleList _role)
     {
         CurrentChooseRole = _role;
         onChooseRole.Invoke();
@@ -367,16 +345,21 @@ public class VotingManager : MonoBehaviourPunCallbacks
         List<Playerinfo> allplayerinfo = new List<Playerinfo>(FindObjectsOfType<Playerinfo>());
         Debug.Log("This player role = " + allplayerinfo.Find(x => x.ActorNumber == _targetActorNumber).GetComponent<Role>().role);
 
-        return VirusRoleList.Contains(allplayerinfo.Find(x => x.ActorNumber == _targetActorNumber).GetComponent<Role>().role);
+        return RoleListClass.VirusRoleList.Contains(allplayerinfo.Find(x => x.ActorNumber == _targetActorNumber).GetComponent<Role>().role);
     }
     public void CheckEndByVote()
+    {
+        photonView.RPC("CheckEndByVoteRPC", RpcTarget.All);
+    }
+    [PunRPC]
+    public void CheckEndByVoteRPC()
     {
         if (!PhotonNetwork.LocalPlayer.IsMasterClient) return;
         Debug.Log("End By Vote");
         // Check if AnitiVirus Win
         UpdatePlayerRoleList();
-        int CurrentAntiVirusCount = AllRoleList.FindAll(x => AntiVirusRoleList.Contains(x.role)).Count;
-        int CurrentVirusCount = AllRoleList.FindAll(x => VirusRoleList.Contains(x.role)).Count;
+        int CurrentAntiVirusCount = AllRoleList.FindAll(x => RoleListClass.AntiVirusRoleList.Contains(x.role)).Count;
+        int CurrentVirusCount = AllRoleList.FindAll(x => RoleListClass.VirusRoleList.Contains(x.role)).Count;
         if (CurrentAntiVirusCount <= CurrentVirusCount)
         {
             // Virus win
@@ -390,6 +373,7 @@ public class VotingManager : MonoBehaviourPunCallbacks
         }
 
     }
+
     public void UpdatePlayerRoleList()
     {
         AllRoleList = new List<Role>(FindObjectsOfType<Role>());
