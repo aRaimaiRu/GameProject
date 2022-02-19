@@ -10,7 +10,7 @@ using UnityEngine.UI;
 public class Impostor : Role
 {
     [SerializeField] private float _range = 10.0f;
-    private Killable _target;
+    protected Killable _target;
 
     public override void Start()
     {

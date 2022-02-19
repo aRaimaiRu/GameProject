@@ -25,6 +25,7 @@ public class UIControl : MonoBehaviour
     public GameObject SpywareIntro;
     public GameObject MeetingSkillBtn;
     public GameObject SabotageBtn;
+    public GameObject SpecialAbilityBtn;
     [SerializeField] GameObject WinScreen;
     [SerializeField] GameObject LoseScreen;
 

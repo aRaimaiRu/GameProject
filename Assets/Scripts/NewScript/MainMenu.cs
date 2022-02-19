@@ -26,7 +26,7 @@ public class MainMenu : MonoBehaviourPunCallbacks
         else
         {
             _playerNameLabel.text = PhotonNetwork.NickName;
-            PhotonNetwork.JoinLobby();
+            // PhotonNetwork.JoinLobby();
         }
 
 

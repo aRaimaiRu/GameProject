@@ -4,6 +4,7 @@ using Photon.Pun;
 using UnityEngine;
 using UnityEngine.UI;
 using RoleList;
+using Photon.Realtime;
 public class Worm : Impostor
 {
     private Sprite MeetingActionBtnSprite;
@@ -21,7 +22,8 @@ public class Worm : Impostor
     public RoleActionState CurrentAction;
     private int currentTargetActorNumber;
     private GameObject MeetingActionBtn;
-
+    private GameObject GameplayActionBtn;
+    private List<int> markedActorNumber = new List<int>();
 
     public override void Start()
     {
@@ -30,14 +32,14 @@ public class Worm : Impostor
         if (!photonView.IsMine) { return; }
         VotingManager.Instance.LocalPlayer = this;
 
-        base.hasMeetingAction = true;
+        base.hasMeetingAction = false;
         base.hasGamePlayAction = true;
         StartCoroutine(UIControl.Instance.DelayFadeThisWindow(UIControl.Instance.WormIntro));
         MeetingActionBtnSprite = Resources.Load<Sprite>("kill-01");
 
         if (hasGamePlayAction)
         {
-            GamePlayAction();
+            PrepareGamePlayAction();
         }
         if (hasMeetingAction)
         {
@@ -46,11 +48,54 @@ public class Worm : Impostor
         }
         Debug.Log("Worm Start");
     }
-    public override void GamePlayAction()
+    public void PrepareGamePlayAction()
     {
         base.GamePlayAction();
         Debug.Log("Worm Action");
+        markedActorNumber = new List<int>();
+        GameplayActionBtn = UIControl.Instance.SpecialAbilityBtn;
+        GameplayActionBtn.SetActive(true);
+        GameplayActionBtn.GetComponent<Button>().onClick.AddListener(GamePlayActionFn);
+        TaskManager.Instance.OnPlayerLeftRoomEvent += CheckMarkedPlayerLeftRoom;
     }
+    public void GamePlayActionFn()
+    {
+        int _currentTargetActorNumber = _target.GetComponent<Playerinfo>().ActorNumber;
+        if (!VotingManager.Instance.CheckIfPlayerIsImpostor(_currentTargetActorNumber))
+        {
+            markedActorNumber.Add(_currentTargetActorNumber);
+
+        }
+        if (markedActorNumber.Count == TaskManager.Instance.AntiVirusCount)
+        {
+            photonView.RPC("WormWinRPC", RpcTarget.MasterClient);
+        }
+    }
+    public void CheckMarkedPlayerLeftRoom(int _ActorNumber)
+    {
+        if (markedActorNumber.Contains(_ActorNumber))
+        {
+            markedActorNumber.Remove(_ActorNumber);
+        }
+
+    }
+    private void Update()
+    {
+        if (!photonView.IsMine) { return; }
+        if (GameplayActionBtn.activeSelf)
+        {
+            GameplayActionBtn.GetComponent<Button>().interactable = UIControl.Instance._killBtn.interactable;
+        }
+    }
+    [PunRPC]
+    public void WormWinRPC()
+    {
+        TaskManager.Instance.VirusWin();
+    }
+
+
+    // function when press button
+    #region deprecate
     public override void MeetingAction(int targetActorNumber)
     {
         base.MeetingAction(targetActorNumber);
@@ -96,6 +141,8 @@ public class Worm : Impostor
         Playerinfo _targetPlayer = allplayerinfo.Find(x => x.ActorNumber == _currentTargetActorNumber);
         _targetPlayer.SetRole(RoleListClass.RoleList.Imposter);
     }
+    #endregion
+
 
 
 }
