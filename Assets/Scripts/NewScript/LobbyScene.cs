@@ -48,6 +48,11 @@ public class LobbyScene : MonoBehaviourPunCallbacks
 
         }
         UpdatePlayerList();
+        if (PhotonNetwork.IsMasterClient)
+        {
+            PhotonNetwork.CurrentRoom.IsOpen = false;
+            PhotonNetwork.CurrentRoom.IsVisible = false;
+        }
 
     }
 
