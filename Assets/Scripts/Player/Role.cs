@@ -11,7 +11,13 @@ public class Role : MonoBehaviourPun
 {
     public bool hasMeetingAction;
     public bool hasGamePlayAction;
-    public enum RoleActionState { };
+    public enum RoleActionState
+    {
+        Voting,
+        ChoosePlayer,
+        ChooseRole,
+        Execute
+    };
     protected RoleListClass.RoleList _role { get; set; }
     public RoleListClass.RoleList role
     {

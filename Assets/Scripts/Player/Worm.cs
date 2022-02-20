@@ -8,17 +8,6 @@ using Photon.Realtime;
 public class Worm : Impostor
 {
     private Sprite MeetingActionBtnSprite;
-
-    new public enum RoleActionState
-    {
-        Voting,
-        ChoosePlayer,
-        ChooseRole,
-        Execute
-
-
-    }
-
     public RoleActionState CurrentAction;
     private int currentTargetActorNumber;
     private GameObject MeetingActionBtn;
@@ -81,11 +70,10 @@ public class Worm : Impostor
     }
     private void Update()
     {
-        if (!photonView.IsMine) { return; }
-        if (GameplayActionBtn.activeSelf)
-        {
-            GameplayActionBtn.GetComponent<Button>().interactable = UIControl.Instance._killBtn.interactable;
-        }
+        if (!photonView.IsMine && !GameplayActionBtn.activeSelf) { return; }
+
+        GameplayActionBtn.GetComponent<Button>().interactable = markedActorNumber.Contains(_target.GetComponent<Playerinfo>().ActorNumber) ? false : UIControl.Instance._killBtn.interactable;
+
     }
     [PunRPC]
     public void WormWinRPC()
