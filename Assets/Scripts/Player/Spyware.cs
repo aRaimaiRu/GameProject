@@ -20,6 +20,10 @@ public partial class Spyware : Impostor
         base.hasMeetingAction = true;
         base.hasGamePlayAction = true;
         if (!photonView.IsMine) { return; }
+        ExitGames.Client.Photon.Hashtable hash = new ExitGames.Client.Photon.Hashtable();
+        hash.Add(CustomPropKey, (int)RoleListClass.RoleList.Spyware);
+        PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
+
         StartCoroutine(UIControl.Instance.DelayFadeThisWindow(UIControl.Instance.SpywareIntro));
         MeetingActionBtnSprite = Resources.Load<Sprite>("kill-01");
         // RoleChooseWindow = GameObject.Find("CanvasOverlay/NewVoteWindow/ChooseRoleWindow");

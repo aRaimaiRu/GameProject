@@ -19,6 +19,9 @@ public class Worm : Impostor
         base.Start();
         base._role = RoleListClass.RoleList.Worm;
         if (!photonView.IsMine) { return; }
+        ExitGames.Client.Photon.Hashtable hash = new ExitGames.Client.Photon.Hashtable();
+        hash.Add(CustomPropKey, (int)RoleListClass.RoleList.Worm);
+        PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
         VotingManager.Instance.LocalPlayer = this;
 
         base.hasMeetingAction = false;
@@ -70,8 +73,8 @@ public class Worm : Impostor
     }
     private void Update()
     {
-        if (!photonView.IsMine && !GameplayActionBtn.activeSelf) { return; }
-
+        if (!photonView.IsMine) { return; }
+        if (!GameplayActionBtn.activeSelf) { return; }
         GameplayActionBtn.GetComponent<Button>().interactable = markedActorNumber.Contains(_target.GetComponent<Playerinfo>().ActorNumber) ? false : UIControl.Instance._killBtn.interactable;
 
     }

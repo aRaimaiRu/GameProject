@@ -9,6 +9,8 @@ public partial class MasterClient : MonoBehaviourPun
     [SerializeField] private GameObject _impostorWindow;
     [SerializeField] private Text _impostorText;
     public List<RoleListClass.RoleList> VirusRoleList = new List<RoleListClass.RoleList>(RoleListClass.VirusRoleList);
+    public List<RoleListClass.RoleList> AntiVirusRoleList = new List<RoleListClass.RoleList>(RoleListClass.AntiVirusRoleList);
+
     private GameObject[] players;
     private int _impostorCount;
     private int _antiVirusCount;
@@ -68,6 +70,18 @@ public partial class MasterClient : MonoBehaviourPun
             impostorNumber--;
 
 
+        }
+        AntiVirusRoleList.Remove(RoleListClass.RoleList.Process);
+        for (int i = 0; i < _impostorCount; i++)
+        {
+            int pickedProcessIndex = playerIndex[Random.Range(0, playerIndex.Count)];
+            RoleListClass.RoleList pickedRole = AntiVirusRoleList[Random.Range(0, VirusRoleList.Count)];
+
+            PhotonView pv = players[pickedProcessIndex].GetComponent<PhotonView>();
+            pv.RPC("SetRole", RpcTarget.All, pickedRole);
+
+            playerIndex.Remove(pickedProcessIndex);
+            AntiVirusRoleList.Remove(pickedRole);
         }
         // give process A Role
         for (int i = 0; i < playerIndex.Count; i++)

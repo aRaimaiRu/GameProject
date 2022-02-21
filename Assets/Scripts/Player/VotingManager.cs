@@ -35,13 +35,22 @@ public class VotingManager : MonoBehaviourPunCallbacks
     public UnityEvent onChooseRole;
     public UnityEvent onEndVote;
     private List<Role> AllRoleList;
+    public static Dictionary<RoleListClass.RoleList, Sprite> RoleSymbolDict;
+
 
     private void Awake()
     {
+
         if (Instance != null && Instance != this)
             Destroy(this);
         Instance = this;
-
+        RoleSymbolDict = new Dictionary<RoleListClass.RoleList, Sprite>(){
+        {RoleListClass.RoleList.Process,Resources.Load<Sprite>("kill-01")},
+        {RoleListClass.RoleList.Scanner,Resources.Load<Sprite>("kill-01")},
+        {RoleListClass.RoleList.Deleter,Resources.Load<Sprite>("kill-01")},
+        {RoleListClass.RoleList.Worm,Resources.Load<Sprite>("kill-01")},
+        {RoleListClass.RoleList.Spyware,Resources.Load<Sprite>("kill-01")}
+        };
         onEndVote.AddListener(() => CheckEndByVote());
     }
     private void OnDestroy()
@@ -348,6 +357,7 @@ public class VotingManager : MonoBehaviourPunCallbacks
         UpdatePlayerRoleList();
         int CurrentAntiVirusCount = AllRoleList.FindAll(x => RoleListClass.AntiVirusRoleList.Contains(x.role)).Count;
         int CurrentVirusCount = AllRoleList.FindAll(x => RoleListClass.VirusRoleList.Contains(x.role)).Count;
+        Debug.Log("AnitiVirus Count = " + CurrentAntiVirusCount + " CurrentVirusCount = " + CurrentVirusCount);
         if (CurrentAntiVirusCount <= CurrentVirusCount)
         {
             // Virus win
@@ -368,6 +378,8 @@ public class VotingManager : MonoBehaviourPunCallbacks
     }
     public void ShowPlayerRole(int _targetActornumber)
     {
+        VotePlayerItem _votePlayterItem = _votePlayerItemList.Find(x => x.ActorNumber == _targetActornumber);
+        _votePlayterItem.ShowSymbol(RoleSymbolDict[CheckRoleOfPlayer(_targetActornumber)]);
 
     }
 

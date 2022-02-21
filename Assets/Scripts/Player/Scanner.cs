@@ -21,6 +21,11 @@ public class Scanner : Role
         base._role = RoleListClass.RoleList.Scanner;
         base.hasGamePlayAction = false;
         base.hasMeetingAction = true;
+        if (!photonView.IsMine) return;
+        ExitGames.Client.Photon.Hashtable hash = new ExitGames.Client.Photon.Hashtable();
+        hash.Add(CustomPropKey, (int)RoleListClass.RoleList.Scanner);
+        PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
+        // 
         VotingManager.Instance.LocalPlayer = this;
         StartCoroutine(UIControl.Instance.DelayFadeThisWindow(UIControl.Instance.ScannerIntro));
         // MeetingActionBtnSprite = Resources.Load<Sprite>("kill-01");
@@ -43,6 +48,7 @@ public class Scanner : Role
                 VotingManager.Instance.ModeVote(targetActorNumber);
                 break;
             case RoleActionState.ChoosePlayer:
+                VotingManager.Instance.ShowPlayerRole(targetActorNumber);
                 break;
                 // currentTargetActorNumber = targetActorNumber;
                 // VotingManager.Instance.DisablePlayerUIObj(targetActorNumber);
