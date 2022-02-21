@@ -35,8 +35,8 @@ public class Impostor : Role
 
             foreach (Killable kill in killList)
             {
-                if (kill.GetComponent<Impostor>() != null) { continue; }
-                // if (kill == this) { continue; }
+                // if (kill.GetComponent<Impostor>() != null) { continue; }
+                if (kill == this) { continue; }
                 float distance = Vector3.Distance(transform.position, kill.transform.position);
                 if (distance > _range) { continue; }
                 if (distance < minDist)
@@ -63,10 +63,6 @@ public class Impostor : Role
         }
     }
 
-    // public virtual void MeetingAction()
-    // {
-
-    // }
     public override void GamePlayAction()
     {
         UIControl.Instance._killBtn.onClick.RemoveAllListeners();
