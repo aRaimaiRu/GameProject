@@ -366,6 +366,10 @@ public class VotingManager : MonoBehaviourPunCallbacks
     {
         AllRoleList = new List<Role>(FindObjectsOfType<Role>());
     }
+    public void ShowPlayerRole(int _targetActornumber)
+    {
+
+    }
 
 
 

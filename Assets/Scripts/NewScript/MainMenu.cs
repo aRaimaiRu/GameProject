@@ -44,9 +44,16 @@ public class MainMenu : MonoBehaviourPunCallbacks
         Debug.Log("Connected To Master");
         // give random player name
 
-        _playerNameLabel.text = PhotonNetwork.NickName;
         PhotonNetwork.JoinLobby();
     }
+    public override void OnJoinedLobby()
+    {
+        base.OnJoinedLobby();
+        _playerNameLabel.text = PhotonNetwork.NickName;
+
+        Debug.Log("On Jolned Lobby");
+    }
+
     // private void OnFailedToConnectToMasterServer(NetworkConnectionError error)
     // {
     //     Debug.Log("Failed to Connect Master Server" + error);
