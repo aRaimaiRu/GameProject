@@ -1,0 +1,542 @@
+fileFormatVersion: 2
+guid: 9286dbff4ea6efc4197168c5eb3ec850
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: b2a9591990af98743ba3ff7cf1000886, type: 3}
+  textureImporterSettings:
+    alphaSource: 1
+    mipMapMode: 0
+    enableMipMap: 1
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+    convertToNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    isReadable: 0
+    streamingMipmaps: 1
+    streamingMipmapsPriority: 0
+    vTOnly: 0
+    nPOTScale: 1
+    sRGBTexture: 1
+    spriteMode: 2
+    spriteExtrude: 1
+    spriteMeshType: 1
+    alignment: 0
+    spritePivot: {x: 0.5, y: 0.5}
+    spritePixelsToUnits: 100
+    spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+    spriteGenerateFallbackPhysicsShape: 0
+    generateCubemap: 6
+    cubemapConvolution: 0
+    seamlessCubemap: 0
+    alphaIsTransparency: 1
+    spriteTessellationDetail: -1
+    textureType: 8
+    textureShape: 1
+    singleChannelComponent: 0
+    flipbookRows: 0
+    flipbookColumns: 0
+    ignorePngGamma: 0
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 0
+    wrapV: 0
+    wrapW: 0
+    normalMap: 0
+    textureFormat: 0
+    maxTextureSize: 0
+    lightmap: 0
+    compressionQuality: 0
+    linearTexture: 0
+    grayScaleToAlpha: 0
+    rGBM: 0
+    cubemapConvolutionSteps: 0
+    cubemapConvolutionExponent: 0
+    maxTextureSizeSet: 0
+    compressionQualitySet: 0
+    textureFormatSet: 0
+    applyGammaDecoding: 0
+  spriteImportData:
+  - name: 
+    originalName: 
+    pivot: {x: 0, y: 0}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    spriteID: 
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 0, y: 0}
+  mosaicSpriteImportData: []
+  rigSpriteImportData:
+  - name: Dumb Robot_Eyes 01
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 808
+      width: 308
+      height: 186
+    spriteID: 6ad17bb5db4f8584f8811aab5c82c349
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: -469, y: -652}
+  - name: Dumb Robot_Left Lower Arm
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 316
+      y: 510
+      width: 161
+      height: 230
+    spriteID: d7597719042c43247a76148b3ac36669
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 118, y: -489}
+  - name: Dumb Robot_Left Upper Arm
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 489
+      y: 646
+      width: 131
+      height: 139
+    spriteID: e31332843545b8745915ebc1ebace172
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 188, y: -536}
+  - name: Dumb Robot_Mouth
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 489
+      y: 4
+      width: 483
+      height: 208
+    spriteID: 90fc60836936c8f4ab556604b3fe6acd
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 201, y: -1248}
+  - name: Dumb Robot_Head
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 4
+      width: 477
+      height: 498
+    spriteID: e14cca72c37107d48b4eb93f297c64a6
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: -263, y: -1352}
+  - name: Dumb Robot_Body
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 510
+      width: 304
+      height: 290
+    spriteID: 4ae17cedfd3ae5d4eb3873be9e60b16c
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: -376, y: -534}
+  - name: Dumb Robot_Left Leg
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 320
+      y: 808
+      width: 125
+      height: 196
+    spriteID: 92850bb01cec4cf49b4c702258f484d6
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: -214, y: -122}
+  - name: Dumb Robot_Right Lower Arm
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 489
+      y: 220
+      width: 196
+      height: 214
+    spriteID: 45d0a3620afd817488116c9d6d4bd59a
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: -191, y: -761}
+  - name: Dumb Robot_Right Upper Arm
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 489
+      y: 793
+      width: 122
+      height: 147
+    spriteID: 373483b4b253523439a37fd3df71bd30
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: -114, y: -359}
+  - name: Dumb Robot_Right Leg
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 489
+      y: 442
+      width: 125
+      height: 196
+    spriteID: 9edcd3571dcfd554da3b1e79fafa7be9
+    internalID: 0
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    parentGroupIndex: -1
+    uvTransform: {x: 83, y: -488}
+  platformSettings: []
+  mosaicLayers: 1
+  documentPivot: {x: 0, y: 0}
+  documentAlignment: 7
+  importHiddenLayers: 0
+  importedTextureWidth: 1024
+  importedTextureHeight: 1024
+  documentSize: {x: 1080, y: 1920}
+  paperDollMode: 0
+  keepDupilcateSpriteName: 0
+  spriteCategoryList:
+    categories: []
+  textureActualWidth: 1024
+  textureActualHeight: 1024
+  spritePackingTag: 
+  resliceFromLayer: 0
+  characterMode: 1
+  mosaicPSDLayers: []
+  rigPSDLayers:
+  - name: Dumb Robot_Eyes 01
+    spriteName: Dumb Robot_Eyes 01
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 6ad17bb5db4f8584f8811aab5c82c349
+    layerID: 23
+    mosaicPosition: {x: 4, y: 808}
+  - name: Dumb Robot_Left Lower Arm
+    spriteName: Dumb Robot_Left Lower Arm
+    isGroup: 0
+    parentIndex: -1
+    spriteID: d7597719042c43247a76148b3ac36669
+    layerID: 9
+    mosaicPosition: {x: 316, y: 510}
+  - name: Dumb Robot_Left Upper Arm
+    spriteName: Dumb Robot_Left Upper Arm
+    isGroup: 0
+    parentIndex: -1
+    spriteID: e31332843545b8745915ebc1ebace172
+    layerID: 11
+    mosaicPosition: {x: 489, y: 646}
+  - name: Dumb Robot_Mouth
+    spriteName: Dumb Robot_Mouth
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 90fc60836936c8f4ab556604b3fe6acd
+    layerID: 7
+    mosaicPosition: {x: 489, y: 4}
+  - name: Dumb Robot_Head
+    spriteName: Dumb Robot_Head
+    isGroup: 0
+    parentIndex: -1
+    spriteID: e14cca72c37107d48b4eb93f297c64a6
+    layerID: 5
+    mosaicPosition: {x: 4, y: 4}
+  - name: Dumb Robot_Body
+    spriteName: Dumb Robot_Body
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 4ae17cedfd3ae5d4eb3873be9e60b16c
+    layerID: 3
+    mosaicPosition: {x: 4, y: 510}
+  - name: Dumb Robot_Left Leg
+    spriteName: Dumb Robot_Left Leg
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 92850bb01cec4cf49b4c702258f484d6
+    layerID: 15
+    mosaicPosition: {x: 320, y: 808}
+  - name: Dumb Robot_Right Lower Arm
+    spriteName: Dumb Robot_Right Lower Arm
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 45d0a3620afd817488116c9d6d4bd59a
+    layerID: 17
+    mosaicPosition: {x: 489, y: 220}
+  - name: Dumb Robot_Right Upper Arm
+    spriteName: Dumb Robot_Right Upper Arm
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 373483b4b253523439a37fd3df71bd30
+    layerID: 19
+    mosaicPosition: {x: 489, y: 793}
+  - name: Dumb Robot_Right Leg
+    spriteName: Dumb Robot_Right Leg
+    isGroup: 0
+    parentIndex: -1
+    spriteID: 9edcd3571dcfd554da3b1e79fafa7be9
+    layerID: 13
+    mosaicPosition: {x: 489, y: 442}
+  characterData:
+    bones:
+    - name: bone_1
+      position: {x: 534.8418, y: 1294.1631, z: 0}
+      rotation: {x: 0, y: 0, z: 0.69974256, w: 0.7143951}
+      length: 341.3616
+      parentId: -1
+    - name: bone_2
+      position: {x: -10.039843, y: 143.05771, z: 0}
+      rotation: {x: 0, y: -0, z: 0.95015764, w: 0.31177002}
+      length: 124.85203
+      parentId: 0
+    - name: bone_3
+      position: {x: 124.8521, y: -0.000013608427, z: 0}
+      rotation: {x: 0, y: 0, z: 0.17402959, w: 0.9847405}
+      length: 100.11042
+      parentId: 1
+    - name: bone_4
+      position: {x: -31.063, y: -122.685005, z: 0}
+      rotation: {x: 0, y: -0, z: -0.9625883, w: 0.27096823}
+      length: 122.83225
+      parentId: 0
+    - name: bone_5
+      position: {x: 122.83222, y: -0.000036553043, z: 0}
+      rotation: {x: 0, y: 0, z: 0.07928777, w: 0.9968518}
+      length: 114.341515
+      parentId: 3
+    - name: bone_9
+      position: {x: 533.0734, y: 1099.6464, z: 0}
+      rotation: {x: 0, y: 0, z: 0.6986046, w: 0.71550804}
+      length: 192.70566
+      parentId: -1
+    - name: bone_10
+      position: {x: -32.621113, y: -56.74121, z: 0}
+      rotation: {x: 0, y: 0, z: -0.9994514, w: 0.03312045}
+      length: 80.936386
+      parentId: 5
+    - name: bone_11
+      position: {x: -42.07868, y: 59.343777, z: 0}
+      rotation: {x: 0, y: 0, z: 0.9999933, w: 0.0036677513}
+      length: 77.00222
+      parentId: 5
+    parts:
+    - spritePosition:
+        x: 473
+        y: 1460
+        width: 308
+        height: 186
+      spriteId: 6ad17bb5db4f8584f8811aab5c82c349
+      bones: 
+      parentGroup: 0
+      order: 0
+    - spritePosition:
+        x: 198
+        y: 999
+        width: 161
+        height: 230
+      spriteId: d7597719042c43247a76148b3ac36669
+      bones: 
+      parentGroup: 0
+      order: 0
+    - spritePosition:
+        x: 301
+        y: 1182
+        width: 131
+        height: 139
+      spriteId: e31332843545b8745915ebc1ebace172
+      bones: 
+      parentGroup: 0
+      order: 0
+    - spritePosition:
+        x: 288
+        y: 1252
+        width: 483
+        height: 208
+      spriteId: 90fc60836936c8f4ab556604b3fe6acd
+      bones: 
+      parentGroup: 0
+      order: 0
+    - spritePosition:
+        x: 267
+        y: 1356
+        width: 477
+        height: 498
+      spriteId: e14cca72c37107d48b4eb93f297c64a6
+      bones: 
+      parentGroup: 0
+      order: 0
+    - spritePosition:
+        x: 380
+        y: 1044
+        width: 304
+        height: 290
+      spriteId: 4ae17cedfd3ae5d4eb3873be9e60b16c
+      bones: 
+      parentGroup: 0
+      order: 0
+    - spritePosition:
+        x: 534
+        y: 930
+        width: 125
+        height: 196
+      spriteId: 92850bb01cec4cf49b4c702258f484d6
+      bones: 
+      parentGroup: 0
+      order: 0
+    - spritePosition:
+        x: 680
+        y: 981
+        width: 196
+        height: 214
+      spriteId: 45d0a3620afd817488116c9d6d4bd59a
+      bones: 
+      parentGroup: 0
+      order: 0
+    - spritePosition:
+        x: 603
+        y: 1152
+        width: 122
+        height: 147
+      spriteId: 373483b4b253523439a37fd3df71bd30
+      bones: 
+      parentGroup: 0
+      order: 0
+    - spritePosition:
+        x: 406
+        y: 930
+        width: 125
+        height: 196
+      spriteId: 9edcd3571dcfd554da3b1e79fafa7be9
+      bones: 
+      parentGroup: 0
+      order: 0
+    dimension: {x: 0, y: 0}
+    characterGroups: []
+  generateGOHierarchy: 0
+  textureAssetName: Untitled-1 Texture
+  prefabAssetName: Untitled-1 Prefab
+  spriteLibAssetName: Untitled-1 Sprite Lib
+  secondarySpriteTextures: []
