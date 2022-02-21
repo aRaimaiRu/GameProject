@@ -10,7 +10,7 @@ using UnityEngine.UI;
 public class Impostor : Role
 {
     [SerializeField] private float _range = 10.0f;
-    private Killable _target;
+    protected Killable _target;
 
     public override void Start()
     {
@@ -35,8 +35,8 @@ public class Impostor : Role
 
             foreach (Killable kill in killList)
             {
-                if (kill.GetComponent<Impostor>() != null) { continue; }
-                // if (kill == this) { continue; }
+                // if (kill.GetComponent<Impostor>() != null) { continue; }
+                if (kill == this.GetComponent<Killable>()) { continue; }
                 float distance = Vector3.Distance(transform.position, kill.transform.position);
                 if (distance > _range) { continue; }
                 if (distance < minDist)
@@ -63,10 +63,6 @@ public class Impostor : Role
         }
     }
 
-    // public virtual void MeetingAction()
-    // {
-
-    // }
     public override void GamePlayAction()
     {
         UIControl.Instance._killBtn.onClick.RemoveAllListeners();

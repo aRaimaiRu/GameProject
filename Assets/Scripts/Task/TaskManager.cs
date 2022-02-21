@@ -28,11 +28,11 @@ public class TaskManager : MonoBehaviourPunCallbacks
     private Dictionary<int, int> ActorNumberAndTaskCount = new Dictionary<int, int>();
     private string CustomPropKey = "ActorNumberTaskKey";
     private int globalAllTaskCount;
-    private int _impostorCount;
-    private int _antiVirusCount;
+    public int ImpostorCount;
+    public int AntiVirusCount;
     public event Action onAntiVirusWin;
     public event Action onVirusWin;
-
+    public event Action<int> OnPlayerLeftRoomEvent;
 
     #region SabotageProperties
 
@@ -82,8 +82,8 @@ public class TaskManager : MonoBehaviourPunCallbacks
         yield return new WaitForSeconds(0.2f);
         // Debug.Log("Virus number =" + (int)PhotonNetwork.CurrentRoom.CustomProperties["VirusNumber"]);
         // Debug.Log("all number =" + PhotonNetwork.CurrentRoom.PlayerCount);
-        _impostorCount = PhotonNetwork.CurrentRoom.PlayerCount < 3 ? 1 : (int)PhotonNetwork.CurrentRoom.CustomProperties["VirusNumber"];
-        _antiVirusCount = PhotonNetwork.CurrentRoom.PlayerCount - _impostorCount;
+        ImpostorCount = PhotonNetwork.CurrentRoom.PlayerCount < 3 ? 1 : (int)PhotonNetwork.CurrentRoom.CustomProperties["VirusNumber"];
+        AntiVirusCount = PhotonNetwork.CurrentRoom.PlayerCount - ImpostorCount;
         DisableAlltask();
         List<Playerinfo> allplayerinfo = new List<Playerinfo>(FindObjectsOfType<Playerinfo>());
         if (!VotingManager.Instance.CheckIfPlayerIsImpostor(PhotonNetwork.LocalPlayer.ActorNumber))
@@ -93,8 +93,8 @@ public class TaskManager : MonoBehaviourPunCallbacks
             popluateTaskUI();
 
         }
-        Debug.Log("Delay init task TaskCount =" + TaskCount + " antivirus count =" + _antiVirusCount + " antivirus Count = " + _antiVirusCount);
-        globalAllTaskCount = TaskCount * (_antiVirusCount);
+        Debug.Log("Delay init task TaskCount =" + TaskCount + " antivirus count =" + AntiVirusCount + " antivirus Count = " + AntiVirusCount);
+        globalAllTaskCount = TaskCount * (AntiVirusCount);
         // CountTask();
     }
 
@@ -168,6 +168,8 @@ public class TaskManager : MonoBehaviourPunCallbacks
     }
     public override void OnPlayerLeftRoom(Player newPlayer)
     {
+        if (OnPlayerLeftRoomEvent != null) { OnPlayerLeftRoomEvent(newPlayer.ActorNumber); }
+        UpdateCurrentPlayerCount(newPlayer);
         SetActorNumberAndTaskCount(newPlayer.ActorNumber, 0);
     }
     public override void OnPlayerPropertiesUpdate(Player targetPlayer, ExitGames.Client.Photon.Hashtable changedProps)
@@ -188,6 +190,18 @@ public class TaskManager : MonoBehaviourPunCallbacks
 
         ActorNumberAndTaskCount[_actorNumber] = _Count;
         CountTask();
+    }
+    private void UpdateCurrentPlayerCount(Player _LeftedPlayer)
+    {
+        if (VotingManager.Instance.CheckIfPlayerIsImpostor(_LeftedPlayer.ActorNumber))
+        {
+            ImpostorCount -= 1;
+
+        }
+        else
+        {
+            AntiVirusCount -= 1;
+        }
     }
 
 

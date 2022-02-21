@@ -12,7 +12,11 @@ public class ControlLight2D : MonoBehaviourPun
     private Light2D _light2D;
     void Start()
     {
-        TaskManager.Instance.onLightSabotage += DecreaseLightRadius;
+        if (TaskManager.Instance != null)
+        {
+            TaskManager.Instance.onLightSabotage += DecreaseLightRadius;
+
+        }
         this._light2D = GetComponent<Light2D>();
         BeginOutLightRadius = _light2D.pointLightOuterRadius;
     }

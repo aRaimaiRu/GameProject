@@ -14,10 +14,10 @@ public class VotingManager : MonoBehaviourPunCallbacks
     [SerializeField] private GameObject _emergencyMeetingWindow;
     [SerializeField] private VotePlayerItem _votePlayerItemPrefab;
     [SerializeField] private Transform _votePlayerItemContainer;
-    public List<VotePlayerItem> _votePlyaerItemList = new List<VotePlayerItem>();
+    public List<VotePlayerItem> _votePlayerItemList = new List<VotePlayerItem>();
     [SerializeField] private Button _skipVoteBtn;
     [HideInInspector] private bool HasAlreadyVoted;
-    private List<VotePlayerItem> _votePlayerItemList = new List<VotePlayerItem>();
+    // private List<VotePlayerItem> _votePlayerItemList = new List<VotePlayerItem>();
     private List<int> _playerThatVotedList = new List<int>();
     private List<int> _playersThatHaveBeenVoteList = new List<int>();
     private List<int> _playerThatHaveBeenKickedOutList = new List<int>();
@@ -35,13 +35,22 @@ public class VotingManager : MonoBehaviourPunCallbacks
     public UnityEvent onChooseRole;
     public UnityEvent onEndVote;
     private List<Role> AllRoleList;
+    public static Dictionary<RoleListClass.RoleList, Sprite> RoleSymbolDict;
+
 
     private void Awake()
     {
+
         if (Instance != null && Instance != this)
             Destroy(this);
         Instance = this;
-
+        RoleSymbolDict = new Dictionary<RoleListClass.RoleList, Sprite>(){
+        {RoleListClass.RoleList.Process,Resources.Load<Sprite>("kill-01")},
+        {RoleListClass.RoleList.Scanner,Resources.Load<Sprite>("kill-01")},
+        {RoleListClass.RoleList.Deleter,Resources.Load<Sprite>("kill-01")},
+        {RoleListClass.RoleList.Worm,Resources.Load<Sprite>("kill-01")},
+        {RoleListClass.RoleList.Spyware,Resources.Load<Sprite>("kill-01")}
+        };
         onEndVote.AddListener(() => CheckEndByVote());
     }
     private void OnDestroy()
@@ -155,7 +164,7 @@ public class VotingManager : MonoBehaviourPunCallbacks
             // Set CountVoteText for each player
             if (playerVote.Key != -1)
             {
-                _votePlyaerItemList.Find((x) => x.ActorNumber == playerVote.Key).SetCountVoteText(playerVote.Value);
+                _votePlayerItemList.Find((x) => x.ActorNumber == playerVote.Key).SetCountVoteText(playerVote.Value);
 
             }
 
@@ -213,7 +222,7 @@ public class VotingManager : MonoBehaviourPunCallbacks
     private void ToggleAllButtons(bool areOn)
     {
         _skipVoteBtn.interactable = areOn;
-        foreach (VotePlayerItem votePlayerItem in _votePlyaerItemList)
+        foreach (VotePlayerItem votePlayerItem in _votePlayerItemList)
         {
             votePlayerItem.ToggleButton(areOn);
 
@@ -222,12 +231,12 @@ public class VotingManager : MonoBehaviourPunCallbacks
     private void PopulatePlayerList()
     {
         // Clear the previous vote player list.
-        for (int i = 0; i < _votePlyaerItemList.Count; i++)
+        for (int i = 0; i < _votePlayerItemList.Count; i++)
         {
-            Destroy(_votePlyaerItemList[i].gameObject);
+            Destroy(_votePlayerItemList[i].gameObject);
 
         }
-        _votePlyaerItemList.Clear();
+        _votePlayerItemList.Clear();
         // Create new vote player list.
         foreach (KeyValuePair<int, Player> player in PhotonNetwork.CurrentRoom.Players)
         {
@@ -249,7 +258,7 @@ public class VotingManager : MonoBehaviourPunCallbacks
             }
             VotePlayerItem newPlayerItem = Instantiate(_votePlayerItemPrefab, _votePlayerItemContainer);
             newPlayerItem.Initialize(player.Value, this);
-            _votePlyaerItemList.Add(newPlayerItem);
+            _votePlayerItemList.Add(newPlayerItem);
         }
         populateRoleList();
     }
@@ -301,7 +310,7 @@ public class VotingManager : MonoBehaviourPunCallbacks
     public void KillInMeetingRPC(int _targetActorNumber)
     {
         // find playerlist gameobject from actornumber
-        VotePlayerItem playerlistobj = _votePlyaerItemList.Find(x => x.ActorNumber == _targetActorNumber);
+        VotePlayerItem playerlistobj = _votePlayerItemList.Find(x => x.ActorNumber == _targetActorNumber);
         playerlistobj.ShowDead();
         playerlistobj.ToggleButton(false);
         // find player gameobject from actornumber
@@ -324,7 +333,7 @@ public class VotingManager : MonoBehaviourPunCallbacks
     }
     public void DisablePlayerUIObj(int _targetActorNumber)
     {
-        VotePlayerItem playerlistobj = _votePlyaerItemList.Find(x => x.ActorNumber == _targetActorNumber);
+        VotePlayerItem playerlistobj = _votePlayerItemList.Find(x => x.ActorNumber == _targetActorNumber);
         playerlistobj.ToggleButton(false);
 
     }
@@ -348,6 +357,7 @@ public class VotingManager : MonoBehaviourPunCallbacks
         UpdatePlayerRoleList();
         int CurrentAntiVirusCount = AllRoleList.FindAll(x => RoleListClass.AntiVirusRoleList.Contains(x.role)).Count;
         int CurrentVirusCount = AllRoleList.FindAll(x => RoleListClass.VirusRoleList.Contains(x.role)).Count;
+        Debug.Log("AnitiVirus Count = " + CurrentAntiVirusCount + " CurrentVirusCount = " + CurrentVirusCount);
         if (CurrentAntiVirusCount <= CurrentVirusCount)
         {
             // Virus win
@@ -365,6 +375,12 @@ public class VotingManager : MonoBehaviourPunCallbacks
     public void UpdatePlayerRoleList()
     {
         AllRoleList = new List<Role>(FindObjectsOfType<Role>());
+    }
+    public void ShowPlayerRole(int _targetActornumber)
+    {
+        VotePlayerItem _votePlayterItem = _votePlayerItemList.Find(x => x.ActorNumber == _targetActornumber);
+        _votePlayterItem.ShowSymbol(RoleSymbolDict[CheckRoleOfPlayer(_targetActornumber)]);
+
     }
 
 

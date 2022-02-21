@@ -81,9 +81,13 @@ public class Playerinfo : Photon.Pun.MonoBehaviourPun, IPunObservable
         {
             case RoleListClass.RoleList.Spyware:
                 this.gameObject.AddComponent<Spyware>();
+                this.gameObject.AddComponent<Killable>();
+
                 break;
             case RoleListClass.RoleList.Worm:
                 this.gameObject.AddComponent<Worm>();
+                this.gameObject.AddComponent<Killable>();
+
                 break;
             case RoleListClass.RoleList.Process:
                 this.gameObject.AddComponent<Killable>();
@@ -91,15 +95,17 @@ public class Playerinfo : Photon.Pun.MonoBehaviourPun, IPunObservable
                 break;
             case RoleListClass.RoleList.Deleter:
                 this.gameObject.AddComponent<Killable>();
-                this.gameObject.AddComponent<Role>();
+                this.gameObject.AddComponent<Deleter>();
 
                 break;
             case RoleListClass.RoleList.Scanner:
                 this.gameObject.AddComponent<Killable>();
-                this.gameObject.AddComponent<Role>();
+                this.gameObject.AddComponent<Scanner>();
                 break;
             case RoleListClass.RoleList.Imposter:
                 this.gameObject.AddComponent<Impostor>();
+                this.gameObject.AddComponent<Killable>();
+
                 break;
         }
 
