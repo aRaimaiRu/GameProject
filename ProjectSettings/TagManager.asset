@@ -45,6 +45,9 @@ TagManager:
   - name: Ground
     uniqueID: 3828272549
     locked: 0
+  - name: Interactible
+    uniqueID: 249451745
+    locked: 0
   - name: Player
     uniqueID: 1912975471
     locked: 0

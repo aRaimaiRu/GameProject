@@ -8,6 +8,7 @@ public class VotePlayerItem : MonoBehaviour
 {
     [SerializeField] private Text _playerNameText;
     [SerializeField] private Text _statusText;
+    [SerializeField] private Image _Symbol;
 
     private int _actorNumber;
     public int ActorNumber
@@ -51,6 +52,16 @@ public class VotePlayerItem : MonoBehaviour
     {
 
         CountVoteText.text = (_votecount == 0) ? "" : _votecount.ToString();
+
+    }
+    public void ShowDead()
+    {
+        _playerNameText.text = _playerNameText.text + "(Dead)";
+    }
+    public void ShowSymbol(Sprite _image)
+    {
+        _Symbol.sprite = _image;
+        _Symbol.gameObject.SetActive(true);
 
     }
 }

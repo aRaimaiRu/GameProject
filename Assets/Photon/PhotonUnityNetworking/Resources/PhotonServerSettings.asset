@@ -48,6 +48,20 @@ MonoBehaviour:
   - ReportDeadBodyRPC
   - CastPlayerVoteRPC
   - KickPlayerRPC
+  - SetRole
+  - RemoveSpawnPoint
+  - CheckRoleOfPlayer
+  - KillInMeeting
+  - KillInMeetingRPC
+  - WormMeetingExecuteRPC
+  - InitializeTask
+  - SetActorNumberAndTaskCount
+  - ClosingDoorRPC
+  - DecreaseLightRadiusRPC
+  - AnitiVirusWinRPC
+  - VirusWinRPC
+  - CheckEndByVoteRPC
+  - WormWinRPC
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

@@ -4,7 +4,7 @@ using UnityEngine;
 using Photon.Pun;
 using UnityEngine.Experimental.Rendering.Universal;
 using UnityEngine.UI;
-
+using RoleList;
 public class Playerinfo : Photon.Pun.MonoBehaviourPun, IPunObservable
 {
     public int colorIndex;
@@ -15,6 +15,13 @@ public class Playerinfo : Photon.Pun.MonoBehaviourPun, IPunObservable
         get { return _allPlayerColors[colorIndex]; }
     }
     public Text _playerName;
+    public GameObject SpawnPoint;
+    private int _actorNumber;
+    public int ActorNumber
+    {
+        get { return _actorNumber; }
+
+    }
     private void Awake()
     {
         if (photonView.IsMine)
@@ -28,6 +35,7 @@ public class Playerinfo : Photon.Pun.MonoBehaviourPun, IPunObservable
             // remove light of other player
             Destroy(GetComponentInChildren<Light2D>());
         }
+        _actorNumber = photonView.OwnerActorNr;
     }
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
@@ -63,15 +71,40 @@ public class Playerinfo : Photon.Pun.MonoBehaviourPun, IPunObservable
 
     }
     [PunRPC]
-    public void SetImpostor(MasterClient.Role _role)
+    public void SetRole(RoleListClass.RoleList _role)
     {
+        if (this.gameObject.GetComponent<Role>() != null)
+        {
+            Destroy(this.gameObject.GetComponent<Role>());
+        }
         switch (_role)
         {
-            case MasterClient.Role.Spyware:
-                this.gameObject.AddComponent<Spayware>();
+            case RoleListClass.RoleList.Spyware:
+                this.gameObject.AddComponent<Spyware>();
+                this.gameObject.AddComponent<Killable>();
+
                 break;
-            case MasterClient.Role.Worm:
+            case RoleListClass.RoleList.Worm:
                 this.gameObject.AddComponent<Worm>();
+                this.gameObject.AddComponent<Killable>();
+
+                break;
+            case RoleListClass.RoleList.Process:
+                this.gameObject.AddComponent<Killable>();
+                this.gameObject.AddComponent<Role>();
+                break;
+            case RoleListClass.RoleList.Deleter:
+                this.gameObject.AddComponent<Killable>();
+                this.gameObject.AddComponent<Deleter>();
+
+                break;
+            case RoleListClass.RoleList.Scanner:
+                this.gameObject.AddComponent<Killable>();
+                this.gameObject.AddComponent<Scanner>();
+                break;
+            case RoleListClass.RoleList.Imposter:
+                this.gameObject.AddComponent<Impostor>();
+                this.gameObject.AddComponent<Killable>();
 
                 break;
         }

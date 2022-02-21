@@ -18,16 +18,35 @@ public class UIControl : MonoBehaviour
     public GameObject YouHaveBeenKilledWindow;
     public bool IsChatWindowActive { get { return ChatWindowUI.activeInHierarchy; } }
     public bool IsImpostor = false;
+    public GameObject ProcessIntro;
+    public GameObject ScannerIntro;
+    public GameObject DeleterIntro;
+    public GameObject WormIntro;
+    public GameObject SpywareIntro;
+    public GameObject MeetingSkillBtn;
+    public GameObject SabotageBtn;
+    public GameObject SpecialAbilityBtn;
+    [SerializeField] GameObject WinScreen;
+    [SerializeField] GameObject LoseScreen;
+
+
 
     private void Awake()
     {
         Instance = this;
+    }
+    private void Start()
+    {
+        TaskManager.Instance.onAntiVirusWin += AnitiVirusWin;
+        TaskManager.Instance.onVirusWin += VirusWin;
+
     }
     private void Update()
     {
         // if (CurrentPlayer != null)
         // {
         _killBtn.gameObject.SetActive(IsImpostor);
+        SabotageBtn.gameObject.SetActive(IsImpostor);
         // }
         _killBtn.interactable = HasTarget;
         _useBtn.interactable = HasInteractible;
@@ -53,12 +72,44 @@ public class UIControl : MonoBehaviour
     {
         ChatWindowUI.SetActive(!ChatWindowUI.activeInHierarchy);
     }
-    IEnumerator DelayFadeThisWindow(GameObject window)
+    public IEnumerator DelayFadeThisWindow(GameObject window)
     {
         window.SetActive(true);
         yield return new WaitForSeconds(2.5f);
         window.SetActive(false);
     }
+
+    private void AnitiVirusWin()
+    {
+        if (IsImpostor)
+        {
+            ShowLoseScreeen();
+        }
+        else
+        {
+            ShowWinScreen();
+        }
+    }
+    private void VirusWin()
+    {
+        if (IsImpostor)
+        {
+            ShowWinScreen();
+        }
+        else
+        {
+            ShowLoseScreeen();
+        }
+    }
+    private void ShowWinScreen()
+    {
+        WinScreen.SetActive(true);
+    }
+    private void ShowLoseScreeen()
+    {
+        LoseScreen.SetActive(true);
+    }
+
 
 
 }

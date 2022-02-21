@@ -7,14 +7,14 @@ using UnityEngine.UI;
 
 
 
-public class Impostor : MonoBehaviourPun
+public class Impostor : Role
 {
     [SerializeField] private float _range = 10.0f;
-    private Killable _target;
-    public bool hasMeetingAction;
-    public bool hasGamePlayAction;
-    public virtual void Start()
+    protected Killable _target;
+
+    public override void Start()
     {
+        base.Start();
         Debug.Log("Impostor start");
         if (photonView.IsMine)
         {
@@ -35,8 +35,8 @@ public class Impostor : MonoBehaviourPun
 
             foreach (Killable kill in killList)
             {
-                if (kill.GetComponent<Impostor>() != null) { continue; }
-                // if (kill == this) { continue; }
+                // if (kill.GetComponent<Impostor>() != null) { continue; }
+                if (kill == this.GetComponent<Killable>()) { continue; }
                 float distance = Vector3.Distance(transform.position, kill.transform.position);
                 if (distance > _range) { continue; }
                 if (distance < minDist)
@@ -63,14 +63,10 @@ public class Impostor : MonoBehaviourPun
         }
     }
 
-    public virtual void MeetingAction()
-    {
-
-    }
-    public virtual void GamePlayAction()
+    public override void GamePlayAction()
     {
         UIControl.Instance._killBtn.onClick.RemoveAllListeners();
-        UIControl.Instance._killBtn.onClick.AddListener(delegate { _target.Kill(); });
+        UIControl.Instance._killBtn.onClick.AddListener(delegate { this._target.Kill(); });
     }
 
 

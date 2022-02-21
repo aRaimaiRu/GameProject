@@ -3,34 +3,45 @@ using System.Collections.Generic;
 using Photon.Pun;
 using UnityEngine;
 using UnityEngine.UI;
-
-public class MasterClient : MonoBehaviourPun
+using RoleList;
+public partial class MasterClient : MonoBehaviourPun
 {
     [SerializeField] private GameObject _impostorWindow;
     [SerializeField] private Text _impostorText;
-    public enum Role
+    public List<RoleListClass.RoleList> VirusRoleList = new List<RoleListClass.RoleList>(RoleListClass.VirusRoleList);
+    public List<RoleListClass.RoleList> AntiVirusRoleList = new List<RoleListClass.RoleList>(RoleListClass.AntiVirusRoleList);
+
+    private GameObject[] players;
+    private int _impostorCount;
+    private int _antiVirusCount;
+    public int ImpostorCount
     {
-        Worm,
-        Spyware
+        get { return _impostorCount; }
+        set { _impostorCount = value; }
     }
-    private List<Role> VirusRoleList = new List<Role>() { Role.Worm, Role.Spyware };
+    public int AntiVirusCount
+    {
+        get { return _antiVirusCount; }
+        set { _antiVirusCount = value; }
+    }
     // we want more control that who is Initialize so use custom Initialize instead Awake
     public void Initialize()
     {
-        if (PhotonNetwork.IsMasterClient)
-        {
-            StartCoroutine(PickImpostor());
+        PhotonNetwork.CurrentRoom.IsOpen = false;
+        PhotonNetwork.CurrentRoom.IsVisible = false;
+        Debug.Log("Current player Count =" + PhotonNetwork.CurrentRoom.PlayerCount);
+        _impostorCount = PhotonNetwork.CurrentRoom.PlayerCount < 3 ? 1 : (int)PhotonNetwork.CurrentRoom.CustomProperties["VirusNumber"];
+        _antiVirusCount = PhotonNetwork.CurrentRoom.PlayerCount - _impostorCount;
+        StartCoroutine(PickImpostor());
 
-        }
     }
 
     private IEnumerator PickImpostor()
     {
-        GameObject[] players;
+
         List<int> playerIndex = new List<int>();
         int tries = 0;
-        int impostorNumber = 0;
-        int impostorNumberFinal = 0;
+        int impostorNumber = _impostorCount;
         // Get all the playerss in the game
         do
         {
@@ -40,20 +51,18 @@ public class MasterClient : MonoBehaviourPun
         } while (players.Length < PhotonNetwork.CurrentRoom.PlayerCount);
         // init player index list
         for (int i = 0; i < players.Length; i++) { playerIndex.Add(i); }
-        // decide imposter number
-        impostorNumber = players.Length < 5 ? 1 : 2;
-        impostorNumberFinal = impostorNumber;
+
         // Assign the imposter
         while (impostorNumber > 0)
         {
             // pick index
             int pickedImpostorIndex = playerIndex[Random.Range(0, playerIndex.Count)];
             // pick
-            Role pickedRole = VirusRoleList[Random.Range(0, VirusRoleList.Count)];
+            RoleListClass.RoleList pickedRole = VirusRoleList[Random.Range(0, VirusRoleList.Count)];
 
             // set impostor
             PhotonView pv = players[pickedImpostorIndex].GetComponent<PhotonView>();
-            pv.RPC("SetImpostor", RpcTarget.All, pickedRole);
+            pv.RPC("SetRole", RpcTarget.All, pickedRole);
 
             // remove item that already pick
             playerIndex.Remove(pickedImpostorIndex);
@@ -62,7 +71,29 @@ public class MasterClient : MonoBehaviourPun
 
 
         }
-        photonView.RPC("ImpostorPicked", RpcTarget.All, impostorNumberFinal);
+        AntiVirusRoleList.Remove(RoleListClass.RoleList.Process);
+        for (int i = 0; i < _impostorCount; i++)
+        {
+            int pickedProcessIndex = playerIndex[Random.Range(0, playerIndex.Count)];
+            RoleListClass.RoleList pickedRole = AntiVirusRoleList[Random.Range(0, VirusRoleList.Count)];
+
+            PhotonView pv = players[pickedProcessIndex].GetComponent<PhotonView>();
+            pv.RPC("SetRole", RpcTarget.All, pickedRole);
+
+            playerIndex.Remove(pickedProcessIndex);
+            AntiVirusRoleList.Remove(pickedRole);
+        }
+        // give process A Role
+        for (int i = 0; i < playerIndex.Count; i++)
+        {
+
+            PhotonView pv = players[playerIndex[i]].GetComponent<PhotonView>();
+            pv.RPC("SetRole", RpcTarget.All, RoleListClass.RoleList.Process);
+
+        }
+        yield return new WaitForSeconds(0.1f);
+        // photonView.RPC("InitializeTask", RpcTarget.All);
+        // photonView.RPC("ImpostorPicked", RpcTarget.All, ImpostorCount);
 
     }
     [PunRPC]
@@ -79,5 +110,7 @@ public class MasterClient : MonoBehaviourPun
         _impostorWindow.gameObject.SetActive(false);
 
     }
+
+
 
 }

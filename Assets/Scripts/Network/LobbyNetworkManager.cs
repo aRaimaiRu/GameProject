@@ -201,6 +201,8 @@ public class LobbyNetworkManager : MonoBehaviourPunCallbacks
 
     public void OnStartGamePressed()
     {
+
+
         PhotonNetwork.LoadLevel("game_scene");
     }
 

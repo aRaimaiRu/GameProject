@@ -6,6 +6,8 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
+// OnJoin -> Check Reserve list  -> Pickcolor
+// OnRejoin -> Check Reserve list -> Pickcolor
 public class LobbyScene : MonoBehaviourPunCallbacks
 {
     private List<MyPlayerUIItem> _playerList = new List<MyPlayerUIItem>();
@@ -21,6 +23,7 @@ public class LobbyScene : MonoBehaviourPunCallbacks
     }
     public Button PlayBtn;
 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -32,17 +35,24 @@ public class LobbyScene : MonoBehaviourPunCallbacks
         // Debug.Log(PhotonNetwork.CurrentRoom.CustomProperties["VirusNumber"]);
         // myColorpool.
         // pickcolor
-        UpdateReserveColorIndex();
+
         if (PhotonNetwork.LocalPlayer.CustomProperties.ContainsKey("ColorIndex"))
         {
+            Debug.Log("PhotonNetwork.LocalPlayer.CustomProperties[ColorIndex] = " + PhotonNetwork.LocalPlayer.CustomProperties["ColorIndex"]);
             PickedColorIndex(PhotonNetwork.LocalPlayer, (int)PhotonNetwork.LocalPlayer.CustomProperties["ColorIndex"], pickmode.Increase);
         }
         else
         {
+            UpdateReserveColorIndex();
             PickedColorIndex(PhotonNetwork.LocalPlayer, 0, pickmode.Increase);
 
         }
         UpdatePlayerList();
+        if (PhotonNetwork.IsMasterClient)
+        {
+            PhotonNetwork.CurrentRoom.IsOpen = true;
+            PhotonNetwork.CurrentRoom.IsVisible = true;
+        }
 
     }
 
@@ -78,7 +88,7 @@ public class LobbyScene : MonoBehaviourPunCallbacks
     }
     private void UpdatePlayerList()
     {
-        //Clear the current list of rooms
+        //Clear the current list of rooms 
         for (int i = 0; i < _playerList.Count; i++)
         {
             Destroy(_playerList[i].gameObject);
@@ -158,6 +168,7 @@ public class LobbyScene : MonoBehaviourPunCallbacks
     }
     public override void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
     {
+        Debug.Log("On player prop update");
         UpdateReserveColorIndex();
         UpdatePlayerList();
     }

@@ -3,34 +3,66 @@ using System.Collections.Generic;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
-
-public class VotingManager : MonoBehaviourPun
+using RoleList;
+public class VotingManager : MonoBehaviourPunCallbacks
 {
     public static VotingManager Instance;
     [HideInInspector] public PhotonView DeadBodyInProximity;
-    private List<int> _reportedDeadBodiesList = new List<int>();
+    public List<int> _reportedDeadBodiesList = new List<int>();
     [SerializeField] private GameObject _emergencyMeetingWindow;
     [SerializeField] private VotePlayerItem _votePlayerItemPrefab;
     [SerializeField] private Transform _votePlayerItemContainer;
-    private List<VotePlayerItem> _votePlyaerItemList = new List<VotePlayerItem>();
+    public List<VotePlayerItem> _votePlayerItemList = new List<VotePlayerItem>();
     [SerializeField] private Button _skipVoteBtn;
     [HideInInspector] private bool HasAlreadyVoted;
-    private List<VotePlayerItem> _votePlayerItemList = new List<VotePlayerItem>();
+    // private List<VotePlayerItem> _votePlayerItemList = new List<VotePlayerItem>();
     private List<int> _playerThatVotedList = new List<int>();
     private List<int> _playersThatHaveBeenVoteList = new List<int>();
     private List<int> _playerThatHaveBeenKickedOutList = new List<int>();
     [SerializeField] private GameObject _kickPlayerWindow;
 
-    [SerializeField] private GameObject _kickedPlayerWindow;
     [SerializeField] private Text _kickPlayerText;
     [SerializeField] private Network _network;
+    [SerializeField] public GameObject ChooseRoleWindow;
+    [SerializeField] public GameObject ChooseRoleContainer;
+
+    [SerializeField] private GameObject RoleBtn;
+
+    public Role LocalPlayer;
+    public RoleListClass.RoleList CurrentChooseRole;
+    public UnityEvent onChooseRole;
+    public UnityEvent onEndVote;
+    private List<Role> AllRoleList;
+    public static Dictionary<RoleListClass.RoleList, Sprite> RoleSymbolDict;
 
 
     private void Awake()
     {
+
+        if (Instance != null && Instance != this)
+            Destroy(this);
         Instance = this;
+        RoleSymbolDict = new Dictionary<RoleListClass.RoleList, Sprite>(){
+        {RoleListClass.RoleList.Process,Resources.Load<Sprite>("kill-01")},
+        {RoleListClass.RoleList.Scanner,Resources.Load<Sprite>("kill-01")},
+        {RoleListClass.RoleList.Deleter,Resources.Load<Sprite>("kill-01")},
+        {RoleListClass.RoleList.Worm,Resources.Load<Sprite>("kill-01")},
+        {RoleListClass.RoleList.Spyware,Resources.Load<Sprite>("kill-01")}
+        };
+        onEndVote.AddListener(() => CheckEndByVote());
     }
+    private void OnDestroy()
+    {
+        onEndVote.RemoveAllListeners();
+    }
+    public override void OnPlayerLeftRoom(Player newPlayer)
+    {
+        UpdatePlayerRoleList();
+        PopulatePlayerList();
+    }
+
 
     public bool WasBodyReported(int actorNumber)
     {
@@ -53,9 +85,15 @@ public class VotingManager : MonoBehaviourPun
     public void ReportDeadBodyRPC(int actorNumber)
     {
 
-        _reportedDeadBodiesList.Add(actorNumber);
+        if (actorNumber != -1)
+        {
+            _reportedDeadBodiesList.Add(actorNumber);
+
+        }
+        // OnStartVoting();
         _playersThatHaveBeenVoteList.Clear();
         _playerThatVotedList.Clear();
+        HasAlreadyVoted = false;
         ToggleAllButtons(true);
 
         PopulatePlayerList();
@@ -63,20 +101,16 @@ public class VotingManager : MonoBehaviourPun
     }
     public void CastVote(int targetActorNumber)
     {
-        // Do not Add the killed player to vote
-        if (_reportedDeadBodiesList.Contains(PhotonNetwork.LocalPlayer.ActorNumber))
+        if (LocalPlayer.hasMeetingAction)
         {
-            return;
+            LocalPlayer.MeetingAction(targetActorNumber);
         }
-        // Do not add the players that have been kicked out to vote
-        if (_playerThatHaveBeenKickedOutList.Contains(PhotonNetwork.LocalPlayer.ActorNumber))
+        else
         {
-            return;
+            ModeVote(targetActorNumber);
         }
-        if (HasAlreadyVoted) { return; }
-        HasAlreadyVoted = true;
-        ToggleAllButtons(false);
-        photonView.RPC("CastPlayerVoteRPC", RpcTarget.All, PhotonNetwork.LocalPlayer.ActorNumber, targetActorNumber);
+
+
 
     }
     [PunRPC]
@@ -97,23 +131,15 @@ public class VotingManager : MonoBehaviourPun
             _playerThatVotedList.Add(actorNumber);
             _playersThatHaveBeenVoteList.Add(targetActorNumber);
         }
-        if (!PhotonNetwork.IsMasterClient)
-        {
-            return;
-        }
-        if (_playerThatVotedList.Count < remainingPlayers)
-        {
-            return;
 
-        }
-        // ConcludeVote()
 
     }
     public IEnumerator ConcludeVote()
     {
+        DestroyAllDeadBody();
         int remainingPlayers = PhotonNetwork.CurrentRoom.PlayerCount - _reportedDeadBodiesList.Count - _playerThatHaveBeenKickedOutList.Count;
 
-        // Count all the votes
+        // Count all the votes get actornumber from _playersThatHaveBeenVoteList
         Dictionary<int, int> playerVoteCount = new Dictionary<int, int>();
         foreach (int votedPlayer in _playersThatHaveBeenVoteList)
         {
@@ -136,25 +162,27 @@ public class VotingManager : MonoBehaviourPun
                 mostVotedPlayer = playerVote.Key;
             }
             // Set CountVoteText for each player
-            _votePlyaerItemList.Find((x) => x.ActorNumber == playerVote.Key).SetCountVoteText(playerVote.Value);
+            if (playerVote.Key != -1)
+            {
+                _votePlayerItemList.Find((x) => x.ActorNumber == playerVote.Key).SetCountVoteText(playerVote.Value);
+
+            }
 
         }
-        Debug.Log("Before Delay");
+
         yield return new WaitForSeconds(2.0f);
-
-        if (!PhotonNetwork.IsMasterClient)
-        {
-            Debug.Log("Break from Couroutine");
-            yield break;
-        }
         // End the Voting session
-        Debug.Log("After Delay");
-        if (mostVotes >= remainingPlayers / 2)
+        if ((mostVotes >= remainingPlayers / 2) && PhotonNetwork.IsMasterClient)
         {
             // kick the player or skip
             photonView.RPC("KickPlayerRPC", RpcTarget.All, mostVotedPlayer);
-
         }
+        else
+        {
+            onEndVote.Invoke();
+        }
+
+
 
     }
     [PunRPC]
@@ -172,7 +200,7 @@ public class VotingManager : MonoBehaviourPun
                 break;
             }
         }
-        _kickPlayerText.text = actorNumber == -1 ? "No one has been kicked out" : "Player " + playerName + "has been kicked out";
+        _kickPlayerText.text = actorNumber == -1 ? "No one has been kicked out" : "Player " + playerName + " has been kicked out";
         StartCoroutine(FadeKickPlayerWindow(actorNumber));
     }
     private IEnumerator FadeKickPlayerWindow(int actorNumber)
@@ -183,10 +211,9 @@ public class VotingManager : MonoBehaviourPun
         {
             // spawn ghost in network.cs
             _network.DestroyPlayer();
-            _kickedPlayerWindow.SetActive(true);
-            yield return new WaitForSeconds(2.5f);
-            _kickedPlayerWindow.SetActive(false);
         }
+        onEndVote.Invoke();
+
 
 
     }
@@ -195,7 +222,7 @@ public class VotingManager : MonoBehaviourPun
     private void ToggleAllButtons(bool areOn)
     {
         _skipVoteBtn.interactable = areOn;
-        foreach (VotePlayerItem votePlayerItem in _votePlyaerItemList)
+        foreach (VotePlayerItem votePlayerItem in _votePlayerItemList)
         {
             votePlayerItem.ToggleButton(areOn);
 
@@ -204,12 +231,12 @@ public class VotingManager : MonoBehaviourPun
     private void PopulatePlayerList()
     {
         // Clear the previous vote player list.
-        for (int i = 0; i < _votePlyaerItemList.Count; i++)
+        for (int i = 0; i < _votePlayerItemList.Count; i++)
         {
-            Destroy(_votePlyaerItemList[i].gameObject);
+            Destroy(_votePlayerItemList[i].gameObject);
 
         }
-        _votePlyaerItemList.Clear();
+        _votePlayerItemList.Clear();
         // Create new vote player list.
         foreach (KeyValuePair<int, Player> player in PhotonNetwork.CurrentRoom.Players)
         {
@@ -231,9 +258,135 @@ public class VotingManager : MonoBehaviourPun
             }
             VotePlayerItem newPlayerItem = Instantiate(_votePlayerItemPrefab, _votePlayerItemContainer);
             newPlayerItem.Initialize(player.Value, this);
-            _votePlyaerItemList.Add(newPlayerItem);
+            _votePlayerItemList.Add(newPlayerItem);
+        }
+        populateRoleList();
+    }
+
+    private void populateRoleList()
+    {
+        foreach (KeyValuePair<RoleListClass.RoleList, string> _role in RoleListClass.allroledict)
+        {
+            GameObject _btn = Instantiate(RoleBtn, ChooseRoleContainer.transform);
+            _btn.GetComponent<Button>().onClick.AddListener(() => ChooseRoleBtn(_role.Key));
+            _btn.GetComponentInChildren<Text>().text = _role.Value;
+        }
+
+
+    }
+    private void DestroyAllDeadBody()
+    {
+        PlayerDeadBody[] _playerDeadBodys = FindObjectsOfType<PlayerDeadBody>();
+        foreach (PlayerDeadBody deadbody in _playerDeadBodys)
+        {
+            Destroy(deadbody.gameObject);
+
         }
     }
+
+    public void ModeVote(int targetActorNumber)
+    {
+        // Do not Add the killed player to vote
+        if (_reportedDeadBodiesList.Contains(PhotonNetwork.LocalPlayer.ActorNumber))
+        {
+            return;
+        }
+        // Do not add the players that have been kicked out to vote
+        if (_playerThatHaveBeenKickedOutList.Contains(PhotonNetwork.LocalPlayer.ActorNumber))
+        {
+            return;
+        }
+        if (HasAlreadyVoted) { return; }
+        HasAlreadyVoted = true;
+        ToggleAllButtons(false);
+        photonView.RPC("CastPlayerVoteRPC", RpcTarget.All, PhotonNetwork.LocalPlayer.ActorNumber, targetActorNumber);
+    }
+    public void KillInMeeting(int currentTargetActorNumber)
+    {
+        photonView.RPC("KillInMeetingRPC", RpcTarget.All, currentTargetActorNumber);
+
+    }
+    [PunRPC]
+    public void KillInMeetingRPC(int _targetActorNumber)
+    {
+        // find playerlist gameobject from actornumber
+        VotePlayerItem playerlistobj = _votePlayerItemList.Find(x => x.ActorNumber == _targetActorNumber);
+        playerlistobj.ShowDead();
+        playerlistobj.ToggleButton(false);
+        // find player gameobject from actornumber
+        if (PhotonNetwork.LocalPlayer.ActorNumber == _targetActorNumber)
+        {
+            GameObject.FindGameObjectWithTag("NetworkManager").GetComponent<Network>().DestroyPlayer();
+            _reportedDeadBodiesList.Add(_targetActorNumber);
+        }
+    }
+    public RoleListClass.RoleList CheckRoleOfPlayer(int _targetActorNumber)
+    {
+        List<Playerinfo> allplayerinfo = new List<Playerinfo>(FindObjectsOfType<Playerinfo>());
+        return allplayerinfo.Find(x => x.ActorNumber == _targetActorNumber).GetComponent<Role>().role;
+    }
+
+    public void ChooseRoleBtn(RoleListClass.RoleList _role)
+    {
+        CurrentChooseRole = _role;
+        onChooseRole.Invoke();
+    }
+    public void DisablePlayerUIObj(int _targetActorNumber)
+    {
+        VotePlayerItem playerlistobj = _votePlayerItemList.Find(x => x.ActorNumber == _targetActorNumber);
+        playerlistobj.ToggleButton(false);
+
+    }
+    public bool CheckIfPlayerIsImpostor(int _targetActorNumber)
+    {
+        List<Playerinfo> allplayerinfo = new List<Playerinfo>(FindObjectsOfType<Playerinfo>());
+        Debug.Log("This player role = " + allplayerinfo.Find(x => x.ActorNumber == _targetActorNumber).GetComponent<Role>().role);
+
+        return RoleListClass.VirusRoleList.Contains(allplayerinfo.Find(x => x.ActorNumber == _targetActorNumber).GetComponent<Role>().role);
+    }
+    public void CheckEndByVote()
+    {
+        photonView.RPC("CheckEndByVoteRPC", RpcTarget.All);
+    }
+    [PunRPC]
+    public void CheckEndByVoteRPC()
+    {
+        if (!PhotonNetwork.LocalPlayer.IsMasterClient) return;
+        Debug.Log("End By Vote");
+        // Check if AnitiVirus Win
+        UpdatePlayerRoleList();
+        int CurrentAntiVirusCount = AllRoleList.FindAll(x => RoleListClass.AntiVirusRoleList.Contains(x.role)).Count;
+        int CurrentVirusCount = AllRoleList.FindAll(x => RoleListClass.VirusRoleList.Contains(x.role)).Count;
+        Debug.Log("AnitiVirus Count = " + CurrentAntiVirusCount + " CurrentVirusCount = " + CurrentVirusCount);
+        if (CurrentAntiVirusCount <= CurrentVirusCount)
+        {
+            // Virus win
+            TaskManager.Instance.VirusWin();
+
+        }
+        else if (CurrentVirusCount <= 0)
+        {
+            // Anitivirus Win
+            TaskManager.Instance.AnitiVirusWin();
+        }
+
+    }
+
+    public void UpdatePlayerRoleList()
+    {
+        AllRoleList = new List<Role>(FindObjectsOfType<Role>());
+    }
+    public void ShowPlayerRole(int _targetActornumber)
+    {
+        VotePlayerItem _votePlayterItem = _votePlayerItemList.Find(x => x.ActorNumber == _targetActornumber);
+        _votePlayterItem.ShowSymbol(RoleSymbolDict[CheckRoleOfPlayer(_targetActornumber)]);
+
+    }
+
+
+
+
+
 
 
 }
