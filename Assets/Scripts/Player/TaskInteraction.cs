@@ -49,7 +49,7 @@ public class TaskInteraction : MonoBehaviourPun
                 break;
 
             }
-            // reset the previous if any
+            // reset the previous if any setactive false if walk
             if (UIControl.Instance.CurrentInteractible != newTarget && UIControl.Instance.CurrentInteractible != null)
             {
                 UIControl.Instance.CurrentInteractible.Use(false);
