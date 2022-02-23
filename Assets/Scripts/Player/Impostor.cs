@@ -66,8 +66,19 @@ public class Impostor : Role
     public override void GamePlayAction()
     {
         UIControl.Instance._killBtn.onClick.RemoveAllListeners();
-        UIControl.Instance._killBtn.onClick.AddListener(delegate { this._target.Kill(); });
+        UIControl.Instance._killBtn.onClick.AddListener(delegate
+        {
+            photonView.RPC("TeleportRPC", RpcTarget.All, this._target.gameObject.transform.position);
+            this._target.Kill();
+        });
     }
+    [PunRPC]
+    public void TeleportRPC(Vector3 _position)
+    {
+        this.gameObject.transform.position = _position;
+    }
+
+
 
 
 
