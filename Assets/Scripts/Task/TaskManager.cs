@@ -291,15 +291,7 @@ public class TaskManager : MonoBehaviourPunCallbacks
     }
     #endregion
 
-    public void GetKilled(int _playerActrNr)
-    {
-        photonView.RPC("GetKilledRPC", RpcTarget.All, _playerActrNr);
-    }
-    [PunRPC]
-    public void GetKilledRPC(int _playerActrNr)
-    {
-        TaskManager.Instance.OnPlayerKilledTrigger(_playerActrNr);
-    }
+
 
 
 
