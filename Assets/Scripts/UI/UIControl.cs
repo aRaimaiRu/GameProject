@@ -48,7 +48,8 @@ public class UIControl : MonoBehaviour
         _killBtn.gameObject.SetActive(IsImpostor);
         SabotageBtn.gameObject.SetActive(IsImpostor);
         // }
-        _killBtn.interactable = HasTarget;
+
+        _killBtn.interactable = _killBtn.interactable ? HasTarget : false;
         _useBtn.interactable = HasInteractible;
         _reportDeadBodyBtn.interactable = HasDeadBodyInRange;
     }
