@@ -15,6 +15,7 @@ public class Door : MonoBehaviourPun
     {
         SourceX = transform.localPosition.x;
         SourceY = transform.localPosition.y;
+        this.gameObject.SetActive(false);
         TaskManager.Instance.onDoorSabotage += ReceiveDoorSabotage;
     }
 
@@ -29,10 +30,12 @@ public class Door : MonoBehaviourPun
     [PunRPC]
     public void ClosingDoorRPC()
     {
+        this.gameObject.SetActive(true);
         StartCoroutine(ClosingDoor());
     }
     IEnumerator ClosingDoor()
     {
+
         if (DestinationX != 0)
         {
             LeanTween.moveLocalX(gameObject, DestinationX, 1f);
@@ -49,6 +52,9 @@ public class Door : MonoBehaviourPun
 
 
         }
+        yield return new WaitForSeconds(1f);
+        this.gameObject.SetActive(false);
+
 
     }
     private void OnDestroy()
