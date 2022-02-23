@@ -78,11 +78,6 @@ public class Worm : Impostor
     public void CheckeEndByWorm()
     {
         VotingManager.Instance.UpdatePlayerRoleList();
-        foreach (Role _trole in VotingManager.Instance.AllRoleList)
-        {
-            Debug.Log("trole = " + _trole);
-        }
-        Debug.Log("AnitiVirus Count from CheckEndByWorm = " + VotingManager.Instance.AllRoleList.FindAll(x => RoleListClass.AntiVirusRoleList.Contains(x.role)).Count);
         if (markedActorNumber.Count >= VotingManager.Instance.AllRoleList.FindAll(x => RoleListClass.AntiVirusRoleList.Contains(x.role)).Count)
         {
             photonView.RPC("WormWinRPC", RpcTarget.MasterClient);

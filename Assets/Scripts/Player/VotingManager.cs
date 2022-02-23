@@ -390,15 +390,7 @@ public class VotingManager : MonoBehaviourPunCallbacks
         _votePlayterItem.ShowSymbol(RoleSymbolDict[CheckRoleOfPlayer(_targetActornumber)]);
 
     }
-    public void ForDebug()
-    {
-        AllRoleList = new List<Role>(FindObjectsOfType<Role>());
 
-        foreach (Role _trole in AllRoleList)
-        {
-            Debug.Log("Debug role = " + _trole.role);
-        }
-    }
 
 
 
