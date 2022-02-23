@@ -345,6 +345,18 @@ public class VotingManager : MonoBehaviourPunCallbacks
     public bool CheckIfPlayerIsImpostor(int _targetActorNumber)
     {
         List<Playerinfo> allplayerinfo = new List<Playerinfo>(FindObjectsOfType<Playerinfo>());
+        if (allplayerinfo.Find(x => x.ActorNumber == _targetActorNumber) == null)
+        {
+            foreach (Player _player in PhotonNetwork.PlayerList)
+            {
+                if ((_player.ActorNumber == _targetActorNumber) && _player.CustomProperties.ContainsKey("Role"))
+                {
+                    Debug.Log("Check with Custom properties");
+                    return RoleListClass.VirusRoleList.Contains((RoleListClass.RoleList)_player.CustomProperties["Role"]);
+                }
+            }
+
+        }
         Debug.Log("This player role = " + allplayerinfo.Find(x => x.ActorNumber == _targetActorNumber).GetComponent<Role>().role);
 
         return RoleListClass.VirusRoleList.Contains(allplayerinfo.Find(x => x.ActorNumber == _targetActorNumber).GetComponent<Role>().role);

@@ -31,6 +31,8 @@ public class Role : MonoBehaviourPun
     {
         _role = RoleListClass.RoleList.Process;
         if (!photonView.IsMine) { return; }
+        StartCoroutine(UIControl.Instance.DelayFadeThisWindow(UIControl.Instance.ProcessIntro));
+
         ExitGames.Client.Photon.Hashtable hash = new ExitGames.Client.Photon.Hashtable();
         hash.Add(CustomPropKey, (int)RoleListClass.RoleList.Process);
         PhotonNetwork.LocalPlayer.SetCustomProperties(hash);

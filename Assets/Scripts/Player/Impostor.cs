@@ -16,11 +16,8 @@ public class Impostor : Role
     {
         base.Start();
         Debug.Log("Impostor start");
-        if (photonView.IsMine)
-        {
-            UIControl.Instance.IsImpostor = true;
-
-        }
+        if (!photonView.IsMine) { return; }
+        UIControl.Instance.IsImpostor = true;
         StartCoroutine(SearchForKillable());
 
 
