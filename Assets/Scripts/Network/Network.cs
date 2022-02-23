@@ -77,15 +77,14 @@ public class Network : MonoBehaviourPunCallbacks
         GlobalLight.gameObject.SetActive(false);
         NewGlobalLight.gameObject.SetActive(true);
 
-        // 
+
         if (_playerPhotonView)
         {
             PhotonNetwork.Destroy(_playerPhotonView);
-
         }
 
-        VotingManager.Instance.CheckEndByVote();
     }
+
     [PunRPC]
     public void RemoveSpawnPoint(GameObject _spawnPoint)
     {

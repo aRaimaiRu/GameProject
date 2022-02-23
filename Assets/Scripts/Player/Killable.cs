@@ -14,6 +14,7 @@ public class Killable : Photon.Pun.MonoBehaviourPun
     private void Start()
     {
         if (!photonView.IsMine) { return; }
+
         StartCoroutine(UIControl.Instance.DelayFadeThisWindow(UIControl.Instance.ProcessIntro));
 
     }
@@ -29,6 +30,7 @@ public class Killable : Photon.Pun.MonoBehaviourPun
     [PunRPC]
     public void KillRPC()
     {
+        Debug.Log("Kill RPC photonView.OwnerActorNr =" + photonView.OwnerActorNr);
         if (!photonView.IsMine) { return; }
         Debug.Log("Use kill RPC ");
 

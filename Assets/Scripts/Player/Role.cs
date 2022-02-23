@@ -29,6 +29,7 @@ public class Role : MonoBehaviourPun
 
     public virtual void Start()
     {
+        _role = RoleListClass.RoleList.Process;
         if (!photonView.IsMine) { return; }
         ExitGames.Client.Photon.Hashtable hash = new ExitGames.Client.Photon.Hashtable();
         hash.Add(CustomPropKey, (int)RoleListClass.RoleList.Process);

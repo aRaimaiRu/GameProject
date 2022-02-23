@@ -44,11 +44,17 @@ public class Worm : Impostor
     {
         base.GamePlayAction();
         Debug.Log("Worm Action");
+
         markedActorNumber = new List<int>();
         GameplayActionBtn = UIControl.Instance.SpecialAbilityBtn;
         GameplayActionBtn.SetActive(true);
         GameplayActionBtn.GetComponent<Button>().onClick.AddListener(GamePlayActionFn);
-        TaskManager.Instance.OnPlayerLeftRoomEvent += CheckMarkedPlayerLeftRoom;
+        if (TaskManager.Instance != null)
+        {
+            TaskManager.Instance.OnPlayerKilledEvent += CheckMarkedPlayerLeftRoom;
+            TaskManager.Instance.OnPlayerLeftRoomEvent += CheckMarkedPlayerLeftRoom;
+
+        }
     }
     public void GamePlayActionFn()
     {
@@ -58,10 +64,7 @@ public class Worm : Impostor
             markedActorNumber.Add(_currentTargetActorNumber);
 
         }
-        if (markedActorNumber.Count == TaskManager.Instance.AntiVirusCount)
-        {
-            photonView.RPC("WormWinRPC", RpcTarget.MasterClient);
-        }
+        CheckeEndByWorm();
     }
     public void CheckMarkedPlayerLeftRoom(int _ActorNumber)
     {
@@ -69,12 +72,27 @@ public class Worm : Impostor
         {
             markedActorNumber.Remove(_ActorNumber);
         }
+        CheckeEndByWorm();
 
     }
+    public void CheckeEndByWorm()
+    {
+        VotingManager.Instance.UpdatePlayerRoleList();
+        if (markedActorNumber.Count >= VotingManager.Instance.AllRoleList.FindAll(x => RoleListClass.AntiVirusRoleList.Contains(x.role)).Count)
+        {
+            photonView.RPC("WormWinRPC", RpcTarget.MasterClient);
+        }
+    }
+
     private void Update()
     {
         if (!photonView.IsMine) { return; }
         if (!GameplayActionBtn.activeSelf) { return; }
+        if (_target == null)
+        {
+            GameplayActionBtn.GetComponent<Button>().interactable = false;
+            return;
+        }
         GameplayActionBtn.GetComponent<Button>().interactable = markedActorNumber.Contains(_target.GetComponent<Playerinfo>().ActorNumber) ? false : UIControl.Instance._killBtn.interactable;
 
     }

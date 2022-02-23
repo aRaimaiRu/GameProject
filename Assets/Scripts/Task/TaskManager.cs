@@ -26,6 +26,7 @@ public class TaskManager : MonoBehaviourPunCallbacks
     private int AllTaskCount = 5;
     public static TaskManager Instance;
     private Dictionary<int, int> ActorNumberAndTaskCount = new Dictionary<int, int>();
+    public Dictionary<int, bool> ActorNumberAndIsDead = new Dictionary<int, bool>();
     private string CustomPropKey = "ActorNumberTaskKey";
     private int globalAllTaskCount;
     public int ImpostorCount;
@@ -33,12 +34,11 @@ public class TaskManager : MonoBehaviourPunCallbacks
     public event Action onAntiVirusWin;
     public event Action onVirusWin;
     public event Action<int> OnPlayerLeftRoomEvent;
+    public event Action<int> OnPlayerKilledEvent;
 
     #region SabotageProperties
 
     public event Action onLightSabotage;
-
-
     public event Action<int> onDoorSabotage;
     public GameObject SabotageMenu;
     public void onDoorSabotageTrigger(int id)
@@ -61,6 +61,14 @@ public class TaskManager : MonoBehaviourPunCallbacks
 
 
     #endregion
+    public void OnPlayerKilledTrigger(int _actorNumber)
+    {
+        if (OnPlayerKilledEvent != null)
+        {
+            ActorNumberAndIsDead[_actorNumber] = false;
+            OnPlayerKilledEvent(_actorNumber);
+        }
+    }
 
 
 
@@ -95,6 +103,10 @@ public class TaskManager : MonoBehaviourPunCallbacks
         }
         Debug.Log("Delay init task TaskCount =" + TaskCount + " antivirus count =" + AntiVirusCount + " antivirus Count = " + AntiVirusCount);
         globalAllTaskCount = TaskCount * (AntiVirusCount);
+
+        ExitGames.Client.Photon.Hashtable hash = new ExitGames.Client.Photon.Hashtable();
+        hash.Add("IsDead", true);
+        PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
         // CountTask();
     }
 
@@ -175,6 +187,12 @@ public class TaskManager : MonoBehaviourPunCallbacks
     public override void OnPlayerPropertiesUpdate(Player targetPlayer, ExitGames.Client.Photon.Hashtable changedProps)
     {
         base.OnPlayerPropertiesUpdate(targetPlayer, changedProps);
+        if (changedProps.ContainsKey("IsDead"))
+        {
+            Debug.Log("IsDead props");
+            ActorNumberAndIsDead[targetPlayer.ActorNumber] = (bool)changedProps["IsDead"];
+
+        }
         if (!changedProps.ContainsKey(CustomPropKey))
         {
             return;
@@ -272,6 +290,8 @@ public class TaskManager : MonoBehaviourPunCallbacks
         PhotonNetwork.LoadLevel("Lobby1");
     }
     #endregion
+
+
 
 
 
