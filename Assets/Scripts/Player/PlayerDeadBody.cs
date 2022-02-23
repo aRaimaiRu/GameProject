@@ -34,7 +34,7 @@ public class PlayerDeadBody : Photon.Pun.MonoBehaviourPun, IPunObservable
     }
     void Start()
     {
-
+        TaskManager.Instance.OnPlayerKilledTrigger(photonView.OwnerActorNr);
     }
 
     // Update is called once per frame
