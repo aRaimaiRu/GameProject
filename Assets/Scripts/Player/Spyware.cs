@@ -83,6 +83,8 @@ public partial class Spyware : Impostor
             VotingManager.Instance.KillInMeeting(PhotonNetwork.LocalPlayer.ActorNumber);
 
         }
+        // Dsiable Btn
+        MeetingActionBtn.SetActive(false);
         VotingManager.Instance.ChooseRoleWindow?.SetActive(false);
 
 
