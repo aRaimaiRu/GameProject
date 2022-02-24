@@ -7,7 +7,7 @@ using Util;
 public class AbilityCooldownBtn : MonoBehaviour
 {
     public float Cooldown = 5;
-    private Timer _timer;
+    public Timer _timer;
     [SerializeField] Image _image;
     [SerializeField] Button _button;
     [SerializeField] Text _text;

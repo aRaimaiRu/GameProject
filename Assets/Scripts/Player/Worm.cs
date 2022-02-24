@@ -93,7 +93,8 @@ public class Worm : Impostor
             GameplayActionBtn.GetComponent<Button>().interactable = false;
             return;
         }
-        GameplayActionBtn.GetComponent<Button>().interactable = markedActorNumber.Contains(_target.GetComponent<Playerinfo>().ActorNumber) ? false : UIControl.Instance._killBtn.interactable;
+        GameplayActionBtn.GetComponent<Button>().interactable = markedActorNumber.Contains(_target.GetComponent<Playerinfo>().ActorNumber) ? false :
+         GameplayActionBtn.GetComponent<AbilityCooldownBtn>()._timer.RemainingSeconds <= 0;
 
     }
     [PunRPC]
