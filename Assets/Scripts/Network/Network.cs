@@ -6,10 +6,12 @@ using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine.Experimental.Rendering.Universal;
 using Util;
+using Cinemachine;
 public class Network : MonoBehaviourPunCallbacks
 {
     public MasterClient masterClient;
     public CameraFollow PlayerCamera;
+    public CinemachineVirtualCamera NewPlayerCamera;
     public ChatWindowUI chatWindowUI;
     public UIControl uIControl;
     public VotingManager votingManager;
@@ -40,7 +42,8 @@ public class Network : MonoBehaviourPunCallbacks
         }
         Debug.Log("ThisPlayerNumber =" + ThisPlayerNumber);
         GameObject newPlayer = PhotonNetwork.Instantiate("Player", spawnPoints[ThisPlayerNumber].transform.position, Quaternion.identity);
-        PlayerCamera.target = newPlayer.transform;
+        // PlayerCamera.target = newPlayer.transform;
+        NewPlayerCamera.Follow = newPlayer.transform;
         chatWindowUI._playerInfo = newPlayer.GetComponent<Playerinfo>();
         newPlayer.GetComponent<Playerinfo>().SpawnPoint = spawnPoints[ThisPlayerNumber];
         // remove spawnpoint
@@ -68,7 +71,8 @@ public class Network : MonoBehaviourPunCallbacks
         // playerBody.SetColor(playerinfo._allPlayerColors[playerinfo.colorIndex]);
         // spawn ghost
         GameObject GhostPlayer = PhotonNetwork.Instantiate("ghost", _playerPhotonView.transform.position, Quaternion.identity);
-        PlayerCamera.target = GhostPlayer.transform;
+        // PlayerCamera.target = GhostPlayer.transform;
+        NewPlayerCamera.Follow = GhostPlayer.transform;
         chatWindowUI._playerInfo = GhostPlayer.GetComponent<Playerinfo>();
         GhostPlayer.GetComponent<Move>()._uiControl = uIControl;
         GhostPlayer.GetComponent<Ghost>().SetColor(playerinfo._allPlayerColors[playerinfo.colorIndex]);
