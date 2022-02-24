@@ -43,13 +43,13 @@ public class TaskInteraction : MonoBehaviourPun
                 float distance = Vector3.Distance(transform.position, interactible.transform.position);
                 if (distance > _range) { continue; }
                 newTarget = interactible;
-                // kill
+
                 UIControl.Instance.HasInteractible = true;
                 UIControl.Instance.CurrentInteractible = _target;
                 break;
 
             }
-            // reset the previous if any
+            // reset the previous if any setactive false if walk
             if (UIControl.Instance.CurrentInteractible != newTarget && UIControl.Instance.CurrentInteractible != null)
             {
                 UIControl.Instance.CurrentInteractible.Use(false);

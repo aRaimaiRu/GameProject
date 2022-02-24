@@ -5,7 +5,7 @@ using Photon.Pun;
 using UnityEngine.Experimental.Rendering.Universal;
 using UnityEngine.UI;
 using RoleList;
-public class Playerinfo : Photon.Pun.MonoBehaviourPun, IPunObservable
+public class Playerinfo : MonoBehaviourPun
 {
     public int colorIndex;
     public SpriteRenderer playerBody;
@@ -26,8 +26,16 @@ public class Playerinfo : Photon.Pun.MonoBehaviourPun, IPunObservable
     {
         if (photonView.IsMine)
         {
-            colorIndex = (int)PhotonNetwork.LocalPlayer.CustomProperties["ColorIndex"];
-            _playerName.text = PhotonNetwork.LocalPlayer.NickName;
+            if (PhotonNetwork.LocalPlayer.CustomProperties.ContainsKey("ColorIndex"))
+            {
+                colorIndex = (int)PhotonNetwork.LocalPlayer.CustomProperties["ColorIndex"];
+                photonView.RPC("SetColorRPC", RpcTarget.All, colorIndex);
+
+            }
+            else
+            {
+                Debug.Log("No Color Index");
+            }
         }
         else
         {
@@ -37,19 +45,14 @@ public class Playerinfo : Photon.Pun.MonoBehaviourPun, IPunObservable
         }
         _actorNumber = photonView.OwnerActorNr;
     }
-    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    [PunRPC]
+    public void SetColorRPC(int _index)
     {
-        if (stream.IsWriting)
-        {
-            stream.SendNext(colorIndex);
-            Debug.Log("Writing" + colorIndex);
-        }
-        else
-        {
-            colorIndex = (int)stream.ReceiveNext();
-            Debug.Log("Not Writing" + colorIndex);
-        }
+        colorIndex = _index;
+        playerBody.color = CurrentColor;
     }
+
+
 
     // Update is called once per frame
     void Update()

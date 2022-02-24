@@ -46,6 +46,7 @@ public class TaskManager : MonoBehaviourPunCallbacks
         if (onDoorSabotage != null)
         {
             CloseSabotageMenu();
+            UIControl.Instance.SabotageBtn.GetComponent<AbilityCooldownBtn>().RestartTimer();
             onDoorSabotage(id);
         }
     }
@@ -54,6 +55,7 @@ public class TaskManager : MonoBehaviourPunCallbacks
         if (onLightSabotage != null)
         {
             CloseSabotageMenu();
+            UIControl.Instance.SabotageBtn.GetComponent<AbilityCooldownBtn>().RestartTimer();
             onLightSabotage();
         }
     }

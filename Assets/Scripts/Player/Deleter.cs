@@ -18,6 +18,13 @@ public class Deleter : Impostor
         base.hasGamePlayAction = true;
         base.hasMeetingAction = false;
         if (!photonView.IsMine) { return; }
+
+        UIControl.Instance.IsImpostor = false;
+        UIControl.Instance.SabotageBtn.SetActive(false);
+        if (hasGamePlayAction)
+        {
+            GamePlayAction();
+        }
         StartCoroutine(UIControl.Instance.DelayFadeThisWindow(UIControl.Instance.DeleterIntro));
 
         ExitGames.Client.Photon.Hashtable hash = new ExitGames.Client.Photon.Hashtable();

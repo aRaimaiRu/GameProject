@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1326844736
 RectTransform:
   m_ObjectHideFlags: 0
@@ -978,5 +978,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerNameText: {fileID: 573726336549263110}
   _statusText: {fileID: 7813938184035495235}
+  _Symbol: {fileID: 1326844737}
   _voteButton: {fileID: 1822279897577594787}
   CountVoteText: {fileID: 750044473402262206}

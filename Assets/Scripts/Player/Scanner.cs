@@ -10,7 +10,8 @@ using RoleList;
 public class Scanner : Role
 {
     private GameObject MeetingActionBtn;
-    // private Sprite MeetingActionBtnSprite;
+
+    private Sprite MeetingActionBtnSprite;
     public RoleActionState CurrentAction;
 
 
@@ -28,7 +29,7 @@ public class Scanner : Role
         // 
         VotingManager.Instance.LocalPlayer = this;
         StartCoroutine(UIControl.Instance.DelayFadeThisWindow(UIControl.Instance.ScannerIntro));
-        // MeetingActionBtnSprite = Resources.Load<Sprite>("kill-01");
+        MeetingActionBtnSprite = Resources.Load<Sprite>("kill-01");
 
 
         if (hasMeetingAction)
@@ -49,20 +50,27 @@ public class Scanner : Role
                 break;
             case RoleActionState.ChoosePlayer:
                 VotingManager.Instance.ShowPlayerRole(targetActorNumber);
-                break;
-                // currentTargetActorNumber = targetActorNumber;
-                // VotingManager.Instance.DisablePlayerUIObj(targetActorNumber);
+                this.CurrentAction = RoleActionState.Voting;
 
-                // // VotingManager.Instance.ChooseRoleWindow?.SetActive(true);
-                // CurrentAction = RoleActionState.ChooseRole;
-                // VotingManager.Instance.onEndVote.AddListener(() => WormMeetingExecute(currentTargetActorNumber));
-                // break;
+                MeetingActionBtn.SetActive(false);
+                break;
+
         }
     }
     public override void PrepareMeetingAction()
     {
         base.PrepareMeetingAction();
+        MeetingActionBtn = UIControl.Instance.MeetingSkillBtn;
+        MeetingActionBtn.SetActive(true);
+        MeetingActionBtn.GetComponent<Image>().sprite = MeetingActionBtnSprite;
+        MeetingActionBtn.GetComponent<Button>().onClick.AddListener(useMeetingAction);
     }
+    private void useMeetingAction()
+    {
+        this.CurrentAction = RoleActionState.ChoosePlayer;
+
+    }
+
 
 
 }

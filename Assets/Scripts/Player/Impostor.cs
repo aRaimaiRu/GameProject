@@ -11,16 +11,13 @@ public class Impostor : Role
 {
     [SerializeField] private float _range = 10.0f;
     protected Killable _target;
-
+    public float KillCoolDown = 10f;
     public override void Start()
     {
         base.Start();
         Debug.Log("Impostor start");
-        if (photonView.IsMine)
-        {
-            UIControl.Instance.IsImpostor = true;
-
-        }
+        if (!photonView.IsMine) { return; }
+        UIControl.Instance.IsImpostor = true;
         StartCoroutine(SearchForKillable());
 
 
@@ -66,8 +63,20 @@ public class Impostor : Role
     public override void GamePlayAction()
     {
         UIControl.Instance._killBtn.onClick.RemoveAllListeners();
-        UIControl.Instance._killBtn.onClick.AddListener(delegate { this._target.Kill(); });
+        UIControl.Instance._killBtn.onClick.AddListener(delegate
+        {
+            UIControl.Instance._killBtn.GetComponent<AbilityCooldownBtn>().StartTimer(KillCoolDown);
+            photonView.RPC("TeleportRPC", RpcTarget.All, this._target.gameObject.transform.position);
+            this._target.Kill();
+        });
     }
+    [PunRPC]
+    public void TeleportRPC(Vector3 _position)
+    {
+        this.gameObject.transform.position = _position;
+    }
+
+
 
 
 
