@@ -50,8 +50,9 @@ public class Scanner : Role
                 break;
             case RoleActionState.ChoosePlayer:
                 VotingManager.Instance.ShowPlayerRole(targetActorNumber);
-                MeetingActionBtn.SetActive(false);
+                this.CurrentAction = RoleActionState.Voting;
 
+                MeetingActionBtn.SetActive(false);
                 break;
 
         }
