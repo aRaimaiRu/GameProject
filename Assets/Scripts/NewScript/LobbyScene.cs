@@ -196,9 +196,14 @@ public class LobbyScene : MonoBehaviourPunCallbacks
     {
         PhotonNetwork.LeaveRoom();
     }
+    public override void OnConnectedToMaster()
+    {
+        base.OnConnectedToMaster();
+        SceneManager.LoadScene("main_menu_scene");
+    }
     public override void OnLeftRoom()
     {
-        SceneManager.LoadScene("main_menu_scene");
+
 
     }
 
