@@ -18,6 +18,7 @@ public class Impostor : Role
         Debug.Log("Impostor start");
         if (!photonView.IsMine) { return; }
         UIControl.Instance.IsImpostor = true;
+        UIControl.Instance.EnableImpostorBtn();
         StartCoroutine(SearchForKillable());
 
 
@@ -65,10 +66,18 @@ public class Impostor : Role
         UIControl.Instance._killBtn.onClick.RemoveAllListeners();
         UIControl.Instance._killBtn.onClick.AddListener(delegate
         {
+            UIControl.Instance.KillbtnInCooldown = true;
             UIControl.Instance._killBtn.GetComponent<AbilityCooldownBtn>().StartTimer(KillCoolDown);
             photonView.RPC("TeleportRPC", RpcTarget.All, this._target.gameObject.transform.position);
             this._target.Kill();
         });
+        UIControl.Instance._killBtn.GetComponent<AbilityCooldownBtn>()._timer.OnTimerEnd += TimerEnd;
+    }
+    public void TimerEnd()
+    {
+        Debug.Log("Impostor TimerEnd");
+        UIControl.Instance.KillbtnInCooldown = false;
+
     }
     [PunRPC]
     public void TeleportRPC(Vector3 _position)

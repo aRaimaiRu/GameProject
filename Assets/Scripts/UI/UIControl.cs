@@ -28,7 +28,7 @@ public class UIControl : MonoBehaviour
     public GameObject SpecialAbilityBtn;
     [SerializeField] GameObject WinScreen;
     [SerializeField] GameObject LoseScreen;
-
+    public bool KillbtnInCooldown = true;
 
 
     private void Awake()
@@ -56,8 +56,8 @@ public class UIControl : MonoBehaviour
         }
 
         // }
-
-        _killBtn.interactable = _killBtn.interactable ? HasTarget : false;
+        Debug.Log("HasTarget =" + HasTarget + KillbtnInCooldown);
+        _killBtn.interactable = !KillbtnInCooldown ? HasTarget : false;
         _useBtn.interactable = HasInteractible;
         _reportDeadBodyBtn.interactable = HasDeadBodyInRange;
     }
@@ -117,6 +117,11 @@ public class UIControl : MonoBehaviour
     private void ShowLoseScreeen()
     {
         LoseScreen.SetActive(true);
+    }
+    public void EnableImpostorBtn()
+    {
+        _killBtn.gameObject.SetActive(IsImpostor);
+        SabotageBtn.gameObject.SetActive(IsImpostor);
     }
 
 
