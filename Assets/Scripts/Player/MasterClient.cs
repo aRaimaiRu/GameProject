@@ -53,7 +53,6 @@ public partial class MasterClient : MonoBehaviourPun
         for (int i = 0; i < players.Length; i++) { playerIndex.Add(i); }
 
         // Assign the imposter
-        AssignRoleForDebug();
         while (impostorNumber > 0)
         {
             // pick index
@@ -78,8 +77,7 @@ public partial class MasterClient : MonoBehaviourPun
         for (int i = 0; i < _impostorCount; i++)
         {
             int pickedProcessIndex = playerIndex[Random.Range(0, playerIndex.Count)];
-            RoleListClass.RoleList pickedRole = AntiVirusRoleList[Random.Range(0, VirusRoleList.Count)];
-
+            RoleListClass.RoleList pickedRole = AntiVirusRoleList[Random.Range(0, AntiVirusRoleList.Count)];
             PhotonView pv = players[pickedProcessIndex].GetComponent<PhotonView>();
             pv.RPC("SetRole", RpcTarget.All, pickedRole);
 
@@ -97,10 +95,6 @@ public partial class MasterClient : MonoBehaviourPun
         yield return new WaitForSeconds(0.1f);
         // photonView.RPC("InitializeTask", RpcTarget.All);
         // photonView.RPC("ImpostorPicked", RpcTarget.All, ImpostorCount);
-
-    }
-    private void AssignRoleForDebug()
-    {
 
     }
     [PunRPC]
