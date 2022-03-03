@@ -28,7 +28,7 @@ public class AbilityCooldownBtn : MonoBehaviour
         else
         {
             _image.fillAmount = 0;
-            _button.interactable = true;
+            // _button.interactable = true;
 
         }
         _text.text = ((int)_timer.RemainingSeconds).ToString();
