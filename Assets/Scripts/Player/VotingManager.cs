@@ -21,6 +21,7 @@ public class VotingManager : MonoBehaviourPunCallbacks
     private List<int> _playerThatVotedList = new List<int>();
     private List<int> _playersThatHaveBeenVoteList = new List<int>();
     private List<int> _playerThatHaveBeenKickedOutList = new List<int>();
+    private List<int> _playerGetKilledList = new List<int>();
     [SerializeField] private GameObject _kickPlayerWindow;
 
     [SerializeField] private Text _kickPlayerText;
@@ -36,7 +37,6 @@ public class VotingManager : MonoBehaviourPunCallbacks
     public UnityEvent onEndVote;
     public List<Role> AllRoleList;
     public static Dictionary<RoleListClass.RoleList, Sprite> RoleSymbolDict;
-
 
     private void Awake()
     {
@@ -57,6 +57,8 @@ public class VotingManager : MonoBehaviourPunCallbacks
         onEndVote.AddListener(() => UpdatePlayerRoleList());
 
         TaskManager.Instance.OnPlayerKilledEvent += ((int i) => UpdatePlayerRoleList());
+        TaskManager.Instance.OnPlayerKilledEvent += ((int i) => UpdateGetKilledList(i));
+
     }
     private void OnDestroy()
     {
@@ -250,7 +252,10 @@ public class VotingManager : MonoBehaviourPunCallbacks
             // {
             //     continue;
             // }
-
+            if (_playerGetKilledList.Contains(player.Value.ActorNumber))
+            {
+                continue;
+            }
             // Do not Add the killed player to the list
             if (_reportedDeadBodiesList.Contains(player.Value.ActorNumber))
             {
@@ -401,6 +406,10 @@ public class VotingManager : MonoBehaviourPunCallbacks
         VotePlayerItem _votePlayterItem = _votePlayerItemList.Find(x => x.ActorNumber == _targetActornumber);
         _votePlayterItem.ShowSymbol(RoleSymbolDict[CheckRoleOfPlayer(_targetActornumber)]);
 
+    }
+    private void UpdateGetKilledList(int i)
+    {
+        _playerGetKilledList.Add(i);
     }
 
 
