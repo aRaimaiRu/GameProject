@@ -1735,6 +1735,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 15
   _uiControl: {fileID: 0}
+  _animator: {fileID: 0}
 --- !u!70 &959802569716705147
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
