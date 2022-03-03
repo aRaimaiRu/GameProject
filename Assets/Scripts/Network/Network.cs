@@ -41,7 +41,7 @@ public class Network : MonoBehaviourPunCallbacks
 
         }
         Debug.Log("ThisPlayerNumber =" + ThisPlayerNumber);
-        GameObject newPlayer = PhotonNetwork.Instantiate("Player", spawnPoints[ThisPlayerNumber].transform.position, Quaternion.identity);
+        GameObject newPlayer = PhotonNetwork.Instantiate("TestPlayer", spawnPoints[ThisPlayerNumber].transform.position, Quaternion.identity);
         // PlayerCamera.target = newPlayer.transform;
         NewPlayerCamera.Follow = newPlayer.transform;
         chatWindowUI._playerInfo = newPlayer.GetComponent<Playerinfo>();
