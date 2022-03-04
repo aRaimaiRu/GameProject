@@ -30,6 +30,7 @@ public class VotingManager : MonoBehaviourPunCallbacks
     [SerializeField] public GameObject ChooseRoleContainer;
 
     [SerializeField] private GameObject RoleBtn;
+    [SerializeField] private Image RoleSymbolImg;
 
     public Role LocalPlayer;
     public RoleListClass.RoleList CurrentChooseRole;
@@ -45,11 +46,11 @@ public class VotingManager : MonoBehaviourPunCallbacks
             Destroy(this);
         Instance = this;
         RoleSymbolDict = new Dictionary<RoleListClass.RoleList, Sprite>(){
-        {RoleListClass.RoleList.Process,Resources.Load<Sprite>("kill-01")},
-        {RoleListClass.RoleList.Scanner,Resources.Load<Sprite>("kill-01")},
-        {RoleListClass.RoleList.Deleter,Resources.Load<Sprite>("kill-01")},
-        {RoleListClass.RoleList.Worm,Resources.Load<Sprite>("kill-01")},
-        {RoleListClass.RoleList.Spyware,Resources.Load<Sprite>("kill-01")}
+        {RoleListClass.RoleList.Process,Resources.Load<Sprite>("logo/logoprocess-01")},
+        {RoleListClass.RoleList.Scanner,Resources.Load<Sprite>("logo/logoScan-01")},
+        {RoleListClass.RoleList.Deleter,Resources.Load<Sprite>("logo/logodelete")},
+        {RoleListClass.RoleList.Worm,Resources.Load<Sprite>("logo/logospy-01")},
+        {RoleListClass.RoleList.Spyware,Resources.Load<Sprite>("logo/logoworm-01")}
         };
     }
     private void Start()
@@ -410,6 +411,11 @@ public class VotingManager : MonoBehaviourPunCallbacks
     private void UpdateGetKilledList(int i)
     {
         _playerGetKilledList.Add(i);
+    }
+    public void ShowUISymbol()
+    {
+        RoleSymbolImg.gameObject.SetActive(true);
+        RoleSymbolImg.sprite = RoleSymbolDict[LocalPlayer.role];
     }
 
 

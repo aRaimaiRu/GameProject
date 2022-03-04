@@ -90,6 +90,7 @@ public class TaskManager : MonoBehaviourPunCallbacks
     IEnumerator DelayInitialize()
     {
         yield return new WaitForSeconds(0.2f);
+        VotingManager.Instance.ShowUISymbol();
         // Debug.Log("Virus number =" + (int)PhotonNetwork.CurrentRoom.CustomProperties["VirusNumber"]);
         // Debug.Log("all number =" + PhotonNetwork.CurrentRoom.PlayerCount);
         ImpostorCount = PhotonNetwork.CurrentRoom.PlayerCount < 3 ? 1 : (int)PhotonNetwork.CurrentRoom.CustomProperties["VirusNumber"];
