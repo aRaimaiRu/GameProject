@@ -142,6 +142,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 15
   _uiControl: {fileID: 0}
+  _animator: {fileID: 0}
 --- !u!50 &4018113908497476105
 Rigidbody2D:
   serializedVersion: 4
