@@ -1809,6 +1809,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   colorIndex: 0
   playerBody: {fileID: 7704062180040284759}
+  Bodyparts:
+  - {fileID: 8747712437500633364}
+  - {fileID: 2751906622314983740}
+  - {fileID: 1768311042732495662}
+  - {fileID: 2540229192177578898}
+  - {fileID: 8485757437699928622}
+  - {fileID: 7571721018782311047}
+  - {fileID: 2154162072645035419}
+  - {fileID: 1637111428908093337}
+  - {fileID: 6822658522477036092}
   _allPlayerColors:
   - {r: 0, g: 0, b: 0, a: 1}
   - {r: 0.9622642, g: 0, b: 0, a: 1}

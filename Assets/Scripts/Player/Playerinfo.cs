@@ -9,6 +9,7 @@ public class Playerinfo : MonoBehaviourPun
 {
     public int colorIndex;
     public SpriteRenderer playerBody;
+    public List<SpriteRenderer> Bodyparts;
     public List<Color> _allPlayerColors = new List<Color>();
     public Color CurrentColor
     {
@@ -50,6 +51,10 @@ public class Playerinfo : MonoBehaviourPun
     {
         colorIndex = _index;
         playerBody.color = CurrentColor;
+        foreach (SpriteRenderer _sr in Bodyparts)
+        {
+            _sr.color = CurrentColor;
+        }
     }
 
 
