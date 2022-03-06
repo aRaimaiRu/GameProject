@@ -107,7 +107,7 @@ public partial class Spyware : Impostor
 
         MeetingActionBtn = UIControl.Instance.MeetingSkillBtn;
         MeetingActionBtn.SetActive(true);
-        MeetingActionBtn.GetComponent<Image>().sprite = MeetingActionBtnSprite;
+        MeetingActionBtn.GetComponent<Image>().sprite = VotingManager.RoleSkillSymbol[RoleListClass.RoleList.Spyware];
         MeetingActionBtn.GetComponent<Button>().onClick.AddListener(useMeetingAction);
     }
 

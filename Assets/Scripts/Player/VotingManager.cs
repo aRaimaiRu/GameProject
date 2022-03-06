@@ -30,7 +30,7 @@ public class VotingManager : MonoBehaviourPunCallbacks
     [SerializeField] public GameObject ChooseRoleContainer;
 
     [SerializeField] private GameObject RoleBtn;
-    [SerializeField] private Image RoleSymbolImg;
+    [SerializeField] public Image RoleSymbolImg;
 
     public Role LocalPlayer;
     public RoleListClass.RoleList CurrentChooseRole;
@@ -38,6 +38,7 @@ public class VotingManager : MonoBehaviourPunCallbacks
     public UnityEvent onEndVote;
     public List<Role> AllRoleList;
     public static Dictionary<RoleListClass.RoleList, Sprite> RoleSymbolDict;
+    public static Dictionary<RoleListClass.RoleList, Sprite> RoleSkillSymbol;
 
     private void Awake()
     {
@@ -49,8 +50,12 @@ public class VotingManager : MonoBehaviourPunCallbacks
         {RoleListClass.RoleList.Process,Resources.Load<Sprite>("logo/logoprocess-01")},
         {RoleListClass.RoleList.Scanner,Resources.Load<Sprite>("logo/logoScan-01")},
         {RoleListClass.RoleList.Deleter,Resources.Load<Sprite>("logo/logodelete")},
-        {RoleListClass.RoleList.Worm,Resources.Load<Sprite>("logo/logospy-01")},
-        {RoleListClass.RoleList.Spyware,Resources.Load<Sprite>("logo/logoworm-01")}
+        {RoleListClass.RoleList.Worm,Resources.Load<Sprite>("logo/logoworm-01")},
+        {RoleListClass.RoleList.Spyware,Resources.Load<Sprite>("logo/logospy-01")}
+        };
+        RoleSkillSymbol = new Dictionary<RoleListClass.RoleList, Sprite>(){
+        {RoleListClass.RoleList.Scanner,Resources.Load<Sprite>("logo/Icon35")},
+        {RoleListClass.RoleList.Spyware,Resources.Load<Sprite>("logo/Icon37")}
         };
     }
     private void Start()
@@ -75,6 +80,11 @@ public class VotingManager : MonoBehaviourPunCallbacks
     public bool WasBodyReported(int actorNumber)
     {
         return _reportedDeadBodiesList.Contains(actorNumber);
+
+    }
+    public void ReportBtn()
+    {
+        photonView.RPC("ReportDeadBodyRPC", RpcTarget.All, -1);
 
     }
     public void ReportDeadBody()

@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class VotingWindow : MonoBehaviourPunCallbacks
 {
+    [SerializeField] private Image VotingWindowRoleSymbol;
     bool startTimer = false;
     double timerIncrementValue;
     double startTime;
@@ -13,6 +14,8 @@ public class VotingWindow : MonoBehaviourPunCallbacks
     ExitGames.Client.Photon.Hashtable CustomeValue;
     public Slider timeSlider;
     public VotingManager _votingManager;
+    public Text timeText;
+
 
     public override void OnEnable()
     {
@@ -24,6 +27,7 @@ public class VotingWindow : MonoBehaviourPunCallbacks
             CustomeValue.Add("StartTime", startTime);
             PhotonNetwork.CurrentRoom.SetCustomProperties(CustomeValue);
         }
+        ShowRoleSymbol();
         // else
         // {
         //     startTime = double.Parse(PhotonNetwork.CurrentRoom.CustomProperties["StartTime"].ToString());
@@ -31,11 +35,18 @@ public class VotingWindow : MonoBehaviourPunCallbacks
         // }
     }
 
+    private void ShowRoleSymbol()
+    {
+        VotingWindowRoleSymbol.sprite = VotingManager.Instance.RoleSymbolImg.sprite;
+
+    }
+
     void Update()
     {
         if (!startTimer) return;
         timerIncrementValue = PhotonNetwork.Time - startTime;
         timeSlider.value = (float)((timer - timerIncrementValue) / timer);
+        timeText.text = "Time: " + ((int)(timer - timerIncrementValue)).ToString();
         if (timerIncrementValue >= timer)
         {
             //Timer Completed

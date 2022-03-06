@@ -397,7 +397,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 674357ba76c48174ca7c5a003b13ed34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _range: 2
+  _range: 5
 --- !u!1 &7320469088125697085
 GameObject:
   m_ObjectHideFlags: 0
@@ -587,6 +587,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 15
   _uiControl: {fileID: 0}
+  _animator: {fileID: 0}
 --- !u!70 &1212795124
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -656,6 +657,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   colorIndex: 0
   playerBody: {fileID: 7474766908615816664}
+  Bodyparts: []
   _allPlayerColors:
   - {r: 0, g: 0, b: 0, a: 1}
   - {r: 0.9622642, g: 0, b: 0, a: 1}

@@ -31,7 +31,7 @@ public class Interactible : MonoBehaviour
         }
         GetComponent<SpriteRenderer>().sprite = (UIControl.Instance.CurrentInteractible == this) ? _InteractibleHighlight : SourceSprite;
     }
-    public void Use(bool isActive)
+    public virtual void Use(bool isActive)
     {
         _taskWindow.SetActive(isActive);
 

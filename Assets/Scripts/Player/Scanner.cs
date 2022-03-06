@@ -62,7 +62,7 @@ public class Scanner : Role
         base.PrepareMeetingAction();
         MeetingActionBtn = UIControl.Instance.MeetingSkillBtn;
         MeetingActionBtn.SetActive(true);
-        MeetingActionBtn.GetComponent<Image>().sprite = MeetingActionBtnSprite;
+        MeetingActionBtn.GetComponent<Image>().sprite = VotingManager.RoleSkillSymbol[RoleListClass.RoleList.Scanner];
         MeetingActionBtn.GetComponent<Button>().onClick.AddListener(useMeetingAction);
     }
     private void useMeetingAction()
