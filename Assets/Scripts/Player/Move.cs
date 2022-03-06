@@ -24,26 +24,26 @@ public class Move : Photon.Pun.MonoBehaviourPun
     // Update is called once per frame
     void Update()
     {
-        if (photonView.IsMine && !_uiControl.IsChatWindowActive)
+        if (!photonView.IsMine) { return; }
+        if (_uiControl.IsChatWindowActive) { return; }
+        velocity.x = Input.GetAxisRaw("Horizontal");
+        velocity.y = Input.GetAxisRaw("Vertical");
+        if (Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0)
         {
-            velocity.x = Input.GetAxisRaw("Horizontal");
-            velocity.y = Input.GetAxisRaw("Vertical");
-            if (Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0)
-            {
-                _animator.SetBool("Run", true);
-                Vector3 vec3Buffer = transform.localScale;
-                vec3Buffer.x = velocity.x >= 0 ? sourceXScale.x : sourceXScale.x * -1;
-                transform.localScale = vec3Buffer;
-
-            }
-            else
-            {
-                _animator.SetBool("Run", false);
-
-            }
-
+            _animator.SetBool("Run", true);
+            Vector3 vec3Buffer = transform.localScale;
+            vec3Buffer.x = velocity.x >= 0 ? sourceXScale.x : sourceXScale.x * -1;
+            transform.localScale = vec3Buffer;
 
         }
+        else
+        {
+            _animator.SetBool("Run", false);
+
+        }
+
+
+
     }
 
     private void FixedUpdate()
