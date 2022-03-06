@@ -30,4 +30,8 @@ public class Ghost : Photon.Pun.MonoBehaviourPun, IPunObservable
         _bodyFill.color = color;
 
     }
+    void Start()
+    {
+        TaskManager.Instance.OnPlayerKilledTrigger(photonView.OwnerActorNr);
+    }
 }
