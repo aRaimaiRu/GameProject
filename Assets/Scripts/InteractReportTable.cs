@@ -6,6 +6,7 @@ public class InteractReportTable : Interactible
 {
     public override void Use(bool isActive)
     {
+        if (isActive != true) { return; }
         VotingManager.Instance.ReportBtn();
     }
 }
