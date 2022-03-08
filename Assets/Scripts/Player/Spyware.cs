@@ -58,15 +58,10 @@ public partial class Spyware : Impostor
             case RoleActionState.ChoosePlayer:
                 currentTargetActorNumber = targetActorNumber;
                 VotingManager.Instance.ChooseRoleWindow?.SetActive(true);
-                CurrentAction = RoleActionState.ChooseRole;
+                CurrentAction = RoleActionState.Voting;
                 VotingManager.Instance.onChooseRole.AddListener(() => SpywareMeetingExecute(VotingManager.Instance.CurrentChooseRole));
                 break;
-            case RoleActionState.ChooseRole:
-                // Check targetActorNumber and Role that choosen
-                // Rolebutton.onClick =  SpywareMeetingKill(Role)
-                // CurrentAction = RoleActionState.Voting;
 
-                break;
         }
 
     }

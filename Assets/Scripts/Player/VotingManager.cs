@@ -281,20 +281,20 @@ public class VotingManager : MonoBehaviourPunCallbacks
             newPlayerItem.Initialize(player.Value, this);
             _votePlayerItemList.Add(newPlayerItem);
         }
-        populateRoleList();
+        // populateRoleList();
     }
 
-    private void populateRoleList()
-    {
-        foreach (KeyValuePair<RoleListClass.RoleList, string> _role in RoleListClass.allroledict)
-        {
-            GameObject _btn = Instantiate(RoleBtn, ChooseRoleContainer.transform);
-            _btn.GetComponent<Button>().onClick.AddListener(() => ChooseRoleBtn(_role.Key));
-            _btn.GetComponentInChildren<Text>().text = _role.Value;
-        }
+    // private void populateRoleList()
+    // {
+    //     foreach (KeyValuePair<RoleListClass.RoleList, string> _role in RoleListClass.allroledict)
+    //     {
+    //         GameObject _btn = Instantiate(RoleBtn, ChooseRoleContainer.transform);
+    //         _btn.GetComponent<Button>().onClick.AddListener(() => ChooseRoleBtn(_role.Key));
+    //         _btn.GetComponentInChildren<Text>().text = _role.Value;
+    //     }
 
 
-    }
+    // }
     private void DestroyAllDeadBody()
     {
         PlayerDeadBody[] _playerDeadBodys = FindObjectsOfType<PlayerDeadBody>();
@@ -347,10 +347,20 @@ public class VotingManager : MonoBehaviourPunCallbacks
         return allplayerinfo.Find(x => x.ActorNumber == _targetActorNumber).GetComponent<Role>().role;
     }
 
-    public void ChooseRoleBtn(RoleListClass.RoleList _role)
+    public void ChooseRoleBtn(int i)
     {
+        List<RoleListClass.RoleList> _myrolelist = new List<RoleListClass.RoleList>(){
+            RoleListClass.RoleList.Deleter,
+            RoleListClass.RoleList.Process,
+            RoleListClass.RoleList.Scanner
+        };
+        RoleListClass.RoleList _role = _myrolelist[i];
         CurrentChooseRole = _role;
         onChooseRole.Invoke();
+    }
+    public void CloseChooseRole()
+    {
+        ChooseRoleWindow.SetActive(false);
     }
     public void DisablePlayerUIObj(int _targetActorNumber)
     {
