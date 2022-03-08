@@ -182,7 +182,7 @@ public class TaskManager : MonoBehaviourPunCallbacks
         CheckEndByTask();
 
     }
-    public override void OnPlayerLeftRoom(Player newPlayer)
+    public void OnPlayerLeftRoomCustom(Player newPlayer)
     {
         if (OnPlayerLeftRoomEvent != null) { OnPlayerLeftRoomEvent(newPlayer.ActorNumber); }
         UpdateCurrentPlayerCount(newPlayer);
