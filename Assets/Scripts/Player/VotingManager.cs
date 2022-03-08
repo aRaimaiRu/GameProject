@@ -72,6 +72,7 @@ public class VotingManager : MonoBehaviourPunCallbacks
     }
     public override void OnPlayerLeftRoom(Player newPlayer)
     {
+        TaskManager.Instance.OnPlayerLeftRoomCustom(newPlayer);
         UpdatePlayerRoleList();
         PopulatePlayerList();
     }
@@ -383,7 +384,7 @@ public class VotingManager : MonoBehaviourPunCallbacks
             }
 
         }
-        Debug.Log("This player role = " + allplayerinfo.Find(x => x.ActorNumber == _targetActorNumber).GetComponent<Role>().role);
+        // Debug.Log("This player role = " + allplayerinfo.Find(x => x.ActorNumber == _targetActorNumber).GetComponent<Role>().role);
 
         return RoleListClass.VirusRoleList.Contains(allplayerinfo.Find(x => x.ActorNumber == _targetActorNumber).GetComponent<Role>().role);
     }

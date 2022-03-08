@@ -88,6 +88,7 @@ public class Worm : Impostor
     {
         if (!photonView.IsMine) { return; }
         if (!GameplayActionBtn.activeSelf) { return; }
+        Debug.Log("_target =" + _target);
         if (_target == null)
         {
             GameplayActionBtn.GetComponent<Button>().interactable = false;

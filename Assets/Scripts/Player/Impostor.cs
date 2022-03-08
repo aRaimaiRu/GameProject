@@ -18,6 +18,7 @@ public class Impostor : Role
         Debug.Log("Impostor start");
         if (!photonView.IsMine) { return; }
         UIControl.Instance.IsImpostor = true;
+        UIControl.Instance.ImpostorBtn();
         StartCoroutine(SearchForKillable());
 
 
@@ -62,7 +63,6 @@ public class Impostor : Role
 
     public override void GamePlayAction()
     {
-        UIControl.Instance._killBtn.onClick.RemoveAllListeners();
         UIControl.Instance._killBtn.onClick.AddListener(delegate
         {
             // UIControl.Instance._killBtn.GetComponent<AbilityCooldownBtn>().StartTimer(KillCoolDown);

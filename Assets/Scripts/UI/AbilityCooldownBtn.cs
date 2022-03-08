@@ -24,11 +24,12 @@ public class AbilityCooldownBtn : MonoBehaviour
         if (_timer.RemainingSeconds > 0)
         {
             _image.fillAmount = (_timer.RemainingSeconds / Cooldown);
+            _button.interactable = false;
         }
         else
         {
             _image.fillAmount = 0;
-            _button.interactable = true;
+            // _button.interactable = true;
 
         }
         _text.text = ((int)_timer.RemainingSeconds).ToString();

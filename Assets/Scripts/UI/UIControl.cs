@@ -43,29 +43,22 @@ public class UIControl : MonoBehaviour
     }
     private void Update()
     {
-        // if (CurrentPlayer != null)
-        // {
-        if (IsImpostor)
+        if (_killBtn.gameObject.activeSelf)
         {
-            _killBtn.gameObject.SetActive(IsImpostor);
-            SabotageBtn.gameObject.SetActive(IsImpostor);
-        }
-        else
-        {
-            _killBtn.gameObject.SetActive(_killBtn.gameObject.activeSelf ? true : HasTarget);
+            _killBtn.interactable = _killBtn.GetComponent<AbilityCooldownBtn>()._timer.RemainingSeconds == 0 ? HasTarget : false;
+
         }
 
-        // }
 
-        _killBtn.interactable = _killBtn.interactable ? HasTarget : false;
+
         _useBtn.interactable = HasInteractible;
         _reportDeadBodyBtn.interactable = HasDeadBodyInRange;
     }
-    public void OnKillButtonPressed()
+
+    public void ImpostorBtn()
     {
-        Debug.Log("OnKillButtonPressed");
-        // if (CurrentPlayer == null) { return; }
-        // CurrentPlayer.Kill();
+        _killBtn.gameObject.SetActive(true);
+        SabotageBtn.gameObject.SetActive(true);
     }
     public void OnThisPlayerKilled()
     {
@@ -118,6 +111,7 @@ public class UIControl : MonoBehaviour
     {
         LoseScreen.SetActive(true);
     }
+
 
 
 
