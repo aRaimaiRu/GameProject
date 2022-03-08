@@ -159,9 +159,10 @@ public class TaskManager : MonoBehaviourPunCallbacks
     }
     public void CompleteTask(Interactible _interactible)
     {
-        _interactible.gameObject.SetActive(false);
         Destroy(testCurrentTaskList[_interactible].gameObject);
         testCurrentTaskList.Remove(_interactible);
+        _interactible.gameObject.SetActive(false);
+
         Debug.Log("test Current Task list count = " + testCurrentTaskList.Count + "  " + PhotonNetwork.LocalPlayer.ActorNumber);
 
         photonView.RPC("SetActorNumberAndTaskCount", RpcTarget.All, PhotonNetwork.LocalPlayer.ActorNumber, testCurrentTaskList.Count);

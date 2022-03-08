@@ -14,7 +14,12 @@ public class ColorArrangeTask : Task
     private void OnEnable()
     {
         List<int> randomList = new List<int> { 0, 0, 0 };
-        randomList[Random.Range(0, randomList.Count)] = 1;
+        int myRandom = Random.Range(0, randomList.Count);
+        while (myRandom == 1)
+        {
+            myRandom = Random.Range(0, randomList.Count);
+        }
+        randomList[myRandom] = 1;
         colorArrangeItems = new List<ColorArrangeItem>(GetComponentsInChildren<ColorArrangeItem>());
         for (int i = 0; i < colorArrangeItems.Count; i++)
         {
