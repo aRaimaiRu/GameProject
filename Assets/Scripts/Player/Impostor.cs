@@ -65,7 +65,7 @@ public class Impostor : Role
         UIControl.Instance._killBtn.onClick.RemoveAllListeners();
         UIControl.Instance._killBtn.onClick.AddListener(delegate
         {
-            UIControl.Instance._killBtn.GetComponent<AbilityCooldownBtn>().StartTimer(KillCoolDown);
+            // UIControl.Instance._killBtn.GetComponent<AbilityCooldownBtn>().StartTimer(KillCoolDown);
             photonView.RPC("TeleportRPC", RpcTarget.All, this._target.gameObject.transform.position);
             this._target.Kill();
         });

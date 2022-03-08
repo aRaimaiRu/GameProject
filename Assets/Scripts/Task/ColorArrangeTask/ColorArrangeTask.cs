@@ -18,6 +18,7 @@ public class ColorArrangeTask : Task
         colorArrangeItems = new List<ColorArrangeItem>(GetComponentsInChildren<ColorArrangeItem>());
         for (int i = 0; i < colorArrangeItems.Count; i++)
         {
+            colorArrangeItems[i].gameObject.SetActive(true);
             colorArrangeItems[i].Setcolor(new Color(noMoreThan(((255f * randomList[0]) + (51 * i)), 255f), noMoreThan(((255f * randomList[1]) + (51 * i)), 255f), noMoreThan(((255f * randomList[2]) + (51 * i)), 255f), 255f));
             if (i == 0)
             {
