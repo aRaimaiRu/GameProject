@@ -20,7 +20,6 @@ public class SettingScene : MonoBehaviourPunCallbacks
         }
         set
         {
-            Debug.Log(value);
             value = value % 11;
             value = value <= 4 ? 5 : value;
             maxPlayers = value;
@@ -35,7 +34,6 @@ public class SettingScene : MonoBehaviourPunCallbacks
         }
         set
         {
-            Debug.Log(value);
             value = value % 3;
             value = value <= 0 ? 1 : value;
             VirusNumber = value;
@@ -55,9 +53,6 @@ public class SettingScene : MonoBehaviourPunCallbacks
         roomOptions.BroadcastPropsChangeToAll = true;
         roomOptions.CustomRoomProperties = new ExitGames.Client.Photon.Hashtable { { "VirusNumber", VirusNumber } };
         roomOptions.CustomRoomPropertiesForLobby = lobbyOptions;
-
-
-
         PhotonNetwork.CreateRoom(getRandomRoomName(), roomOptions, null);
     }
 
@@ -89,25 +84,11 @@ public class SettingScene : MonoBehaviourPunCallbacks
         Virustxt.text = myMaxVirus.ToString();
 
     }
-    // public override void OnCreatedRoom()
-    // {
-    //     Debug.Log("Createroom");
-    //     PhotonNetwork.JoinRoom("roombame");
-
-    // }
 
     public override void OnJoinedRoom()
     {
-        Debug.Log("Joined Room");
-        // Debug.Log(PhotonNetwork.CurrentRoom.PropertiesListedInLobby);
-        Debug.Log(PhotonNetwork.CurrentRoom.MaxPlayers);
-        Debug.Log(PhotonNetwork.CurrentRoom.CustomProperties["VirusNumber"]);
+
         SceneManager.LoadScene("Lobby1");
-
-
-    }
-    public override void OnCreateRoomFailed(short returnCode, string message)
-    {
     }
 
     private string getRandomRoomName()
@@ -127,8 +108,5 @@ public class SettingScene : MonoBehaviourPunCallbacks
     public override void OnLeftLobby()
     {
         SceneManager.LoadScene("main_menu_scene");
-
     }
-
-
 }
