@@ -15,13 +15,8 @@ public class JoinScene : MonoBehaviourPunCallbacks
     public void OnBackBtnPressed()
     {
         SceneManager.LoadScene("main_menu_scene");
-        // PhotonNetwork.LeaveLobby();
     }
-    public override void OnConnectedToMaster()
-    {
-        // SceneManager.LoadScene("main_menu_scene");
 
-    }
 
     public override void OnLeftLobby()
     {
