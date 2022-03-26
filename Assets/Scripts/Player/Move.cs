@@ -1,6 +1,7 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class Move : Photon.Pun.MonoBehaviourPun
 {
@@ -12,6 +13,7 @@ public class Move : Photon.Pun.MonoBehaviourPun
     public UIControl _uiControl;
     public Animator _animator;
     private Vector3 sourceXScale;
+    private Sound walkSound;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,6 +21,7 @@ public class Move : Photon.Pun.MonoBehaviourPun
         _animator = GetComponent<Animator>();
         velocity = Vector2.zero;
         sourceXScale = transform.localScale;
+        walkSound = Array.Find<Sound>(AudioManager.instance.sounds, sound => sound.name == "walk");
     }
 
     // Update is called once per frame
@@ -30,14 +33,19 @@ public class Move : Photon.Pun.MonoBehaviourPun
         velocity.y = Input.GetAxisRaw("Vertical");
         if (Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0)
         {
+            if (!walkSound.source.isPlaying)
+            {
+                AudioManager.instance.Play("walk");
+            }
+
             _animator.SetBool("Run", true);
             Vector3 vec3Buffer = transform.localScale;
             vec3Buffer.x = velocity.x >= 0 ? sourceXScale.x : sourceXScale.x * -1;
             transform.localScale = vec3Buffer;
-
         }
         else
         {
+            walkSound.source.Stop();
             _animator.SetBool("Run", false);
 
         }

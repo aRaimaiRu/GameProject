@@ -7,6 +7,7 @@ public class Killable : Photon.Pun.MonoBehaviourPun
 {
     public void Kill()
     {
+        AudioManager.instance.Play("kill");
         photonView.RPC("KillRPC", RpcTarget.All); //  เรียกคำสั่ง KillRPC ในทุกเครื่อง
     }
 
@@ -14,6 +15,7 @@ public class Killable : Photon.Pun.MonoBehaviourPun
     public void KillRPC()
     {
         if (!photonView.IsMine) { return; } // ถ้าไม่ใช่เจ้าของ Object จะไม่ทำงาน
+        AudioManager.instance.Play("kill");
         PlayerDeadBody playerBody = PhotonNetwork.Instantiate("PlayerBody", this.transform.position, Quaternion.identity).GetComponent<PlayerDeadBody>();
         //สร้าง Object PlayerBody
         Playerinfo playerinfo = GetComponent<Playerinfo>(); // เข้าถึง Script PlayerInfo

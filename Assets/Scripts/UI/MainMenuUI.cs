@@ -5,6 +5,10 @@ using UnityEngine.SceneManagement;  //คำสั่งในการเรี
 
 public class MainMenuUI : MonoBehaviour
 {
+    private void Start()
+    {
+        AudioManager.instance.Play("bg");
+    }
     public void OnStartGamePressed()
     {
         SceneManager.LoadScene("Setting");      // เปลี่ยนไปหน้า Setting
