@@ -22,6 +22,8 @@ public class Move : Photon.Pun.MonoBehaviourPun
         velocity = Vector2.zero;
         sourceXScale = transform.localScale;
         walkSound = Array.Find<Sound>(AudioManager.instance.sounds, sound => sound.name == "walk");
+        walkSound.source.Stop();
+
     }
 
     // Update is called once per frame
