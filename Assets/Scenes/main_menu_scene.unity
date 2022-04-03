@@ -1450,6 +1450,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1839016265}
   m_CullTransparentMesh: 1
+--- !u!82 &1957991062 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 4864653747184478105, guid: d53307897dc189049afa17d6d1609ff9, type: 3}
+  m_PrefabInstance: {fileID: 4864653747161424172}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1964251570
 GameObject:
   m_ObjectHideFlags: 0
@@ -2022,6 +2027,58 @@ PrefabInstance:
     - target: {fileID: 4864653747295767175, guid: d53307897dc189049afa17d6d1609ff9, type: 3}
       propertyPath: m_Name
       value: AudioManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 4864653747295767196, guid: d53307897dc189049afa17d6d1609ff9, type: 3}
+      propertyPath: sounds.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4864653747295767196, guid: d53307897dc189049afa17d6d1609ff9, type: 3}
+      propertyPath: bgmPlayList.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4864653747295767196, guid: d53307897dc189049afa17d6d1609ff9, type: 3}
+      propertyPath: sounds.Array.data[2].loop
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4864653747295767196, guid: d53307897dc189049afa17d6d1609ff9, type: 3}
+      propertyPath: bgmPlayList.Array.data[0].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 9ad26d4d501464c45afeee0ae9a2231b, type: 3}
+    - target: {fileID: 4864653747295767196, guid: d53307897dc189049afa17d6d1609ff9, type: 3}
+      propertyPath: bgmPlayList.Array.data[0].name
+      value: bg1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4864653747295767196, guid: d53307897dc189049afa17d6d1609ff9, type: 3}
+      propertyPath: bgmPlayList.Array.data[1].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: c1c8877f760fe71478183b1ba9890294, type: 3}
+    - target: {fileID: 4864653747295767196, guid: d53307897dc189049afa17d6d1609ff9, type: 3}
+      propertyPath: bgmPlayList.Array.data[1].name
+      value: bg2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4864653747295767196, guid: d53307897dc189049afa17d6d1609ff9, type: 3}
+      propertyPath: bgmPlayList.Array.data[0].pitch
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4864653747295767196, guid: d53307897dc189049afa17d6d1609ff9, type: 3}
+      propertyPath: bgmPlayList.Array.data[1].pitch
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4864653747295767196, guid: d53307897dc189049afa17d6d1609ff9, type: 3}
+      propertyPath: bgmPlayList.Array.data[0].source
+      value: 
+      objectReference: {fileID: 1957991062}
+    - target: {fileID: 4864653747295767196, guid: d53307897dc189049afa17d6d1609ff9, type: 3}
+      propertyPath: bgmPlayList.Array.data[0].volume
+      value: 0.311
+      objectReference: {fileID: 0}
+    - target: {fileID: 4864653747295767196, guid: d53307897dc189049afa17d6d1609ff9, type: 3}
+      propertyPath: bgmPlayList.Array.data[1].source
+      value: 
+      objectReference: {fileID: 1957991062}
+    - target: {fileID: 4864653747295767196, guid: d53307897dc189049afa17d6d1609ff9, type: 3}
+      propertyPath: bgmPlayList.Array.data[1].volume
+      value: 0.311
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d53307897dc189049afa17d6d1609ff9, type: 3}
