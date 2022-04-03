@@ -11,8 +11,8 @@ public class AudioManager : MonoBehaviour
     [SerializeField] Image BG;
     [SerializeField] AudioSource bgm;
     [SerializeField] AudioSource sfx;
-
-
+    [SerializeField] Sound[] bgmPlayList;
+    int index = 0;
     public Sound[] sounds;
 
     public static AudioManager instance;
@@ -26,10 +26,7 @@ public class AudioManager : MonoBehaviour
         foreach (Sound s in sounds)
         {
             // s.source = gameObject.AddComponent<AudioSource>();
-            s.source.clip = s.clip;
-            s.source.volume = s.volume;
-            s.source.pitch = s.pitch;
-            s.source.loop = s.loop;
+            setSoundToSource(s);
         }
     }
     private void Start()
@@ -40,6 +37,8 @@ public class AudioManager : MonoBehaviour
 
         bgmSlider.value = bgm.volume;
         sfxSlider.value = sfx.volume;
+
+
 
     }
 
@@ -52,20 +51,40 @@ public class AudioManager : MonoBehaviour
 
     public void setVolume(string volumeType, float value)
     {
+
         Sound[] mysounds = Array.FindAll<Sound>(sounds, sound => sound.source.gameObject.name == volumeType);
-        foreach (Sound s in mysounds)
+        foreach (Sound s in volumeType == "bgm" ? bgmPlayList : mysounds)
         {
             s.volume = value;
-            Debug.Log(s.source.gameObject.name);
             s.source.volume = value;
-
-
         }
+
     }
     public void setCanvasActive(bool _active)
     {
         BG.gameObject.SetActive(_active);
     }
+
+    private void Update()
+    {
+        if (bgmPlayList[index].source.isPlaying == false)
+        {
+            Sound s = bgmPlayList[index];
+
+            setSoundToSource(s);
+            s.source.Play();
+            index = (index + 1) % bgmPlayList.Length;
+        }
+    }
+    private void setSoundToSource(Sound s)
+    {
+        s.source.clip = s.clip;
+        s.source.volume = s.volume;
+        s.source.pitch = s.pitch;
+        s.source.loop = s.loop;
+    }
+
+
 
 
 
