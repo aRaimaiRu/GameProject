@@ -46,6 +46,18 @@ public class Playerinfo : MonoBehaviourPun
         }
         _actorNumber = photonView.OwnerActorNr;
     }
+    private void Start()
+    {
+        VotingManager.Instance.onEndVote.AddListener(() => onThisVoteEnd());
+    }
+    private void onThisVoteEnd()
+    {
+        if (SpawnPoint != null)
+        {
+            transform.position = SpawnPoint.transform.position;
+        }
+    }
+
     [PunRPC]
     public void SetColorRPC(int _index)
     {

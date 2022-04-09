@@ -31,6 +31,8 @@ public class Door : MonoBehaviourPun
     public void ClosingDoorRPC()
     {
         this.gameObject.SetActive(true);
+        Debug.Log("closing door");
+        AudioManager.instance.Play("closedoor");
         StartCoroutine(ClosingDoor());
     }
     IEnumerator ClosingDoor()

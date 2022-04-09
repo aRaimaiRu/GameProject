@@ -47,7 +47,7 @@ public class Move : Photon.Pun.MonoBehaviourPun
         }
         else
         {
-            walkSound.source.Stop();
+            if (walkSound.source.clip == walkSound.clip) { walkSound.source.Stop(); }
             _animator.SetBool("Run", false);
 
         }

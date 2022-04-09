@@ -2030,15 +2030,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4864653747295767196, guid: d53307897dc189049afa17d6d1609ff9, type: 3}
       propertyPath: sounds.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4864653747295767196, guid: d53307897dc189049afa17d6d1609ff9, type: 3}
       propertyPath: bgmPlayList.Array.size
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4864653747295767196, guid: d53307897dc189049afa17d6d1609ff9, type: 3}
+      propertyPath: sounds.Array.data[2].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 15a36dd4b62c1504ead9ceb39d5f9c06, type: 3}
+    - target: {fileID: 4864653747295767196, guid: d53307897dc189049afa17d6d1609ff9, type: 3}
       propertyPath: sounds.Array.data[2].loop
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4864653747295767196, guid: d53307897dc189049afa17d6d1609ff9, type: 3}
+      propertyPath: sounds.Array.data[2].name
+      value: closedoor
+      objectReference: {fileID: 0}
+    - target: {fileID: 4864653747295767196, guid: d53307897dc189049afa17d6d1609ff9, type: 3}
+      propertyPath: sounds.Array.data[2].source
+      value: 
+      objectReference: {fileID: 4864653747161424173}
+    - target: {fileID: 4864653747295767196, guid: d53307897dc189049afa17d6d1609ff9, type: 3}
+      propertyPath: sounds.Array.data[2].volume
+      value: 0.385
       objectReference: {fileID: 0}
     - target: {fileID: 4864653747295767196, guid: d53307897dc189049afa17d6d1609ff9, type: 3}
       propertyPath: bgmPlayList.Array.data[0].clip
@@ -2082,3 +2098,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d53307897dc189049afa17d6d1609ff9, type: 3}
+--- !u!82 &4864653747161424173 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 4864653748541120849, guid: d53307897dc189049afa17d6d1609ff9, type: 3}
+  m_PrefabInstance: {fileID: 4864653747161424172}
+  m_PrefabAsset: {fileID: 0}
