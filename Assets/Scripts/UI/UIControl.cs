@@ -26,6 +26,8 @@ public class UIControl : MonoBehaviour
     public GameObject MeetingSkillBtn;
     public GameObject SabotageBtn;
     public GameObject SpecialAbilityBtn;
+    public GameObject MapTexture;
+
     [SerializeField] GameObject WinScreen;
     [SerializeField] GameObject LoseScreen;
 
@@ -110,6 +112,10 @@ public class UIControl : MonoBehaviour
     private void ShowLoseScreeen()
     {
         LoseScreen.SetActive(true);
+    }
+    public void ShowMap()
+    {
+        MapTexture.SetActive(!MapTexture.activeSelf);
     }
 
 

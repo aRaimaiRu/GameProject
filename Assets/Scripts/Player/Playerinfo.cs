@@ -40,10 +40,11 @@ public class Playerinfo : MonoBehaviourPun
         }
         else
         {
-            _playerName.text = GetPlayerName(photonView.OwnerActorNr);
+            Destroy(GameObject.FindGameObjectWithTag("MapMark"));
             // remove light of other player
             Destroy(GetComponentInChildren<Light2D>());
         }
+        _playerName.text = GetPlayerName(photonView.OwnerActorNr);
         _actorNumber = photonView.OwnerActorNr;
     }
     private void Start()
