@@ -23,6 +23,7 @@ public class Playerinfo : MonoBehaviourPun
         get { return _actorNumber; }
 
     }
+    public GameObject MapMark;
     private void Awake()
     {
         if (photonView.IsMine)
@@ -40,7 +41,7 @@ public class Playerinfo : MonoBehaviourPun
         }
         else
         {
-            Destroy(GameObject.FindGameObjectWithTag("MapMark"));
+            if (MapMark != null) Destroy(MapMark);
             // remove light of other player
             Destroy(GetComponentInChildren<Light2D>());
         }

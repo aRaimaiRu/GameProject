@@ -1834,6 +1834,7 @@ MonoBehaviour:
   - {r: 0.38679248, g: 0.21296936, b: 0, a: 1}
   _playerName: {fileID: 5115898453762922738}
   SpawnPoint: {fileID: 0}
+  MapMark: {fileID: 8656321002721002374}
 --- !u!120 &959802570722367809
 LineRenderer:
   m_ObjectHideFlags: 0
