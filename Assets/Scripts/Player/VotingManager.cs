@@ -279,7 +279,8 @@ public class VotingManager : MonoBehaviourPunCallbacks
                 continue;
             }
             VotePlayerItem newPlayerItem = Instantiate(_votePlayerItemPrefab, _votePlayerItemContainer);
-            newPlayerItem.Initialize(player.Value, this);
+
+            newPlayerItem.Initialize(player.Value, this, LocalPlayer.GetComponent<Playerinfo>()._allPlayerColors[(int)player.Value.CustomProperties["ColorIndex"]]);
             _votePlayerItemList.Add(newPlayerItem);
         }
         // populateRoleList();

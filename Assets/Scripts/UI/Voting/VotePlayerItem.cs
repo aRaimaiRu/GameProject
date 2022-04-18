@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,6 +10,7 @@ public class VotePlayerItem : MonoBehaviour
     [SerializeField] private Text _playerNameText;
     [SerializeField] private Text _statusText;
     [SerializeField] private Image _Symbol;
+    [SerializeField] private Image PlayerColor;
 
     private int _actorNumber;
     public int ActorNumber
@@ -31,12 +33,13 @@ public class VotePlayerItem : MonoBehaviour
     {
         _votingManager.CastVote(_actorNumber);
     }
-    public void Initialize(Player player, VotingManager votingManager)
+    public void Initialize(Player player, VotingManager votingManager, Color _color)
     {
         _actorNumber = player.ActorNumber;
         _playerNameText.text = player.NickName;
         _statusText.text = "Not Decided";
         _votingManager = votingManager;
+        PlayerColor.color = _color;
 
     }
     public void UpdateStatus(string status)

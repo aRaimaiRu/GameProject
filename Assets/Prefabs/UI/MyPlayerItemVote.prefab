@@ -979,5 +979,6 @@ MonoBehaviour:
   _playerNameText: {fileID: 573726336549263110}
   _statusText: {fileID: 7813938184035495235}
   _Symbol: {fileID: 1326844737}
+  PlayerColor: {fileID: 482248938018447879}
   _voteButton: {fileID: 1822279897577594787}
   CountVoteText: {fileID: 750044473402262206}
