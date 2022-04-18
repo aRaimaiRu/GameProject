@@ -67,4 +67,8 @@ public class VotePlayerItem : MonoBehaviour
         _Symbol.gameObject.SetActive(true);
 
     }
+    public void Reporter()
+    {
+        _playerNameText.color = Color.red;
+    }
 }

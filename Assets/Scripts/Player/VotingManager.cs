@@ -40,6 +40,7 @@ public class VotingManager : MonoBehaviourPunCallbacks
     public static Dictionary<RoleListClass.RoleList, Sprite> RoleSymbolDict;
     public static Dictionary<RoleListClass.RoleList, Sprite> RoleSkillSymbol;
     public List<Color> _allPlayerColors = new List<Color>();
+    private int reporterActorNumber;
 
     private void Awake()
     {
@@ -86,7 +87,7 @@ public class VotingManager : MonoBehaviourPunCallbacks
     }
     public void ReportBtn()
     {
-        photonView.RPC("ReportDeadBodyRPC", RpcTarget.All, -1);
+        photonView.RPC("ReportDeadBodyRPC", RpcTarget.All, -1, PhotonNetwork.LocalPlayer.ActorNumber);
 
     }
     public void ReportDeadBody()
@@ -98,13 +99,13 @@ public class VotingManager : MonoBehaviourPunCallbacks
             return;
         }
         Debug.Log("DeadBodyInProximity.OwnerActorNr =" + DeadBodyInProximity.OwnerActorNr);
-        photonView.RPC("ReportDeadBodyRPC", RpcTarget.All, DeadBodyInProximity.OwnerActorNr);
+        photonView.RPC("ReportDeadBodyRPC", RpcTarget.All, DeadBodyInProximity.OwnerActorNr, PhotonNetwork.LocalPlayer.ActorNumber);
 
     }
     [PunRPC]
-    public void ReportDeadBodyRPC(int actorNumber)
+    public void ReportDeadBodyRPC(int actorNumber, int _reporterActorNumber)
     {
-
+        reporterActorNumber = _reporterActorNumber;
         if (actorNumber != -1)
         {
             _reportedDeadBodiesList.Add(actorNumber);
@@ -282,6 +283,10 @@ public class VotingManager : MonoBehaviourPunCallbacks
             VotePlayerItem newPlayerItem = Instantiate(_votePlayerItemPrefab, _votePlayerItemContainer);
 
             newPlayerItem.Initialize(player.Value, this, _allPlayerColors[(int)player.Value.CustomProperties["ColorIndex"]]);
+            if (reporterActorNumber == player.Value.ActorNumber)
+            {
+                newPlayerItem.Reporter();
+            }
             _votePlayerItemList.Add(newPlayerItem);
         }
         // populateRoleList();
