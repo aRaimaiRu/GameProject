@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class Interactible : MonoBehaviour
 {
-    [SerializeField] private GameObject _taskWindow;
-    [SerializeField] private Sprite _InteractibleHighlight;
-    [SerializeField] private Sprite SourceSprite;
+    public GameObject _taskWindow;
+    public Sprite _InteractibleHighlight;
+    public Sprite SourceSprite;
     public string taskDescription;
-    private UIControl _uiControl;
-    private void Start()
+    public UIControl _uiControl;
+    public void Start()
     {
         SourceSprite = this.GetComponent<SpriteRenderer>().sprite;
         _uiControl = FindObjectOfType<UIControl>();
@@ -23,7 +23,7 @@ public class Interactible : MonoBehaviour
 
         }
     }
-    private void FixedUpdate()
+    public void FixedUpdate()
     {
         if (_InteractibleHighlight == null)
         {
