@@ -40,15 +40,19 @@ public class Move : Photon.Pun.MonoBehaviourPun
                 AudioManager.instance.Play("walk");
             }
 
-            _animator.SetBool("Run", true);
-            Vector3 vec3Buffer = Body.transform.localScale;
-            vec3Buffer.x = velocity.x >= 0 ? sourceXScale.x : sourceXScale.x * -1;
-            Body.transform.localScale = vec3Buffer;
+            _animator?.SetBool("Run", true);
+            if (Body != null)
+            {
+                Vector3 vec3Buffer = Body.transform.localScale;
+                vec3Buffer.x = velocity.x >= 0 ? sourceXScale.x : sourceXScale.x * -1;
+                Body.transform.localScale = vec3Buffer;
+            }
+
         }
         else
         {
-            if (walkSound.source.clip == walkSound.clip) { walkSound.source.Stop(); }
-            _animator.SetBool("Run", false);
+            if (walkSound?.source.clip == walkSound?.clip) { walkSound?.source.Stop(); }
+            if (_animator != null) _animator?.SetBool("Run", false);
 
         }
 

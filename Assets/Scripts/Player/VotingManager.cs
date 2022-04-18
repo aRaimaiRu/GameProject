@@ -39,6 +39,7 @@ public class VotingManager : MonoBehaviourPunCallbacks
     public List<Role> AllRoleList;
     public static Dictionary<RoleListClass.RoleList, Sprite> RoleSymbolDict;
     public static Dictionary<RoleListClass.RoleList, Sprite> RoleSkillSymbol;
+    public List<Color> _allPlayerColors = new List<Color>();
 
     private void Awake()
     {
@@ -280,7 +281,7 @@ public class VotingManager : MonoBehaviourPunCallbacks
             }
             VotePlayerItem newPlayerItem = Instantiate(_votePlayerItemPrefab, _votePlayerItemContainer);
 
-            newPlayerItem.Initialize(player.Value, this, LocalPlayer.GetComponent<Playerinfo>()._allPlayerColors[(int)player.Value.CustomProperties["ColorIndex"]]);
+            newPlayerItem.Initialize(player.Value, this, _allPlayerColors[(int)player.Value.CustomProperties["ColorIndex"]]);
             _votePlayerItemList.Add(newPlayerItem);
         }
         // populateRoleList();
