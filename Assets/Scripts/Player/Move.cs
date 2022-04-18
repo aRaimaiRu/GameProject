@@ -5,6 +5,7 @@ using UnityEngine.Audio;
 
 public class Move : Photon.Pun.MonoBehaviourPun
 {
+    [SerializeField] private GameObject Body;
     public float speed = 15f;
     Vector2 velocity;
     Rigidbody2D rb;
@@ -18,9 +19,8 @@ public class Move : Photon.Pun.MonoBehaviourPun
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        _animator = GetComponent<Animator>();
         velocity = Vector2.zero;
-        sourceXScale = transform.localScale;
+        sourceXScale = Body.transform.localScale;
         walkSound = Array.Find<Sound>(AudioManager.instance.sounds, sound => sound.name == "walk");
         walkSound.source.Stop();
 
@@ -41,9 +41,9 @@ public class Move : Photon.Pun.MonoBehaviourPun
             }
 
             _animator.SetBool("Run", true);
-            Vector3 vec3Buffer = transform.localScale;
+            Vector3 vec3Buffer = Body.transform.localScale;
             vec3Buffer.x = velocity.x >= 0 ? sourceXScale.x : sourceXScale.x * -1;
-            transform.localScale = vec3Buffer;
+            Body.transform.localScale = vec3Buffer;
         }
         else
         {

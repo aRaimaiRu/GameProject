@@ -99,7 +99,7 @@ MonoBehaviour:
   m_BoneTransforms:
   - {fileID: 4020208233354669588}
   m_Bounds:
-    m_Center: {x: -0.11935806, y: -1.1392913, z: 0}
+    m_Center: {x: -0.119356155, y: -1.1392913, z: 0}
     m_Extent: {x: 1.51, y: 1.575, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
@@ -158,7 +158,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 538066844886672272}
   m_LocalRotation: {x: -0, y: -0, z: 0.6683812, w: 0.743819}
-  m_LocalPosition: {x: 0.45, y: -1.12, z: 0}
+  m_LocalPosition: {x: 0.45000076, y: -1.1199999, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6161813104422489696}
@@ -166,8 +166,8 @@ Transform:
   - {fileID: 8585008398961062149}
   - {fileID: 7645478946180847246}
   - {fileID: 4020208233354669588}
-  m_Father: {fileID: 7704062180040284758}
-  m_RootOrder: 3
+  m_Father: {fileID: 4237556965877543023}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &970768109190551415
 GameObject:
@@ -558,6 +558,58 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!1 &2868462879491226595
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4237556965877543023}
+  - component: {fileID: 5821762938884254229}
+  m_Layer: 6
+  m_Name: Body
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4237556965877543023
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2868462879491226595}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 6357596754588074214}
+  - {fileID: 8539049682652563501}
+  m_Father: {fileID: 7704062180040284758}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &5821762938884254229
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2868462879491226595}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: bc8c6b465aa2a3947b2676f0dad57c30, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &3454446024608994722
 GameObject:
   m_ObjectHideFlags: 0
@@ -657,7 +709,7 @@ MonoBehaviour:
   m_BoneTransforms:
   - {fileID: 4020208233354669588}
   m_Bounds:
-    m_Center: {x: -0.11993492, y: -1.1400609, z: 0}
+    m_Center: {x: -0.11993301, y: -1.1400609, z: 0}
     m_Extent: {x: 1.526405, y: 0.65832996, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
@@ -881,7 +933,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5290532347742396311}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.4973087, y: 0.6779175, z: 0}
+  m_LocalPosition: {x: 1.4973092, y: 0.6779176, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 5591117709554284911}
@@ -893,8 +945,8 @@ Transform:
   - {fileID: 6621695990274107210}
   - {fileID: 8257093226744069189}
   - {fileID: 4058400985481893323}
-  m_Father: {fileID: 7704062180040284758}
-  m_RootOrder: 4
+  m_Father: {fileID: 4237556965877543023}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &8747712437500633364
 SpriteRenderer:
@@ -1306,7 +1358,7 @@ MonoBehaviour:
   m_BoneTransforms:
   - {fileID: 7281541428775236395}
   m_Bounds:
-    m_Center: {x: -0.11773431, y: -1.1392927, z: 0}
+    m_Center: {x: -0.11773813, y: -1.1392927, z: 0}
     m_Extent: {x: 0.61838007, y: 0.6750001, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
@@ -1623,7 +1675,6 @@ GameObject:
   - component: {fileID: 959802570722367809}
   - component: {fileID: 8987223320714258485}
   - component: {fileID: 2503149277471556386}
-  - component: {fileID: 9618821526256255}
   - component: {fileID: 7738931421886389937}
   - component: {fileID: 6833405751551432091}
   m_Layer: 6
@@ -1647,9 +1698,8 @@ Transform:
   - {fileID: 6503378268374213117}
   - {fileID: 6348251483042153551}
   - {fileID: 1740002094425936091}
-  - {fileID: 8539049682652563501}
-  - {fileID: 6357596754588074214}
   - {fileID: 3621829795140208877}
+  - {fileID: 4237556965877543023}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1737,9 +1787,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3dc2d0dfa1ea74a498d0914cfdbf146f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Body: {fileID: 2868462879491226595}
   speed: 15
   _uiControl: {fileID: 0}
-  _animator: {fileID: 0}
+  _animator: {fileID: 5821762938884254229}
 --- !u!70 &959802569716705147
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -1989,25 +2040,6 @@ MonoBehaviour:
   BeginOutLightRadius: 0
   OutLightRadius: 4
   delay: 5
---- !u!95 &9618821526256255
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7704062180040284746}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: bc8c6b465aa2a3947b2676f0dad57c30, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &7738931421886389937
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2160,7 +2192,7 @@ Transform:
   m_LocalScale: {x: 4.4860754, y: 4.4860754, z: 4.4860754}
   m_Children: []
   m_Father: {fileID: 7704062180040284758}
-  m_RootOrder: 5
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2008757362456921764
 SpriteRenderer:
