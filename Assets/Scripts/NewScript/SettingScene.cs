@@ -98,10 +98,10 @@ public class SettingScene : MonoBehaviourPunCallbacks
     }
     public void OnBackBtnPressed()
     {
-        PhotonNetwork.LeaveLobby(); //ออกจาก lobby
+        SceneManager.LoadScene("main_menu_scene"); //ออกจาก lobby
     }
-    public override void OnLeftLobby()
-    {
-        SceneManager.LoadScene("main_menu_scene"); //กลับไปยัง MainMenu
-    }
+    // public override void OnLeftLobby()
+    // {
+    //     SceneManager.LoadScene("main_menu_scene"); //กลับไปยัง MainMenu
+    // }
 }

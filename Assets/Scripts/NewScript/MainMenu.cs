@@ -11,11 +11,13 @@ public class MainMenu : MonoBehaviourPunCallbacks
     // Player Name Functionality
     [SerializeField] private InputField _playerNameInput;
     [SerializeField] private Text _playerNameLabel;
+    [SerializeField] private GameObject LoadingImg;
     private bool _isPlayerNameChanging = false;
 
-
-
-
+    private void Awake()
+    {
+        LoadingImg?.SetActive(true);
+    }
     void Start()
     {
         Debug.Log("Connect status" + PhotonNetwork.IsConnected);
@@ -26,6 +28,7 @@ public class MainMenu : MonoBehaviourPunCallbacks
         else
         {
             _playerNameLabel.text = PhotonNetwork.NickName;
+            LoadingImg?.SetActive(false);
             // PhotonNetwork.JoinLobby();
         }
 
@@ -50,6 +53,7 @@ public class MainMenu : MonoBehaviourPunCallbacks
     {
         base.OnJoinedLobby();
         _playerNameLabel.text = PhotonNetwork.NickName;
+        LoadingImg?.SetActive(false);
 
         Debug.Log("On Jolned Lobby");
     }
