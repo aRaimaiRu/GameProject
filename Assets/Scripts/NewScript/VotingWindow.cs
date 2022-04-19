@@ -78,4 +78,10 @@ public class VotingWindow : MonoBehaviourPunCallbacks
             }
         }
     }
+    public void everyoneVoted()
+    {
+        // timer - (PhotonNetwork.Time - startTime) = 5
+        // timer - PhotonNetwork.Time + startTime = 5
+        startTime = 5 - timer + PhotonNetwork.Time;
+    }
 }

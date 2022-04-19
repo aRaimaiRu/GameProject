@@ -11,6 +11,8 @@ public class VotePlayerItem : MonoBehaviour
     [SerializeField] private Text _statusText;
     [SerializeField] private Image _Symbol;
     [SerializeField] private Image PlayerColor;
+    [SerializeField] private Image _voteOrSkip;
+
 
     private int _actorNumber;
     public int ActorNumber
@@ -44,6 +46,7 @@ public class VotePlayerItem : MonoBehaviour
     }
     public void UpdateStatus(string status)
     {
+        if (status == "SKIPPED" || status == "VOTED") _voteOrSkip.gameObject.SetActive(true);
         _statusText.text = status;
 
     }

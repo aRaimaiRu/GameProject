@@ -152,6 +152,10 @@ public class VotingManager : MonoBehaviourPunCallbacks
             _playerThatVotedList.Add(actorNumber);
             _playersThatHaveBeenVoteList.Add(targetActorNumber);
         }
+        if (_playerThatVotedList.Count == _votePlayerItemList.Count)
+        {
+            GameObject.FindObjectOfType<VotingWindow>().everyoneVoted();
+        }
 
 
     }
