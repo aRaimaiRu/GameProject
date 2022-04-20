@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8234431607698722892}
   - component: {fileID: 1768311042732495662}
   - component: {fileID: 7186738708999983757}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Dumb Robot_Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -70,7 +70,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1912975471
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 6
   m_Sprite: {fileID: -3568818138667242141, guid: 62d2e3b058fe7fd4babfeb52ae4c10d5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -99,7 +99,7 @@ MonoBehaviour:
   m_BoneTransforms:
   - {fileID: 4020208233354669588}
   m_Bounds:
-    m_Center: {x: -0.11935806, y: -1.1392918, z: 0}
+    m_Center: {x: -0.119356155, y: -1.1392913, z: 0}
     m_Extent: {x: 1.51, y: 1.575, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
@@ -180,7 +180,7 @@ GameObject:
   - component: {fileID: 5129944783151166456}
   - component: {fileID: 8485757437699928622}
   - component: {fileID: 4270905623294720117}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Dumb Robot_Left Lower Arm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -239,7 +239,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1912975471
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 9
   m_Sprite: {fileID: 949343879021316886, guid: 62d2e3b058fe7fd4babfeb52ae4c10d5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -269,7 +269,7 @@ MonoBehaviour:
   - {fileID: 5941625675870222675}
   - {fileID: 6706958332921361805}
   m_Bounds:
-    m_Center: {x: -0.1185981, y: -1.1387687, z: 0}
+    m_Center: {x: -0.1185981, y: -1.1387668, z: 0}
     m_Extent: {x: 0.5063699, y: 0.72658515, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
@@ -691,7 +691,7 @@ GameObject:
   - component: {fileID: 6621695990274107210}
   - component: {fileID: 2154162072645035419}
   - component: {fileID: 1596980410562939961}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Dumb Robot_Mouth
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -750,7 +750,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1912975471
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 7
   m_Sprite: {fileID: 2967122683822762699, guid: 62d2e3b058fe7fd4babfeb52ae4c10d5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -779,7 +779,7 @@ MonoBehaviour:
   m_BoneTransforms:
   - {fileID: 4020208233354669588}
   m_Bounds:
-    m_Center: {x: -0.11993301, y: -1.1400619, z: 0}
+    m_Center: {x: -0.11993301, y: -1.1400609, z: 0}
     m_Extent: {x: 1.526405, y: 0.65832996, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
@@ -794,7 +794,7 @@ GameObject:
   - component: {fileID: 8257093226744069189}
   - component: {fileID: 1637111428908093337}
   - component: {fileID: 8531405897208808415}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Dumb Robot_Right Leg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -853,7 +853,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1912975471
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 1
   m_Sprite: {fileID: 2194904791702326333, guid: 62d2e3b058fe7fd4babfeb52ae4c10d5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -882,7 +882,7 @@ MonoBehaviour:
   m_BoneTransforms:
   - {fileID: 8585008398961062149}
   m_Bounds:
-    m_Center: {x: -0.11936188, y: -1.1408587, z: 0}
+    m_Center: {x: -0.11935997, y: -1.1408577, z: 0}
     m_Extent: {x: 0.39499998, y: 0.6171349, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
@@ -988,7 +988,7 @@ GameObject:
   - component: {fileID: 6357596754588074214}
   - component: {fileID: 8747712437500633364}
   - component: {fileID: 5885057491806110635}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Dumb Robot_Right Upper Arm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1056,7 +1056,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1912975471
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 2
   m_Sprite: {fileID: 9161122445413813316, guid: 62d2e3b058fe7fd4babfeb52ae4c10d5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1087,8 +1087,8 @@ MonoBehaviour:
   - {fileID: 8539049682652563501}
   - {fileID: 3454200155580829549}
   m_Bounds:
-    m_Center: {x: -0.119871795, y: -1.1390486, z: 0}
-    m_Extent: {x: 0.38587016, y: 0.4566449, z: 0}
+    m_Center: {x: -0.119871795, y: -1.1390479, z: 0}
+    m_Extent: {x: 0.38587016, y: 0.45664507, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
 --- !u!1 &5671327703192365006
@@ -1133,7 +1133,7 @@ GameObject:
   - component: {fileID: 5671442374710604266}
   - component: {fileID: 2540229192177578898}
   - component: {fileID: 5973360966893513520}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Dumb Robot_Left Leg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1192,7 +1192,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1912975471
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 4
   m_Sprite: {fileID: -7630153527794595815, guid: 62d2e3b058fe7fd4babfeb52ae4c10d5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1221,7 +1221,7 @@ MonoBehaviour:
   m_BoneTransforms:
   - {fileID: 3373168714824437478}
   m_Bounds:
-    m_Center: {x: -0.11935431, y: -1.1409454, z: 0}
+    m_Center: {x: -0.11935812, y: -1.1409426, z: 0}
     m_Extent: {x: 0.39500004, y: 0.61713, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
@@ -1236,7 +1236,7 @@ GameObject:
   - component: {fileID: 2394296027487600464}
   - component: {fileID: 7571721018782311047}
   - component: {fileID: 1783514337193102856}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Dumb Robot_Left Upper Arm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1295,7 +1295,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1912975471
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 8
   m_Sprite: {fileID: -2117891187260818379, guid: 62d2e3b058fe7fd4babfeb52ae4c10d5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1325,8 +1325,8 @@ MonoBehaviour:
   - {fileID: 6706958332921361805}
   - {fileID: 5941625675870222675}
   m_Bounds:
-    m_Center: {x: -0.11936188, y: -1.1419628, z: 0}
-    m_Extent: {x: 0.4149999, y: 0.44019008, z: 0}
+    m_Center: {x: -0.11935806, y: -1.1419618, z: 0}
+    m_Extent: {x: 0.4149999, y: 0.44019002, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
 --- !u!1 &6534221469136544684
@@ -1340,7 +1340,7 @@ GameObject:
   - component: {fileID: 4058400985481893323}
   - component: {fileID: 6822658522477036092}
   - component: {fileID: 7237984442888469216}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Dumb Robot_Right Lower Arm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1399,7 +1399,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1912975471
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 3
   m_Sprite: {fileID: 8070198990307966922, guid: 62d2e3b058fe7fd4babfeb52ae4c10d5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1428,7 +1428,7 @@ MonoBehaviour:
   m_BoneTransforms:
   - {fileID: 7281541428775236395}
   m_Bounds:
-    m_Center: {x: -0.11774194, y: -1.1392937, z: 0}
+    m_Center: {x: -0.11773813, y: -1.1392927, z: 0}
     m_Extent: {x: 0.61838007, y: 0.6750001, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
@@ -1810,7 +1810,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1912975471
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 2
   m_Sprite: {fileID: -9095717837082945937, guid: bd3cb4af8406d4436a2ae8c2aafe1f8d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -2214,7 +2214,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3621829795140208877}
   - component: {fileID: 2008757362456921764}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: Circle
   m_TagString: MapMark
   m_Icon: {fileID: 0}
@@ -2272,8 +2272,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1757465465
+  m_SortingLayer: 3
   m_SortingOrder: 1
   m_Sprite: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
   m_Color: {r: 1, g: 0, b: 0, a: 1}
@@ -2297,7 +2297,7 @@ GameObject:
   - component: {fileID: 4031565296069770905}
   - component: {fileID: 7952707115776602720}
   - component: {fileID: 1493944233729855720}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Dumb Robot_Eyes 01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2356,7 +2356,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1912975471
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 10
   m_Sprite: {fileID: -2803378686463885214, guid: 62d2e3b058fe7fd4babfeb52ae4c10d5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -2385,7 +2385,7 @@ MonoBehaviour:
   m_BoneTransforms:
   - {fileID: 4020208233354669588}
   m_Bounds:
-    m_Center: {x: -0.11936188, y: -1.1397218, z: 0}
+    m_Center: {x: -0.11935806, y: -1.1397218, z: 0}
     m_Extent: {x: 0.975, y: 0.58788, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
@@ -2400,7 +2400,7 @@ GameObject:
   - component: {fileID: 5591117709554284911}
   - component: {fileID: 2751906622314983740}
   - component: {fileID: 6871774068454415986}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Dumb Robot_Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2459,7 +2459,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1912975471
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 5
   m_Sprite: {fileID: 1855485611834389657, guid: 62d2e3b058fe7fd4babfeb52ae4c10d5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -2488,7 +2488,7 @@ MonoBehaviour:
   m_BoneTransforms:
   - {fileID: 8539049682652563501}
   m_Bounds:
-    m_Center: {x: -0.12180805, y: -1.1392918, z: 0}
+    m_Center: {x: -0.12180996, y: -1.1392918, z: 0}
     m_Extent: {x: 0.9604001, y: 0.9150002, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
