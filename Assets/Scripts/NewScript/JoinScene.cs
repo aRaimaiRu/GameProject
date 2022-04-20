@@ -21,4 +21,8 @@ public class JoinScene : MonoBehaviourPunCallbacks
         SceneManager.LoadScene("main_menu_scene"); // กลับไปยังหน้า MainMenu
 
     }
+    public override void OnJoinRoomFailed(short returnCode, string message)
+    {
+        Debug.Log(message);
+    }
 }

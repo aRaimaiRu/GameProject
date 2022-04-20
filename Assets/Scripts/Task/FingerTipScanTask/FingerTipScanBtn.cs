@@ -42,5 +42,9 @@ public class FingerTipScanBtn : MonoBehaviour, IPointerDownHandler, IPointerUpHa
             bg.color = normalColor;
         }
     }
+    private void OnDisable()
+    {
+        hold = false;
+    }
 
 }

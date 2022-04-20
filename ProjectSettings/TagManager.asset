@@ -6,6 +6,7 @@ TagManager:
   tags:
   - NetworkManager
   - MapMark
+  - PreventWalkWindow
   layers:
   - Default
   - TransparentFX

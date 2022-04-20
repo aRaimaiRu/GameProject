@@ -11,7 +11,7 @@ public class VotingManager : MonoBehaviourPunCallbacks
     public static VotingManager Instance;
     [HideInInspector] public PhotonView DeadBodyInProximity;
     public List<int> _reportedDeadBodiesList = new List<int>();
-    [SerializeField] private GameObject _emergencyMeetingWindow;
+    public GameObject _emergencyMeetingWindow;
     [SerializeField] private VotePlayerItem _votePlayerItemPrefab;
     [SerializeField] private Transform _votePlayerItemContainer;
     public List<VotePlayerItem> _votePlayerItemList = new List<VotePlayerItem>();
@@ -154,7 +154,7 @@ public class VotingManager : MonoBehaviourPunCallbacks
         }
         if (_playerThatVotedList.Count == _votePlayerItemList.Count)
         {
-            GameObject.FindObjectOfType<VotingWindow>().everyoneVoted();
+            _emergencyMeetingWindow.GetComponent<VotingWindow>().everyoneVoted();
         }
 
 

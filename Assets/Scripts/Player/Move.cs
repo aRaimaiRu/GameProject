@@ -23,7 +23,6 @@ public class Move : Photon.Pun.MonoBehaviourPun
         sourceXScale = Body.transform.localScale;
         walkSound = Array.Find<Sound>(AudioManager.instance.sounds, sound => sound.name == "walk");
         walkSound.source.Stop();
-
     }
 
     // Update is called once per frame
@@ -35,6 +34,7 @@ public class Move : Photon.Pun.MonoBehaviourPun
         velocity.y = Input.GetAxisRaw("Vertical");
         if (Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0)
         {
+            if (VotingManager.Instance != null) if (VotingManager.Instance._emergencyMeetingWindow.activeSelf) return;
             if (!walkSound.source.isPlaying)
             {
                 AudioManager.instance.Play("walk");
