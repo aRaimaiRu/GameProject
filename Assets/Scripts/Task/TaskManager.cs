@@ -88,7 +88,11 @@ public class TaskManager : MonoBehaviourPunCallbacks
     }
     private void Start()
     {
-        VotingManager.Instance.onEndVote.AddListener(() => CheckEnd());
+        VotingManager.Instance.onEndVote.AddListener(() =>
+        {
+            markedActorNumber.Clear();
+            CheckEnd();
+        });
         OnPlayerKilledEvent += CheckMarkedPlayerLeft;
         OnPlayerLeftRoomEvent += CheckMarkedPlayerLeft;
         // OnPlayerKilledEvent += (int i) => { CheckEnd(); };
