@@ -12,7 +12,6 @@ public class Worm : Impostor
     private int currentTargetActorNumber;
     private GameObject MeetingActionBtn;
     private GameObject GameplayActionBtn;
-    private List<int> markedActorNumber = new List<int>();
 
     public override void Start()
     {
@@ -47,43 +46,20 @@ public class Worm : Impostor
         base.GamePlayAction();
         Debug.Log("Worm Action");
 
-        markedActorNumber = new List<int>();
         GameplayActionBtn = UIControl.Instance.SpecialAbilityBtn;
         GameplayActionBtn.SetActive(true);
         GameplayActionBtn.GetComponent<Button>().onClick.AddListener(GamePlayActionFn);
-        if (TaskManager.Instance != null)
-        {
-            TaskManager.Instance.OnPlayerKilledEvent += CheckMarkedPlayerLeftRoom;
-            TaskManager.Instance.OnPlayerLeftRoomEvent += CheckMarkedPlayerLeftRoom;
 
-        }
     }
     public void GamePlayActionFn()
     {
         int _currentTargetActorNumber = _target.GetComponent<Playerinfo>().ActorNumber;
         if (!VotingManager.Instance.CheckIfPlayerIsImpostor(_currentTargetActorNumber))
         {
-            markedActorNumber.Add(_currentTargetActorNumber);
+            TaskManager.Instance.Addmarked(_currentTargetActorNumber);
 
         }
-        CheckeEndByWorm();
-    }
-    public void CheckMarkedPlayerLeftRoom(int _ActorNumber)
-    {
-        if (markedActorNumber.Contains(_ActorNumber))
-        {
-            markedActorNumber.Remove(_ActorNumber);
-        }
-        CheckeEndByWorm();
-
-    }
-    public void CheckeEndByWorm()
-    {
-        VotingManager.Instance.UpdatePlayerRoleList();
-        if (markedActorNumber.Count >= VotingManager.Instance.AllRoleList.FindAll(x => RoleListClass.AntiVirusRoleList.Contains(x.role)).Count)
-        {
-            photonView.RPC("WormWinRPC", RpcTarget.MasterClient);
-        }
+        TaskManager.Instance.CheckEnd();
     }
 
     private void Update()
@@ -95,15 +71,11 @@ public class Worm : Impostor
             GameplayActionBtn.GetComponent<Button>().interactable = false;
             return;
         }
-        GameplayActionBtn.GetComponent<Button>().interactable = markedActorNumber.Contains(_target.GetComponent<Playerinfo>().ActorNumber) ? false :
-         GameplayActionBtn.GetComponent<AbilityCooldownBtn>()._timer.RemainingSeconds <= 0;
+        GameplayActionBtn.GetComponent<Button>().interactable = TaskManager.Instance.markedActorNumber.Contains(_target.GetComponent<Playerinfo>().ActorNumber) ? false :
+        GameplayActionBtn.GetComponent<AbilityCooldownBtn>()._timer.RemainingSeconds <= 0;
 
     }
-    [PunRPC]
-    public void WormWinRPC()
-    {
-        TaskManager.Instance.VirusWin();
-    }
+
 
 
     // function when press button

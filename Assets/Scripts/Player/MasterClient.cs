@@ -93,11 +93,16 @@ public partial class MasterClient : MonoBehaviourPun
             pv.RPC("SetRole", RpcTarget.All, RoleListClass.RoleList.Process);
 
         }
-        yield return new WaitForSeconds(0.1f);
+        photonView.RPC("InitTask", RpcTarget.All);
+
 
 
     }
-
+    [PunRPC]
+    public void InitTask()
+    {
+        TaskManager.Instance.Initialize();
+    }
     [PunRPC]
     public void ImpostorPicked(int impostorNumber)
     {

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Photon.Pun;
 using Photon.Realtime;
+using RoleList;
 using UnityEngine;
 using UnityEngine.UI;
 // at start of the game assign Task to The Player 
@@ -35,7 +36,9 @@ public class TaskManager : MonoBehaviourPunCallbacks
     public event Action onAntiVirusWin;
     public event Action onVirusWin;
     public event Action<int> OnPlayerLeftRoomEvent;
+
     public event Action<int> OnPlayerKilledEvent;
+    private bool isEnd = false;
 
     #region SabotageProperties
 
@@ -83,6 +86,15 @@ public class TaskManager : MonoBehaviourPunCallbacks
             Destroy(this);
         Instance = this;
     }
+    private void Start()
+    {
+        VotingManager.Instance.onEndVote.AddListener(() => CheckEnd());
+        OnPlayerKilledEvent += CheckMarkedPlayerLeft;
+        OnPlayerLeftRoomEvent += CheckMarkedPlayerLeft;
+        // OnPlayerKilledEvent += (int i) => { CheckEnd(); };
+
+    }
+
     public void Initialize()
     {
         StartCoroutine(DelayInitialize());
@@ -260,32 +272,49 @@ public class TaskManager : MonoBehaviourPunCallbacks
             AnitiVirusWin();
         }
     }
-    // public void CheckEnd()
-    // {
-    //     if (AllTaskCount == 0)
-    //     {
-    //         AnitiVirusWin();
-    //     }
-    //     else if (WormSpreakListAll)
-    //     {
-    //         VirusWin();
-    //     }
-    //     else if (AntiVirusCount <= VirusCount)
-    //     {
-    //         VirusWin();
-    //     }
-    // }
+    [PunRPC]
+    public void CheckEndMasterClient()
+    {
+        Debug.Log("CheckEndMaster maskcount =" + markedActorNumber.Count + " AntiVirusCount =" + PlayerManager.Instance.AntiVirusCount);
+        if (isEnd) return;
+        if (AllTaskCount == 0)
+        {
+            Debug.Log("End By TASKKKKK");
+            AnitiVirusWin();
+        }
+        else if (markedActorNumber.Count >= PlayerManager.Instance.AntiVirusCount)
+        {
+            // Debug.Log("End By Worm" + markedActorNumber.Count + Player.Instance.AllRoleList.FindAll(x => RoleListClass.AntiVirusRoleList.Contains(x.role)).Count);
+            VirusWin();
+        }
+        else if (PlayerManager.Instance.AntiVirusCount <= PlayerManager.Instance.VirusCount)
+        {
+            Debug.Log("End By Count");
+            VirusWin();
+        }
+        else if (PlayerManager.Instance.VirusCount <= 0)
+        {
+            Debug.Log("No Virus" + PlayerManager.Instance.VirusCount);
+            AnitiVirusWin();
+        }
+    }
+    public void CheckEnd()
+    {
+        photonView.RPC("CheckEndMasterClient", RpcTarget.MasterClient);
+    }
     // Show Victory to AnitiVirus
     // Show Defeat to Virus
     // press to Back to lobby
     public void AnitiVirusWin()
     {
         Debug.Log("all Task Count" + AllTaskCount);
+        isEnd = true;
         photonView.RPC("AnitiVirusWinRPC", RpcTarget.All);
     }
     public void VirusWin()
     {
         Debug.Log("Virus Win all Task Count" + AllTaskCount);
+        isEnd = true;
         photonView.RPC("VirusWinRPC", RpcTarget.All);
 
 
@@ -307,7 +336,33 @@ public class TaskManager : MonoBehaviourPunCallbacks
 
     public void BackToLobby()
     {
+        if (!PhotonNetwork.IsMasterClient) { return; }
+        PhotonNetwork.DestroyAll();
         PhotonNetwork.LoadLevel("Lobby1");
+    }
+    #endregion
+
+    #region Worm
+    public void CheckMarkedPlayerLeft(int _ActorNumber)
+    {
+        if (markedActorNumber.Contains(_ActorNumber))
+        {
+            markedActorNumber.Remove(_ActorNumber);
+        }
+        // CheckeEndByWorm();
+
+    }
+
+    public void Addmarked(int _ActorNumber)
+    {
+        photonView.RPC("AddmarkedRPC", RpcTarget.All, _ActorNumber);
+    }
+    [PunRPC]
+
+    public void AddmarkedRPC(int _ActorNumber)
+    {
+        Debug.Log("Addd number = " + _ActorNumber);
+        markedActorNumber.Add(_ActorNumber);
     }
     #endregion
 

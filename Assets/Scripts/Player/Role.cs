@@ -38,7 +38,6 @@ public class Role : MonoBehaviourPun
         hash.Add(CustomPropKey, (int)RoleListClass.RoleList.Process);
         PhotonNetwork.LocalPlayer.SetCustomProperties(hash);
         VotingManager.Instance.LocalPlayer = this;
-        GameObject.FindObjectOfType<TaskManager>().Initialize();
     }
     public virtual void MeetingAction(int targeActorNumber)
     {

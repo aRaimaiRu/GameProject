@@ -50,7 +50,7 @@ public class Playerinfo : MonoBehaviourPun
     }
     private void Start()
     {
-        PlayerManager.Instance.AddPlayer(photonView.OwnerActorNr, _playerName.text, false, (int)PhotonNetwork.LocalPlayer.CustomProperties["ColorIndex"]);
+        PlayerManager.Instance.AddPlayer(photonView.OwnerActorNr, _playerName.text, false, (int)photonView.Owner.CustomProperties["ColorIndex"]);
         VotingManager.Instance.onEndVote.AddListener(() => onThisVoteEnd());
     }
     private void onThisVoteEnd()

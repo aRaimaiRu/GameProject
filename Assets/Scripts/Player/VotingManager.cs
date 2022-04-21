@@ -62,9 +62,9 @@ public class VotingManager : MonoBehaviourPunCallbacks
     }
     private void Start()
     {
-        onEndVote.AddListener(() => UpdatePlayerRoleList());
+        // onEndVote.AddListener(() => UpdatePlayerRoleList());
 
-        TaskManager.Instance.OnPlayerKilledEvent += ((int i) => UpdatePlayerRoleList());
+        // TaskManager.Instance.OnPlayerKilledEvent += ((int i) => UpdatePlayerRoleList());
         TaskManager.Instance.OnPlayerKilledEvent += ((int i) => UpdateGetKilledList(i));
 
     }
@@ -75,7 +75,7 @@ public class VotingManager : MonoBehaviourPunCallbacks
     public override void OnPlayerLeftRoom(Player newPlayer)
     {
         TaskManager.Instance.OnPlayerLeftRoomCustom(newPlayer);
-        UpdatePlayerRoleList();
+        // UpdatePlayerRoleList();
         PopulatePlayerList();
     }
 
@@ -122,6 +122,7 @@ public class VotingManager : MonoBehaviourPunCallbacks
     }
     public void CastVote(int targetActorNumber)
     {
+        if (PlayerManager.Instance.PlayersStatus.Find(x => x.Actornumber == PhotonNetwork.LocalPlayer.ActorNumber).isDead) return;
         if (LocalPlayer.hasMeetingAction)
         {
             LocalPlayer.MeetingAction(targetActorNumber);
@@ -399,41 +400,41 @@ public class VotingManager : MonoBehaviourPunCallbacks
 
         return RoleListClass.VirusRoleList.Contains(allplayerinfo.Find(x => x.ActorNumber == _targetActorNumber).GetComponent<Role>().role);
     }
-    public void CheckEndByVote()
-    {
-        photonView.RPC("CheckEndByVoteRPC", RpcTarget.All);
-    }
-    [PunRPC]
-    public void CheckEndByVoteRPC()
-    {
-        // UpdatePlayerRoleList();
-        if (!PhotonNetwork.LocalPlayer.IsMasterClient) return;
-        Debug.Log("End By Vote");
-        // Check if AnitiVirus Win
+    // public void CheckEndByVote()
+    // {
+    //     photonView.RPC("CheckEndByVoteRPC", RpcTarget.All);
+    // }
+    // [PunRPC]
+    // public void CheckEndByVoteRPC()
+    // {
+    //     // UpdatePlayerRoleList();
+    //     if (!PhotonNetwork.LocalPlayer.IsMasterClient) return;
+    //     Debug.Log("End By Vote");
+    //     // Check if AnitiVirus Win
 
-        int CurrentAntiVirusCount = AllRoleList.FindAll(x => RoleListClass.AntiVirusRoleList.Contains(x.role)).Count;
-        int CurrentVirusCount = AllRoleList.FindAll(x => RoleListClass.VirusRoleList.Contains(x.role)).Count;
-        Debug.Log("AnitiVirus Count = " + CurrentAntiVirusCount + " CurrentVirusCount = " + CurrentVirusCount);
-        if (CurrentAntiVirusCount <= CurrentVirusCount)
-        {
-            // Virus win
-            TaskManager.Instance.VirusWin();
+    //     int CurrentAntiVirusCount = AllRoleList.FindAll(x => RoleListClass.AntiVirusRoleList.Contains(x.role)).Count;
+    //     int CurrentVirusCount = AllRoleList.FindAll(x => RoleListClass.VirusRoleList.Contains(x.role)).Count;
+    //     Debug.Log("AnitiVirus Count = " + CurrentAntiVirusCount + " CurrentVirusCount = " + CurrentVirusCount);
+    //     if (CurrentAntiVirusCount <= CurrentVirusCount)
+    //     {
+    //         // Virus win
+    //         TaskManager.Instance.VirusWin();
 
-        }
-        else if (CurrentVirusCount <= 0)
-        {
-            // Anitivirus Win
-            TaskManager.Instance.AnitiVirusWin();
-        }
+    //     }
+    //     else if (CurrentVirusCount <= 0)
+    //     {
+    //         // Anitivirus Win
+    //         TaskManager.Instance.AnitiVirusWin();
+    //     }
 
-    }
+    // }
 
-    public void UpdatePlayerRoleList()
-    {
-        AllRoleList = new List<Role>(FindObjectsOfType<Role>());
-        Debug.Log("Updated All Role List count = " + AllRoleList.Count);
-        CheckEndByVoteRPC();
-    }
+    // public void UpdatePlayerRoleList()
+    // {
+    //     AllRoleList = new List<Role>(FindObjectsOfType<Role>());
+    //     Debug.Log("Updated All Role List count = " + AllRoleList.Count);
+    //     CheckEndByVoteRPC();
+    // }
     public void ShowPlayerRole(int _targetActornumber)
     {
         VotePlayerItem _votePlayterItem = _votePlayerItemList.Find(x => x.ActorNumber == _targetActornumber);
