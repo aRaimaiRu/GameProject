@@ -19,6 +19,8 @@ public partial class Spyware : Impostor
         base._role = RoleListClass.RoleList.Spyware;
         base.hasMeetingAction = true;
         base.hasGamePlayAction = true;
+        PlayerManager.Instance.updateRole(photonView.OwnerActorNr, _role);
+
         if (!photonView.IsMine) { return; }
         ExitGames.Client.Photon.Hashtable hash = new ExitGames.Client.Photon.Hashtable();
         hash.Add(CustomPropKey, (int)RoleListClass.RoleList.Spyware);

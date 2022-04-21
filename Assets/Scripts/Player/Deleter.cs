@@ -17,6 +17,8 @@ public class Deleter : Impostor
         base._role = RoleListClass.RoleList.Deleter;
         base.hasGamePlayAction = true;
         base.hasMeetingAction = false;
+        PlayerManager.Instance.updateRole(photonView.OwnerActorNr, _role);
+
         if (!photonView.IsMine) { return; }
 
         UIControl.Instance.IsImpostor = false;

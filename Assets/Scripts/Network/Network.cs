@@ -21,17 +21,22 @@ public class Network : MonoBehaviourPunCallbacks
     [SerializeField] private Light2D NewGlobalLight;
 
     [SerializeField] private LayerMask CullingMaskAfterDeath;
-    [SerializeField] private List<GameObject> spawnPoints;
+    public List<GameObject> spawnPoints;
+    public List<GameObject> EndGameSpawnPoints;
     public int ThisPlayerNumber;
+    [SerializeField] private GameObject GhostPrefab;
+    [SerializeField] private GameObject ProcessPrefab;
+
 
     // Start is called before the first frame update
     void Start()
     {
-
-
         // StatusText.text = "Connecting";
         // PhotonNetwork.NickName = "Player " + Random.Range(0, 20);
         // PhotonNetwork.ConnectUsingSettings();
+        VotingManager.Instance.onEndVote.AddListener(() => TeleportAllplayerOnVoteEnd());
+        TaskManager.Instance.onAntiVirusWin += TeleportAllplayerOnVoteGameEnd;
+        TaskManager.Instance.onVirusWin += TeleportAllplayerOnVoteGameEnd;
         for (int i = 0; i < PhotonNetwork.PlayerList.Length; i++)
         {
             if (PhotonNetwork.PlayerList[i] == PhotonNetwork.LocalPlayer)
@@ -75,7 +80,11 @@ public class Network : MonoBehaviourPunCallbacks
         NewPlayerCamera.Follow = GhostPlayer.transform;
         chatWindowUI._playerInfo = GhostPlayer.GetComponent<Playerinfo>();
         GhostPlayer.GetComponent<Move>()._uiControl = uIControl;
+
         GhostPlayer.GetComponent<Ghost>().SetColor(playerinfo._allPlayerColors[playerinfo.colorIndex]);
+        Debug.Log("ghost is Virus = " + RoleList.RoleListClass.VirusRoleList.Contains(playerinfo.GetComponent<Role>().role));
+        GhostPlayer.GetComponent<Ghost>().SetPlayerNameColor(RoleList.RoleListClass.VirusRoleList.Contains(playerinfo.GetComponent<Role>().role) ? 1 : 0);
+
         // see like ghost
         MainCamera.cullingMask = CullingMaskAfterDeath.value;
         GlobalLight.gameObject.SetActive(false);
@@ -88,7 +97,41 @@ public class Network : MonoBehaviourPunCallbacks
         }
 
     }
+    public void TeleportAllplayerOnVoteEnd()
+    {
+        if (!PhotonNetwork.IsMasterClient) return;
+        int i = 0;
+        foreach (Move m in FindObjectsOfType<Move>())
+        {
+            m.photonView.RPC("TeleportRPC", RpcTarget.All, spawnPoints[i % spawnPoints.Count].transform.position);
+            i++;
+        }
 
+    }
+    public void TeleportAllplayerOnVoteGameEnd()
+    {
+        // if (!PhotonNetwork.IsMasterClient) return;
+        // int i = 0;
+        // foreach (Move m in FindObjectsOfType<Move>())
+        // {
+        //     Debug.Log("TeleportRPC =" + FindObjectsOfType<Move>().Length);
+        //     m.photonView.RPC("TeleportRPC", RpcTarget.All, EndGameSpawnPoints[i % EndGameSpawnPoints.Count].transform.position);
+        //     Destroy(m);
+        //     i++;
+        // }
+        // foreach (Playerinfo p in FindObjectsOfType<Playerinfo>())
+        // {
+        //     p.photonView.RPC("SetPlayerNameColorRPC", RpcTarget.All, RoleList.RoleListClass.VirusRoleList.Contains(p.GetComponent<Role>().role) ? 1 : 0);
+        // }
+        Debug.Log("Teleport All player on Vote Game End =========> " + PlayerManager.Instance.PlayersStatus.Count);
+        int i = 0;
+        foreach (PlayerManager.PlayerStatus _playerStatus in PlayerManager.Instance.PlayersStatus)
+        {
+            GameObject GO = Instantiate(_playerStatus.isDead ? GhostPrefab : ProcessPrefab, EndGameSpawnPoints[i % EndGameSpawnPoints.Count].transform.position, Quaternion.identity);
+            GO.GetComponent<DummyCharacter>().initlialize(PlayerManager.Instance.Colorlist[_playerStatus.ColorIndex], _playerStatus.PlayerName, RoleList.RoleListClass.VirusRoleList.Contains(_playerStatus.Role) ? Color.red : Color.black);
+            i++;
+        }
+    }
     [PunRPC]
     public void RemoveSpawnPoint(GameObject _spawnPoint)
     {

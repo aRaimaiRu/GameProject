@@ -66,6 +66,9 @@ MonoBehaviour:
   - GetKilledRPC
   - TeleportRPC
   - SetColorRPC
+  - SetPlayerNameColorRPC
+  - AddPlayerRPC
+  - PlayerDeadRPC
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

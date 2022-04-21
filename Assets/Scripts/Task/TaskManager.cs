@@ -31,6 +31,7 @@ public class TaskManager : MonoBehaviourPunCallbacks
     private int globalAllTaskCount;
     public int ImpostorCount;
     public int AntiVirusCount;
+    public List<int> markedActorNumber = new List<int>();
     public event Action onAntiVirusWin;
     public event Action onVirusWin;
     public event Action<int> OnPlayerLeftRoomEvent;
@@ -259,6 +260,21 @@ public class TaskManager : MonoBehaviourPunCallbacks
             AnitiVirusWin();
         }
     }
+    // public void CheckEnd()
+    // {
+    //     if (AllTaskCount == 0)
+    //     {
+    //         AnitiVirusWin();
+    //     }
+    //     else if (WormSpreakListAll)
+    //     {
+    //         VirusWin();
+    //     }
+    //     else if (AntiVirusCount <= VirusCount)
+    //     {
+    //         VirusWin();
+    //     }
+    // }
     // Show Victory to AnitiVirus
     // Show Defeat to Virus
     // press to Back to lobby

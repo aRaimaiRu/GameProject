@@ -62,11 +62,11 @@ public class Impostor : Role
             this._target.Kill(); // สั่งให้เป้าหมายทำลายตัวเอง
         }); // ใส่ function เมื่อกดปุ่ม ฆ่า 
     }
-    [PunRPC]
-    public void TeleportRPC(Vector3 _position)
-    {
-        this.gameObject.transform.position = _position;//teleport ตัวไปยังตำแหน่งของเป้าหมาย
-    }
+    // [PunRPC]
+    // public void TeleportRPC(Vector3 _position)
+    // {
+    //     this.gameObject.transform.position = _position;//teleport ตัวไปยังตำแหน่งของเป้าหมาย
+    // }
 }
 
 

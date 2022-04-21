@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 using UnityEngine.Audio;
 
@@ -15,9 +16,11 @@ public class Move : Photon.Pun.MonoBehaviourPun
     public Animator _animator;
     private Vector3 sourceXScale;
     private Sound walkSound;
+    private bool isGhost;
     // Start is called before the first frame update
     void Start()
     {
+        isGhost = GetComponent<Ghost>() != null;
         rb = GetComponent<Rigidbody2D>();
         velocity = Vector2.zero;
         sourceXScale = Body.transform.localScale;
@@ -25,6 +28,11 @@ public class Move : Photon.Pun.MonoBehaviourPun
         walkSound.source.Stop();
     }
 
+    [PunRPC]
+    public void TeleportRPC(Vector3 _position)
+    {
+        this.gameObject.transform.position = _position;//teleport ตัวไปยังตำแหน่งของเป้าหมาย
+    }
     // Update is called once per frame
     void Update()
     {
@@ -35,12 +43,11 @@ public class Move : Photon.Pun.MonoBehaviourPun
         if (Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0)
         {
             if (VotingManager.Instance != null) if (VotingManager.Instance._emergencyMeetingWindow.activeSelf) return;
-            if (!walkSound.source.isPlaying)
+            if (!walkSound.source.isPlaying && !isGhost)
             {
                 AudioManager.instance.Play("walk");
             }
-
-            _animator?.SetBool("Run", true);
+            if (_animator != null) _animator.SetBool("Run", true);
             if (Body != null)
             {
                 Vector3 vec3Buffer = Body.transform.localScale;

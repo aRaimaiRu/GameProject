@@ -50,6 +50,7 @@ public class Playerinfo : MonoBehaviourPun
     }
     private void Start()
     {
+        PlayerManager.Instance.AddPlayer(photonView.OwnerActorNr, _playerName.text, false, (int)PhotonNetwork.LocalPlayer.CustomProperties["ColorIndex"]);
         VotingManager.Instance.onEndVote.AddListener(() => onThisVoteEnd());
     }
     private void onThisVoteEnd()
@@ -92,6 +93,18 @@ public class Playerinfo : MonoBehaviourPun
         return "[none]";
 
     }
+    public void SetPlayerNameColor(int color)
+    {
+        photonView.RPC("SetPlayerNameColorRPC", RpcTarget.All, color);
+    }
+    [PunRPC]
+    public void SetPlayerNameColorRPC(int color)
+    {
+        _playerName.color = color == 1 ? Color.red : Color.black;
+        _playerName.material = null;
+        Destroy(GetComponent<Move>());
+    }
+
     [PunRPC]
     public void SetRole(RoleListClass.RoleList _role)
     {

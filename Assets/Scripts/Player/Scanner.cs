@@ -22,6 +22,8 @@ public class Scanner : Role
         base._role = RoleListClass.RoleList.Scanner;
         base.hasGamePlayAction = false;
         base.hasMeetingAction = true;
+        PlayerManager.Instance.updateRole(photonView.OwnerActorNr, _role);
+
         if (!photonView.IsMine) return;
         ExitGames.Client.Photon.Hashtable hash = new ExitGames.Client.Photon.Hashtable();
         hash.Add(CustomPropKey, (int)RoleListClass.RoleList.Scanner);

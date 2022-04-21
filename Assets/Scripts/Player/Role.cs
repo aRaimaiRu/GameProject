@@ -30,6 +30,7 @@ public class Role : MonoBehaviourPun
     public virtual void Start()
     {
         _role = RoleListClass.RoleList.Process;
+        PlayerManager.Instance.updateRole(photonView.OwnerActorNr, _role);
         if (!photonView.IsMine) { return; }
         StartCoroutine(UIControl.Instance.DelayFadeThisWindow(UIControl.Instance.ProcessIntro));
 
