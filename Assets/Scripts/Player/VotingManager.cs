@@ -105,6 +105,7 @@ public class VotingManager : MonoBehaviourPunCallbacks
     [PunRPC]
     public void ReportDeadBodyRPC(int actorNumber, int _reporterActorNumber)
     {
+        if (UIControl.Instance.CurrentInteractible != null) { UIControl.Instance.CurrentInteractible.Use(false); }
         reporterActorNumber = _reporterActorNumber;
         if (actorNumber != -1)
         {
