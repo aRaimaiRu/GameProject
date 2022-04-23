@@ -131,6 +131,11 @@ public class Network : MonoBehaviourPunCallbacks
             GO.GetComponent<DummyCharacter>().initlialize(PlayerManager.Instance.Colorlist[_playerStatus.ColorIndex], _playerStatus.PlayerName, RoleList.RoleListClass.VirusRoleList.Contains(_playerStatus.Role) ? Color.red : Color.black);
             i++;
         }
+        if (PhotonNetwork.IsMasterClient)
+        {
+            PhotonNetwork.DestroyAll();
+
+        }
 
     }
     [PunRPC]

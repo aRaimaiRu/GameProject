@@ -340,8 +340,6 @@ public class TaskManager : MonoBehaviourPunCallbacks
 
     public void BackToLobby()
     {
-        if (!PhotonNetwork.IsMasterClient) { return; }
-        PhotonNetwork.DestroyAll();
         PhotonNetwork.LoadLevel("Lobby1");
     }
     #endregion
