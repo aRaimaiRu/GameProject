@@ -9,6 +9,7 @@ public class ColorArrangeTask : Task
     // set square.nextsquare
     // check result
     [SerializeField] private List<ColorArrangeItem> colorArrangeItems;
+    [SerializeField] private List<RectTransform> pos;
 
 
     private void OnEnable()
@@ -24,6 +25,7 @@ public class ColorArrangeTask : Task
         for (int i = 0; i < colorArrangeItems.Count; i++)
         {
             colorArrangeItems[i].gameObject.SetActive(true);
+            colorArrangeItems[i].GetComponent<RectTransform>().position = pos[i].position;
             colorArrangeItems[i].Setcolor(new Color(noMoreThan(((255f * randomList[0]) + (51 * i)), 255f), noMoreThan(((255f * randomList[1]) + (51 * i)), 255f), noMoreThan(((255f * randomList[2]) + (51 * i)), 255f), 255f));
             if (i == 0)
             {
@@ -39,6 +41,7 @@ public class ColorArrangeTask : Task
 
 
         }
+
     }
     private float noMoreThan(float number, float target)
     {

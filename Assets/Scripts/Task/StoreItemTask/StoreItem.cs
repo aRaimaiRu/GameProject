@@ -6,7 +6,7 @@ public class StoreItem : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDra
 {
     [SerializeField] private Canvas _canvas;
     [SerializeField] private CanvasGroup _canvasGroup;
-    private bool dragable;
+    public bool dragable;
     public StoreArrEnum.ItemType thisItemType;
     private RectTransform rectTransform;
 

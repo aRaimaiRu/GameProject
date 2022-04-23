@@ -5,9 +5,9 @@ using UnityEngine;
 public class StoreItemTask : Task
 {
 
-    private List<StoreSlot> _storeslot;
-    [SerializeField] List<RectTransform> storeItem;
-    [SerializeField] List<RectTransform> spawnPoint;
+    public List<StoreSlot> _storeslot;
+    public List<RectTransform> storeItem;
+    public List<RectTransform> spawnPoint;
 
     private void Awake()
     {
@@ -25,10 +25,11 @@ public class StoreItemTask : Task
             base.OnComplete();
         }
     }
-    private void OnDisable()
+    private void OnEnable()
     {
         for (int i = 0; i < storeItem.Count; i++)
         {
+            _storeslot[i].isfullfill = false;
             storeItem[i].position = spawnPoint[i].position;
         }
 
