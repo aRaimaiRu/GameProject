@@ -87,6 +87,7 @@ public class VotingManager : MonoBehaviourPunCallbacks
     }
     public void ReportBtn()
     {
+        if (PlayerManager.Instance.PlayersStatus.Find(x => x.Actornumber == PhotonNetwork.LocalPlayer.ActorNumber).isDead) return;
         photonView.RPC("ReportDeadBodyRPC", RpcTarget.All, -1, PhotonNetwork.LocalPlayer.ActorNumber);
 
     }
@@ -183,10 +184,16 @@ public class VotingManager : MonoBehaviourPunCallbacks
         int mostVotes = int.MinValue;
         foreach (KeyValuePair<int, int> playerVote in playerVoteCount)
         {
+
             if (playerVote.Value > mostVotes)
             {
                 mostVotes = playerVote.Value;
                 mostVotedPlayer = playerVote.Key;
+            }
+            else if (playerVote.Value == mostVotes)
+            {
+                mostVotedPlayer = -1;
+
             }
             // Set CountVoteText for each player
             if (playerVote.Key != -1)
@@ -194,20 +201,26 @@ public class VotingManager : MonoBehaviourPunCallbacks
                 _votePlayerItemList.Find((x) => x.ActorNumber == playerVote.Key).SetCountVoteText(playerVote.Value);
 
             }
+            Debug.Log("Most vote  =" + mostVotes + "  " + mostVotedPlayer);
+            Debug.Log("Most vote  =" + playerVote.Value + "  " + playerVote.Key);
+
 
         }
 
         yield return new WaitForSeconds(2.0f);
-        // End the Voting session
-        if ((mostVotes >= remainingPlayers / 2) && PhotonNetwork.IsMasterClient)
-        {
-            // kick the player or skip
+        if (PhotonNetwork.IsMasterClient)
             photonView.RPC("KickPlayerRPC", RpcTarget.All, mostVotedPlayer);
-        }
-        else
-        {
-            onEndVote.Invoke();
-        }
+
+        // End the Voting session
+        // if ((mostVotes >= (int)(remainingPlayers / 2)) && PhotonNetwork.IsMasterClient)
+        // {
+        //     // kick the player or skip
+        //     photonView.RPC("KickPlayerRPC", RpcTarget.All, mostVotedPlayer);
+        // }
+        // else
+        // {
+        //     onEndVote.Invoke();
+        // }
 
 
 
