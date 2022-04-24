@@ -50,6 +50,7 @@ public class Wire : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
             _lineRenderer.SetPosition(1, _canvas.transform.TransformPoint(movePos));
 
 
+
         }
         else
         {
@@ -90,6 +91,11 @@ public class Wire : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
             {
                 IsSuccess = true;
                 _wireTask.CurrentHoverWire.IsSuccess = true;
+            }
+            else
+            {
+                _lineRenderer.SetPosition(1, transform.position);
+
             }
         }
         _isDragStarted = false;
