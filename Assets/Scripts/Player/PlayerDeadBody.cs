@@ -3,40 +3,23 @@ using System.Collections.Generic;
 using Photon.Pun;
 using UnityEngine;
 
-public class PlayerDeadBody : Photon.Pun.MonoBehaviourPun, IPunObservable
+public class PlayerDeadBody : Photon.Pun.MonoBehaviourPun
 {
-    [SerializeField] private SpriteRenderer _bodyFill;
+    [SerializeField] private List<SpriteRenderer> _bodyFill;
 
-    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    public void SetColor(int index)
     {
-        if (stream.IsWriting)
+        photonView.RPC("SetColorRPC", RpcTarget.All, index);
+
+    }
+    [PunRPC]
+    public void SetColorRPC(int index)
+    {
+        foreach (SpriteRenderer _sr in _bodyFill)
         {
-            // owner
-            stream.SendNext(_bodyFill.color.r);
-            stream.SendNext(_bodyFill.color.g);
-            stream.SendNext(_bodyFill.color.b);
-        }
-        else
-        {
-            float red = (float)stream.ReceiveNext();
-            float green = (float)stream.ReceiveNext();
-            float blue = (float)stream.ReceiveNext();
-            _bodyFill.color = new Color(red, green, blue, 1.0f);
+            _sr.color = PlayerManager.Instance.Colorlist[index];
         }
     }
 
-    // Start is called before the first frame update
 
-    public void SetColor(Color color)
-    {
-        _bodyFill.color = color;
-
-    }
-
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 }

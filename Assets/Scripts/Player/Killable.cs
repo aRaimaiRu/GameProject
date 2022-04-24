@@ -19,7 +19,8 @@ public class Killable : Photon.Pun.MonoBehaviourPun
         PlayerDeadBody playerBody = PhotonNetwork.Instantiate("PlayerBody", this.transform.position, Quaternion.identity).GetComponent<PlayerDeadBody>();
         //สร้าง Object PlayerBody
         Playerinfo playerinfo = GetComponent<Playerinfo>(); // เข้าถึง Script PlayerInfo
-        playerBody.SetColor(playerinfo._allPlayerColors[playerinfo.colorIndex]); // นำสีจาก Script Playerinfo ใส่ให้ PlayerBody
+        // playerBody.SetColor(playerinfo._allPlayerColors[playerinfo.colorIndex]); // นำสีจาก Script Playerinfo ใส่ให้ PlayerBody
+        playerBody.SetColor(playerinfo.colorIndex);
         GameObject.FindGameObjectWithTag("NetworkManager").GetComponent<Network>().DestroyPlayer(); //ทำลาย Player นี้
         UIControl.Instance.OnThisPlayerKilled(); //แสดง UI ว่าโดนทำลาย
     }
