@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -30,7 +31,23 @@ public class StoreItemTask : Task
         for (int i = 0; i < storeItem.Count; i++)
         {
             _storeslot[i].isfullfill = false;
-            storeItem[i].position = spawnPoint[i].position;
+            if (storeItem[i].GetComponent<StoreItem>() != null)
+            {
+                storeItem[i].GetComponent<StoreItem>().SetDragable(true);
+
+            }
+            try
+            {
+                if (spawnPoint.Count >= 1)
+                    storeItem[i].position = spawnPoint[i].position;
+            }
+            catch (InvalidCastException e)
+            {
+                Debug.Log(e);
+            }
+
+
+
         }
 
     }
